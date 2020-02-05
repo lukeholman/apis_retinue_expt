@@ -1,0 +1,218 @@
+---
+title: "Apis queen pheromones and the retinue response"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Load the data
+
+### Re-code the treatment variables to facilitate modelling
+
+We prepare the data for the models by adding five new columns whose names start with "has", which contain 1s and 0s. These 5 columns describe whether the focal observation pertains to a treatment that contains the focal chemical, e.g. the variable "has_9ODA" describes whether 9-ODA was present in the focal observation (either on its own, or in a two-component mixture).
+
+```{r}
+library(tidyverse)
+library(ggbeeswarm)
+library(tidybayes)
+library(brms)
+library(gridExtra)
+options(stringsAsFactors = FALSE)
+
+behaviour_data <- read.csv("data/unblinded_behaviour_data.csv") %>%
+  mutate(has_10HDA = as.factor(as.numeric(str_detect(treatment, "10-HDA"))),
+         has_HVA = as.factor(as.numeric(str_detect(treatment, "HVA"))),
+         has_HOB = as.factor(as.numeric(str_detect(treatment, "HOB"))),
+         has_9HDA = as.factor(as.numeric(str_detect(treatment, "9-HDA"))),
+         has_9ODA = as.factor(as.numeric(str_detect(treatment, "9-ODA")))) %>%
+  mutate(treatment = factor(treatment, levels = treatment_levels)) %>%
+  mutate(dish = paste(tray, dish, sep = "_")) %>%
+  as_tibble() %>%
+  select(hive, treatment, tray, dish, starts_with("has"), start_touch, end_touch, touch_duration, notes)
+```
+
+Inspect 5 random rows of the `r nrow(behaviour_data)`-row data frame `behaviour_data`:
+```{r}
+behaviour_data %>% sample_n(5) %>%
+  kable() %>% kable_styling()
+```
+
+
+### Summarise the data from each Petri dish
+
+The raw data contain one row for each observation of a bee making contact with the pheromone-treated filter paper. Here, we summarise the data such that each row is an observation of one of the Petri dishes. We record the number of times a bee touched the paper (`n_tocuhes`), __XXXXXX__.
+
+```{r}
+summary_data <- behaviour_data %>%
+  group_by(treatment, hive, tray, dish, 
+           has_10HDA, has_HVA, has_HOB, 
+           has_9HDA, has_9ODA) %>%
+  summarise(n_touches = length(touch_duration),
+            n_long_touches = sum(touch_duration > 2),
+            touch_duration = sum(touch_duration),
+            prop_long = n_long_touches / n_touches) %>%
+  arrange(treatment, hive, tray) %>% ungroup()
+```
+
+Inspect 5 random rows of the `r nrow(summary_data)`-row data frame `summary_data`:
+```{r}
+summary_data %>% sample_n(5) %>%
+  kable() %>% kable_styling()
+```
+
+```{r}
+grid.arrange(
+  summary_data %>%
+    mutate(treatment = factor(treatment, rev(levels(treatment)))) %>%
+    ggplot(aes(treatment, n_touches + 1, colour = treatment)) + 
+    geom_boxplot(fill = NA, colour = "black", size = 0.3) +
+    geom_beeswarm(alpha = .7) + 
+    coord_flip() + 
+    ylab("Number of contacts with the pheromone-treated paper") + 
+    xlab("Treatment") +
+    theme(legend.position = "none"),
+  summary_data %>%
+    mutate(treatment = factor(treatment, rev(levels(treatment)))) %>%
+    ggplot(aes(treatment, touch_duration + 1, colour = treatment)) + 
+    geom_boxplot(fill = NA, colour = "black", size = 0.3) +
+    geom_beeswarm(alpha = .7) + 
+    coord_flip() + 
+    scale_y_log10() + 
+    ylab("Total duration of contact with the paper\n(seconds + 1, log10 scale)") + 
+    xlab("Treatment") +
+    theme(legend.position = "none")
+)
+
+
+prop_long_touches <- summary_data %>%
+  group_by(treatment, has_10HDA, has_HVA, has_HOB, has_9HDA, has_9ODA) %>%
+  summarise(n_touches = sum(n_touches),
+            n_long_touches = sum(n_long_touches),
+            prop_long = n_long_touches / n_touches) %>% ungroup() %>%
+  mutate(i = 1:n()) %>% split(.$i) %>%
+  map_df(~ .x %>% mutate(
+    lower = binom.test(n_long_touches, n_touches)$conf.int[1],
+    upper = binom.test(n_long_touches, n_touches)$conf.int[2])) %>% select(-i) 
+
+prop_long_touches %>%
+  ggplot(aes(treatment, prop_long)) + 
+  geom_errorbar(aes(ymin = lower, ymax = upper)) + 
+  geom_point() + coord_flip()
+```
+
+```{r}
+resp <- with(summary_data, cbind())
+library(dredge)
+library(lme4)
+library(lmerTest)
+library(MuMIn)
+options(na.action="na.fail")
+
+model_output <- lmer(n_touches ~ has_10HDA + ( has_9HDA + has_9ODA) + hive + (1 | tray), data = summary_data, REML = FALSE)
+summary(model_output)
+
+dredge_results <- dredge(lmer(n_touches ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | tray), 
+                              data = summary_data, REML = FALSE))
+
+subset(dredge_results, subset = delta<=4)
+```
+
+
+
+```{r}
+count_model <- brm(
+  n_touches ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | tray),
+  family = "negbinomial",
+  data = summary_data,
+  prior = prior(normal(0, 5), class = b),
+  cores = 4, chains = 4, iter = 6000,
+  control = list(adapt_delta = 0.999, max_treedepth = 14)
+)
+
+duration_formula <- bf(
+  duration ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | dish) + (1 | tray), 
+  hu       ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | dish) + (1 | tray)
+)
+
+duration_model <- brm(
+  duration_formula,
+  family = "hurdle_gamma",
+  data = dat,
+  prior = prior(normal(0, 5), class = b),
+  cores = 4, chains = 4, iter = 6000,
+  control = list(adapt_delta = 0.999, max_treedepth = 14)
+)
+
+# saveRDS(count_model, "output/count_model.rds")
+# saveRDS(duration_model, "output/duration_model.rds")
+
+
+new <- summary_data %>%
+  arrange(treatment, hive) %>%
+  select(treatment, has_10HDA, has_HVA, has_HOB, has_9HDA, has_9ODA) %>%
+  mutate(n_touches = 100, hive = "Zoology") %>% distinct()
+# 
+# data.frame(new, fitted(count_model, newdata = new, re_formula = NA)) %>%
+#   ggplot(aes(treatment, Estimate)) + 
+#   geom_errorbar(aes(ymin = Q2.5, ymax = Q97.5)) + 
+#   geom_point() + coord_flip()
+# 
+# data.frame(new, fitted(duration_model, newdata = new, re_formula = NA)) %>%
+#   ggplot(aes(treatment, Estimate)) + 
+#   geom_errorbar(aes(ymin = Q2.5, ymax = Q97.5)) + 
+#   geom_point() + coord_flip()
+
+
+
+posterior_samples(count_model) %>% as_tibble() %>%
+  select(contains("b_has")) %>%
+  gather() %>% 
+  ggplot(aes(key, value, fill = key)) + 
+  geom_hline(yintercept = 0, linetype = 2) + 
+  geom_eye(.width = c(0.66, 0.95)) + coord_flip() +
+  theme(legend.position = "none") 
+
+posterior_samples(duration_model) %>% as_tibble() %>%
+  select(contains("b_has")) %>%
+  gather() %>% 
+  ggplot(aes(key, value, fill = key)) + 
+  geom_hline(yintercept = 0, linetype = 2) + 
+  geom_eye(.width = c(0.66, 0.95)) + coord_flip() +
+  theme(legend.position = "none") 
+
+posterior_samples(duration_model) %>% as_tibble() %>%
+  select(contains("b_hu_has")) %>%
+  gather() %>% 
+  ggplot(aes(key, value, fill = key)) + 
+  geom_hline(yintercept = 0, linetype = 2) + 
+  geom_eye(.width = c(0.66, 0.95)) + coord_flip() +
+  theme(legend.position = "none") 
+
+
+count_preds <- fitted(count_model, newdata = new, re_formula = NA, summary = FALSE)
+count_preds <- count_preds[,2:12] - count_preds[,1]
+colnames(count_preds) <- new$treatment[2:12]
+count_preds <- count_preds %>% as_tibble() %>% gather() %>% 
+  mutate(response = "Mean number of contacts with the pheromone lure")
+
+duration_preds <- fitted(duration_model, newdata = new, re_formula = NA, summary = FALSE)
+duration_preds <- duration_preds[,2:12] - duration_preds[,1]
+colnames(duration_preds) <- new$treatment[2:12]
+duration_preds <- duration_preds %>% as_tibble() %>% gather() %>% 
+  mutate(response = "Mean duration of contact with the pheromone lure")
+
+bind_rows(count_preds, duration_preds) %>% 
+  
+  count_preds %>%
+  mutate(key = factor(key, sort(unique(key)))) %>%
+  ggplot(aes(key, value, fill = key)) + 
+  geom_hline(yintercept = 0, linetype = 2) + 
+  geom_eye(.width = c(0.66, 0.95)) + coord_flip() + 
+  ylab("Absolute difference in means relative to\nthe solvent control (posterior distribution)") + 
+  xlab("Pheromone treatment") + 
+  theme_black() + 
+  theme(legend.position = "none") + 
+  facet_wrap(~ response, scales = "free_x")
+
+```
+

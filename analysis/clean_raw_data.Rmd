@@ -1,0 +1,105 @@
+---
+title: "De-blinding and cleaning the data collection sheet"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+
+
+## De-blinding the raw data collection sheet
+
+All steps of the experiment were run blind to pheromone treatment. For maximum security, there were two levels of blinding: 
+
+- A colleague re-labelled the 12 vials containing the pheromone solutions with a number in the range 1-12, so that we were unaware which vial contained which pheromone when running the experiment and recording the videos.
+- Each video shows a tray of 12 Petri dishes containing bees, plus a piece of paper coated with 1 of the 12 pheromone solutions. The Petri dishes containing treatments 1-12 were rotated haphazardly between trays. So for example, treatment 1 might be in the top left corner, the middle, or the bottom-right corner of the tray. The Petri dishes were labelled in pencil with the treatment number, and pencil does not show up under infrared light. Therefore, the person recording the videos did not know which Petri dish contained which treatment number. 
+
+In the following code chunks, we combine the raw, blind-collected behavioural data with our records of
+- The associations between the pheromone treatment and the treatment number 
+- The positions of the treatment numbers across the 12 dishes in each tray
+
+We were also blind to which trays came from which beehive, since the person decoding the behaviour videos did not know which hive the bees came from.
+
+The information used to remove the blind coding is in the file `data/blind_codes.csv`. The raw, blinded data is in the file `data/raw_blinded_behaviour_data.csv`.
+
+Finally, the file created by this script -- which you should use for new analyses, checking our results, or including our study in a meta-analysis -- is in the file `data/behaviour_data.csv`.
+
+
+### Here are the numbers used to encode each pheromone treatment:
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(kableExtra)
+
+blind_codes_full <- read_csv("data/blind_codes.csv")
+
+blind_codes <- blind_codes_full %>%
+  filter(tray == 1) %>%
+  select(treatment, treat_num)
+
+kable(blind_codes) %>% kable_styling(full_width = F)
+```
+
+### Here are the treatments' positions across the 12 dishes in trays 1-5 (of 35 total trays)
+
+```{r}
+blind_codes_full %>%
+  filter(tray %in% 1:5) %>% 
+  select(dish, treat_num) %>%
+  kable() %>% kable_styling(full_width = F) %>%
+  pack_rows("Tray 1", 1, 12) %>%
+  pack_rows("Tray 2", 13, 24) %>%
+  pack_rows("Tray 3", 25, 36) %>%
+  pack_rows("Tray 4", 37, 48) %>%
+  pack_rows("Tray 5", 49, 60) %>%
+  scroll_box(height = "350px")
+```
+
+### Now we apply this information to decode the behaviour data recording sheet
+
+```{r}
+# Here are the treatments, ranked roughly from least to most like a queen bee
+treatment_levels <- 
+  # two "controls"
+  c("Solvent control", "10-HDA (worker control)", 
+    
+     # 4 individual queen-type chemicals
+    "HOB", "HVA", "9-HDA", "9-ODA",   
+    
+    # 6 pairwise combinations of two of the queen-type chemicals
+    "HOB and HVA",                                
+    "9-HDA and HOB", "9-HDA and HVA",
+    "9-ODA and HOB", "9-ODA and HVA", "9-ODA and 9-HDA")
+
+
+unblinded_data <- read.csv("data/raw_blinded_behaviour_data.csv", 
+                           stringsAsFactors = FALSE) %>%
+  as_tibble() %>%
+  filter(!is.na(tray)) %>%
+  
+  # convert to "time since the start of recording, in seconds"
+  mutate(split_start = map(strsplit(start_touch, split = ":"), as.numeric), 
+         split_end   = map(strsplit(end_touch, split = ":"), as.numeric),
+         start_touch = 60 * map_dbl(split_start, ~ .x[1]) + map_dbl(split_start, ~ .x[2]),
+         end_touch = 60 * map_dbl(split_end, ~ .x[1]) + map_dbl(split_end, ~ .x[2]),
+         touch_duration = end_touch - start_touch) %>%
+  select(-split_start, -split_end) %>%
+  filter(touch_duration >= 0) %>%                                    #######             # Get Daisy to check all these!! #######
+
+  # merge with the dish-to-treat_num mappings
+  left_join(blind_codes_full %>% select(-treatment), by = c("tray", "dish")) %>%  
+  
+  # merge with the treat_num-to-pheromone mappings
+  left_join(blind_codes, by = "treat_num") %>%        
+  
+  # re-order the rows and columns for neatness
+  select(hive, treatment, tray, dish, start_touch, end_touch, touch_duration, notes) %>%
+  mutate(treatment = factor(treatment, levels = treatment_levels)) %>%
+  arrange(hive, treatment, tray, dish)
+```
+
+
+### Write a file containing the un-blinded data
+```{r}
+unblinded_data %>% write_csv("data/unblinded_behaviour_data.csv")
+```
+
