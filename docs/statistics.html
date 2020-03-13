@@ -1,0 +1,7371 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Apis queen pheromones and the retinue response</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">apis_retinue_expt</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Apis queen pheromones and the retinue response</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-03-13
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>apis_retinue_expt/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190828code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190828)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190828code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190828)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree825851b47afea03889895c9f53c0d5cf44a52073targetblank825851ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/825851b47afea03889895c9f53c0d5cf44a52073" target="_blank">825851b</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree825851b47afea03889895c9f53c0d5cf44a52073targetblank825851ba" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    Figures and tables.docx
+    Ignored:    data/.DS_Store
+    Ignored:    data/behaviour_data_OLDER_VERSION.csv
+    Ignored:    data/raw_blinded_behaviour_data_OLD_VERSION.csv
+    Ignored:    output/hive_as_fixed_effect_model.rds
+    Ignored:    output/model_comparison_table_count_brms.rds
+    Ignored:    output/model_comparison_table_duration_brms.rds
+    Ignored:    output/model_selection_table.rds
+    Ignored:    output/model_selection_table_count_glmmTMB.rds
+    Ignored:    output/model_selection_table_duration_glmmTMB.rds
+    Ignored:    output/model_weights_random_slope.rds
+    Ignored:    output/multivariate_brms.rds
+    Ignored:    output/pre_reg_model.rds
+    Ignored:    output/top_10_model_formulae_count.rds
+    Ignored:    output/top_10_model_formulae_duration.rds
+    Ignored:    pheromone paper draft.docx
+    Ignored:    ~$gures and tables.docx
+
+Untracked files:
+    Untracked:  analysis/preregistered_analysis.Rmd
+    Untracked:  data/data_for_each_group_bees.csv
+    Untracked:  data/metadata_for_each_dish_and_tray.csv
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/clean_raw_data.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   data/raw_blinded_behaviour_data.csv
+    Modified:   data/unblinded_behaviour_data.csv
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/825851b47afea03889895c9f53c0d5cf44a52073/analysis/statistics.Rmd" target="_blank">825851b</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2020-03-13
+</td>
+<td>
+big commit
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/b536404d0cbab9fce9eec20c79a905b2c94160a8/analysis/statistics.Rmd" target="_blank">b536404</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2020-02-05
+</td>
+<td>
+First commit
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="load-the-data" class="section level2">
+<h2>Load the data</h2>
+<div id="re-code-the-treatment-variables-to-facilitate-modelling" class="section level3">
+<h3>Re-code the treatment variables to facilitate modelling</h3>
+<p>First, we prepare the un-blinded dataset for statistical modelling by adding five new binary variables whose names start with “has”. These 5 variable contain 0s and 1s, which describe whether the focal observation contains the focal chemical. For example, the variable “has_9ODA” contains a 1 for rows where the filter paper was treated with 9-ODA (either on its own, or as part of a 2 -chemical mixture), and a 0 otherwise.</p>
+<pre class="r"><code>library(tidyverse)
+library(ggbeeswarm)
+library(tidybayes)
+library(brms)
+library(gridExtra)
+library(glmmTMB)
+library(lme4)
+library(MuMIn)
+library(kableExtra)
+library(glue)
+library(future)
+library(future.apply)
+library(bayestestR)
+library(knitrhooks) # install with devtools::install_github(&quot;nathaneastwood/knitrhooks&quot;)
+options(stringsAsFactors = FALSE)
+output_max_height() # a knitrhook option
+
+# Here are the treatments, ranked roughly from least to most like a queen bee
+treatment_levels &lt;- 
+  # two &quot;controls&quot;
+  c(&quot;Solvent control&quot;, &quot;10-HDA (worker control)&quot;, 
+    
+     # 4 individual queen-type chemicals
+    &quot;HOB&quot;, &quot;HVA&quot;, &quot;9-HDA&quot;, &quot;9-ODA&quot;,   
+    
+    # 6 pairwise combinations of two of the queen-type chemicals
+    &quot;HOB and HVA&quot;,                                
+    &quot;9-HDA and HOB&quot;, &quot;9-HDA and HVA&quot;,
+    &quot;9-ODA and HOB&quot;, &quot;9-ODA and HVA&quot;, &quot;9-ODA and 9-HDA&quot;)
+
+
+behaviour_data &lt;- read_csv(&quot;data/unblinded_behaviour_data.csv&quot;) %&gt;%
+  mutate(has_10HDA = as.factor(as.numeric(str_detect(treatment, &quot;10-HDA&quot;))),
+         has_HVA = as.factor(as.numeric(str_detect(treatment, &quot;HVA&quot;))),
+         has_HOB = as.factor(as.numeric(str_detect(treatment, &quot;HOB&quot;))),
+         has_9HDA = as.factor(as.numeric(str_detect(treatment, &quot;9-HDA&quot;))),
+         has_9ODA = as.factor(as.numeric(str_detect(treatment, &quot;9-ODA&quot;)))) %&gt;%
+  mutate(treatment = factor(treatment, levels = treatment_levels)) %&gt;%
+  mutate(dish = paste(tray, dish, sep = &quot;_&quot;)) %&gt;%
+  as_tibble() %&gt;%
+  select(hive, treatment, tray, dish, number_bees, starts_with(&quot;has&quot;), 
+         start_touch, end_touch, touch_duration, notes)</code></pre>
+<p>Inspect 20 randomly-selected rows of the 18,027-row data frame <code>behaviour_data</code>:</p>
+<pre class="r"><code>behaviour_data %&gt;% 
+  sample_n(20) %&gt;%
+  kable() %&gt;% kable_styling() %&gt;%
+  scroll_box(width = &quot;700px&quot;, height = &quot;300px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:700px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+hive
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+treatment
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+tray
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+dish
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+number_bees
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_10HDA
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_HVA
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_HOB
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_9HDA
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_9ODA
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+start_touch
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+end_touch
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+touch_duration
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+notes
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:left;">
+HOB
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:left;">
+34_6
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+158
+</td>
+<td style="text-align:right;">
+158
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:left;">
+35_11
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+308
+</td>
+<td style="text-align:right;">
+308
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:left;">
+34_5
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+1170
+</td>
+<td style="text-align:right;">
+1180
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+Bee gets a little tangled in paper
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+7_10
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+424
+</td>
+<td style="text-align:right;">
+426
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+15_5
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+1429
+</td>
+<td style="text-align:right;">
+1429
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:left;">
+10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5_6
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+1658
+</td>
+<td style="text-align:right;">
+1658
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+6_8
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+1116
+</td>
+<td style="text-align:right;">
+1119
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+7_9
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+1424
+</td>
+<td style="text-align:right;">
+1430
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+6_9
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:left;">
+24_7
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+897
+</td>
+<td style="text-align:right;">
+897
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+12_10
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+635
+</td>
+<td style="text-align:right;">
+642
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5_2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:left;">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:left;">
+31_1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+942
+</td>
+<td style="text-align:right;">
+942
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+1_12
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+1552
+</td>
+<td style="text-align:right;">
+1552
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:left;">
+24_11
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+693
+</td>
+<td style="text-align:right;">
+695
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+4_9
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+882
+</td>
+<td style="text-align:right;">
+885
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:left;">
+23_5
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+813
+</td>
+<td style="text-align:right;">
+813
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:left;">
+35_6
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+466
+</td>
+<td style="text-align:right;">
+467
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+double sniff
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:left;">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+13_1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:right;">
+194
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:left;">
+9-HDA and HOB
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+3_8
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+493
+</td>
+<td style="text-align:right;">
+494
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="summarise-the-data-from-each-petri-dish" class="section level3">
+<h3>Summarise the data from each Petri dish</h3>
+<p>The raw file (<code>data/unblinded_behaviour_data.csv</code>) contains one row for each observation of a bee making contact with the filter paper. Here, we create a summarised version of this dataset called <code>summary_data</code>, in which each row describes the results for the complete 30-minute observation of one Petri dish. We record the number of times a bee touched the pheromone lure (<code>n_touches</code>) and the total number of seconds that bees were in contact with the lure (<code>touch_duration</code>; measured in “bee-seconds”, i.e. two bees touching the lure for 5 seconds and 2 seconds each, whether simultaneously or different times, would give a score of 7 seconds for this variable).</p>
+<pre class="r"><code>summary_data &lt;- behaviour_data %&gt;%
+  group_by(treatment, hive, tray, dish, number_bees,
+           has_10HDA, has_HVA, has_HOB, 
+           has_9HDA, has_9ODA) %&gt;%
+  summarise(n_touches = length(touch_duration),
+            touch_duration = sum(touch_duration)) %&gt;% 
+  ungroup()
+
+# There was one tray where no contacts were observed at all with the paper
+# It was Tray 35, Dish 12, which the blind codes tell us is treatment=HOB, hive=Garden
+# Here, we add this to the dataset manually: 
+
+# Add one more row to the end of the dataframe, by copy-pasting an existing row
+summary_data &lt;- summary_data %&gt;%
+  bind_rows(summary_data[1, ])
+
+# Overwrite the values (this was carefully checked!)
+summary_data[nrow(summary_data), ] &lt;- c(&quot;HOB&quot;, &quot;Garden&quot;, 35, &quot;35_12&quot;, 5, 0, 0, 1, 0, 0, 0, 0)
+
+summary_data &lt;- summary_data %&gt;%
+  mutate(number_bees = as.numeric(number_bees),
+         tray = as.numeric(tray),
+         n_touches = as.numeric(n_touches),
+         touch_duration = as.numeric(touch_duration)) %&gt;%
+  arrange(treatment, tray, hive)
+
+# Save this analysis-ready data for data archiving
+write_csv(summary_data, &quot;data/data_for_each_group_bees.csv&quot;)</code></pre>
+<p>Inspect 20 random rows of the 395-row data frame <code>summary_data</code>:</p>
+<pre class="r"><code>summary_data %&gt;% sample_n(20) %&gt;%
+  kable() %&gt;% kable_styling() %&gt;%
+  scroll_box(width = &quot;700px&quot;, height = &quot;300px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:700px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+treatment
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+hive
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+tray
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+dish
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+number_bees
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_10HDA
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_HVA
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_HOB
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_9HDA
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+has_9ODA
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+n_touches
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+touch_duration
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:left;">
+34_3
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+181
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+19_2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+9_9
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+9_2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+129
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+3_9
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+20_4
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:left;">
+34_5
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-HDA (worker control)
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+10_11
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+187
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+12_4
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+167
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+7_4
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+5_8
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;">
+380
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+6_12
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+683
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+1_2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+550
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+10_7
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+223
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+13_2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+107
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+3_2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+730
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:left;">
+28_2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:left;">
+29_9
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+62
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+7_7
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+114
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:left;">
+35_12
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="table-of-sample-sizes" class="section level2 tabset">
+<h2>Table of sample sizes</h2>
+<div id="across-all-hives" class="section level3">
+<h3>Across all hives</h3>
+<pre class="r"><code>touch_counts &lt;- behaviour_data %&gt;%
+  group_by(treatment) %&gt;%
+  summarise(`Total # touches recorded` = n())
+
+summary_data %&gt;%
+  group_by(treatment) %&gt;%
+  summarise(`Number of Petri dishes assayed` = n(),
+            `Mean # bees per dish` = round(mean(number_bees), 2),
+            `Total # bees assayed` = sum(number_bees)) %&gt;%   
+  arrange(treatment) %&gt;%
+  left_join(touch_counts, by = &quot;treatment&quot;) %&gt;%
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+treatment
+</th>
+<th style="text-align:right;">
+Number of Petri dishes assayed
+</th>
+<th style="text-align:right;">
+Mean # bees per dish
+</th>
+<th style="text-align:right;">
+Total # bees assayed
+</th>
+<th style="text-align:right;">
+Total # touches recorded
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+4.91
+</td>
+<td style="text-align:right;">
+172
+</td>
+<td style="text-align:right;">
+1529
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+4.91
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+1556
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+4.91
+</td>
+<td style="text-align:right;">
+157
+</td>
+<td style="text-align:right;">
+1284
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+4.91
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+1429
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+4.91
+</td>
+<td style="text-align:right;">
+157
+</td>
+<td style="text-align:right;">
+1341
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+4.91
+</td>
+<td style="text-align:right;">
+172
+</td>
+<td style="text-align:right;">
+1825
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+4.90
+</td>
+<td style="text-align:right;">
+152
+</td>
+<td style="text-align:right;">
+1377
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HOB
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+4.90
+</td>
+<td style="text-align:right;">
+147
+</td>
+<td style="text-align:right;">
+1289
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+4.91
+</td>
+<td style="text-align:right;">
+167
+</td>
+<td style="text-align:right;">
+1479
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HOB
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+4.94
+</td>
+<td style="text-align:right;">
+158
+</td>
+<td style="text-align:right;">
+1636
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+4.91
+</td>
+<td style="text-align:right;">
+167
+</td>
+<td style="text-align:right;">
+1700
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+4.88
+</td>
+<td style="text-align:right;">
+166
+</td>
+<td style="text-align:right;">
+1582
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="for-each-individual-hive" class="section level3">
+<h3>For each individual hive</h3>
+<pre class="r"><code>touch_counts &lt;- behaviour_data %&gt;%
+  group_by(treatment, hive) %&gt;%
+  summarise(`Total # touches recorded` = n())
+
+summary_data %&gt;%
+  group_by(treatment, hive) %&gt;%
+  summarise(`Number of Petri dishes assayed` = n(),
+            `Mean # bees per dish` = round(mean(number_bees), 2),
+            `Total # bees assayed` = sum(number_bees)) %&gt;%   
+  arrange(treatment, hive) %&gt;%
+  left_join(touch_counts, by = c(&quot;treatment&quot;, &quot;hive&quot;)) %&gt;%
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+treatment
+</th>
+<th style="text-align:left;">
+hive
+</th>
+<th style="text-align:right;">
+Number of Petri dishes assayed
+</th>
+<th style="text-align:right;">
+Mean # bees per dish
+</th>
+<th style="text-align:right;">
+Total # bees assayed
+</th>
+<th style="text-align:right;">
+Total # touches recorded
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+4.85
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+386
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4.89
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+505
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Solvent control
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+638
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-HDA (worker control)
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+4.85
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+406
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-HDA (worker control)
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4.89
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+478
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-HDA (worker control)
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+672
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+4.83
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+368
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4.89
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+352
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+564
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+4.85
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+383
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4.89
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+457
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+589
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+4.82
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+349
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4.89
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+451
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+541
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+4.85
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+557
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4.89
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+461
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+807
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+4.83
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+367
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+4.86
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+299
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+711
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HOB
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+4.82
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+319
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HOB
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+4.88
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+398
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HOB
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+572
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+4.83
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+375
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4.89
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+344
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+760
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HOB
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+4.92
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+435
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HOB
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+4.88
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+406
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HOB
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+795
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+4.85
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+438
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4.89
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+567
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+695
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:left;">
+Garden
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+4.85
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+449
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:left;">
+Skylab
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+4.78
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+450
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:left;">
+Zoology
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+683
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="plots-showing-the-raw-data" class="section level2">
+<h2>Plots showing the raw data</h2>
+<p>These plots show the means +/- SE (top) or the individual data points for each group of bees (bottom). The left plots show the number of times bees made contact with the pheromone lure, while the right show the total duration the bees were in contact with the lure. The latter response variable is measured in seconds, and has been transformed by adding 1 second and plotting it on a Log10 scale.</p>
+<pre class="r"><code>p1 &lt;- summary_data %&gt;%
+  group_by(treatment) %&gt;%
+  summarise(mean = mean(n_touches),
+            SE = sd(n_touches) / sqrt(n())) %&gt;%
+  mutate(treatment = factor(treatment, rev(treatment))) %&gt;%
+  ggplot(aes(treatment, mean, fill = treatment)) + 
+  geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.2) + 
+  geom_bar(stat=&quot;identity&quot;, colour = &quot;black&quot;) + coord_flip() + 
+  xlab(&quot;Treatment&quot;) +
+  ylab(&quot;Mean \u00B1 SE number of contacts&quot;) +
+    theme(legend.position = &quot;none&quot;)
+
+p2 &lt;- summary_data %&gt;%
+  group_by(treatment) %&gt;%
+  summarise(mean = mean(touch_duration),
+            SE = sd(touch_duration) / sqrt(n())) %&gt;%
+  mutate(treatment = factor(treatment, rev(treatment))) %&gt;%
+  ggplot(aes(treatment, mean, fill = treatment)) + 
+  geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.2) + 
+  geom_bar(stat=&quot;identity&quot;, colour = &quot;black&quot;) + coord_flip() + 
+  xlab(NULL) +
+  ylab(&quot;Mean \u00B1 SE duration of contact (s)&quot;) +
+  theme(legend.position = &quot;none&quot;,
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+
+p3 &lt;-   summary_data %&gt;%
+    mutate(treatment = factor(treatment, rev(levels(treatment)))) %&gt;%
+    ggplot(aes(treatment, n_touches + 1, colour = treatment)) + 
+    geom_boxplot(fill = NA, colour = &quot;black&quot;, size = 0.3) +
+    geom_beeswarm(alpha = .7) + 
+    coord_flip() + 
+    ylab(&quot;Number of contacts&quot;) + 
+    xlab(&quot;Treatment&quot;) +
+    theme(legend.position = &quot;none&quot;)
+
+p4 &lt;-   summary_data %&gt;%
+    mutate(treatment = factor(treatment, rev(levels(treatment)))) %&gt;%
+    ggplot(aes(treatment, touch_duration + 1, colour = treatment)) + 
+    geom_boxplot(fill = NA, colour = &quot;black&quot;, size = 0.3) +
+    geom_beeswarm(alpha = .7) + 
+    coord_flip() + 
+    scale_y_log10() + 
+    ylab(&quot;Duration of contact (log scale)&quot;) + 
+    xlab(NULL) +
+    theme(legend.position = &quot;none&quot;,
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank())
+
+plot(rbind(cbind(ggplotGrob(p1), ggplotGrob(p2), size = &quot;last&quot;),
+           cbind(ggplotGrob(p3), ggplotGrob(p4), size = &quot;last&quot;)))</code></pre>
+<p><img src="figure/statistics.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="code-to-run-all-models" class="section level2">
+<h2>Code to run all models</h2>
+<div id="running-the-multivariate-full-model" class="section level3">
+<h3>Running the multivariate “full model”</h3>
+<p>This is the full bivariate GLMM described first in the paper (right after the pre-registered analysis is described).</p>
+<div id="fit-the-model" class="section level4">
+<h4>Fit the model</h4>
+<pre class="r"><code>if(!file.exists(&quot;output/multivariate_brms.rds&quot;)){
+  
+  multivariate_brms &lt;- brm(
+    mvbind(n_touches, touch_duration) ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + 
+      hive + scale(number_bees) + (1 | make_corr | tray),
+    data = summary_data %&gt;% mutate(touch_duration = touch_duration + 0.01), 
+    iter = 10000, chains = 4, cores = 1,
+    prior = c(prior(normal(0, 3), class = &quot;b&quot;, resp = &quot;ntouches&quot;),
+              prior(normal(0, 3), class = &quot;b&quot;, resp = &quot;touchduration&quot;)),
+    family = list(&quot;negbinomial&quot;, &quot;lognormal&quot;),
+    control = list(max_treedepth = 20, adapt_delta = 0.99))
+  
+  saveRDS(multivariate_brms, &quot;output/multivariate_brms.rds&quot;)
+  
+} else{
+  multivariate_brms &lt;- readRDS(&quot;output/multivariate_brms.rds&quot;)
+}</code></pre>
+</div>
+<div id="graphical-verification-of-the-models-fit" class="section level4">
+<h4>Graphical verification of the model’s fit</h4>
+<p>Here we perform “posterior predictive checks” on the full model, for both response variables. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. The fitted values recapitulate the orignal data well, which is a necessary condition for the model to produce useful inferences. This suggests that the models employed here were an adequate approximation of the true data-generating processes.</p>
+<pre class="r"><code>grid.arrange(
+  pp_check(multivariate_brms, resp = &quot;ntouches&quot;) + labs(title = &quot;Number of contacts with the lure&quot;) + theme(legend.position = &quot;none&quot;),
+  pp_check(multivariate_brms, resp = &quot;touchduration&quot;) + labs(title = &quot;Duration of contact with the lure&quot;) + theme(legend.position = &quot;none&quot;),
+  pp_check(multivariate_brms, resp = &quot;touchduration&quot;) + labs(title = &quot;Duration of contact with the lure (log10 scale)&quot;) + theme(legend.position = &quot;none&quot;) + scale_x_log10()
+)</code></pre>
+<p><img src="figure/statistics.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="raw-output-from-brms-describing-the-full-model" class="section level4">
+<h4>Raw output from <code>brms</code> describing the full model</h4>
+<pre class="r"><code>multivariate_brms</code></pre>
+<pre style = "max-height:300px; overflow-y: auto;"> Family: MV(negbinomial, lognormal) 
+  Links: mu = log; shape = identity
+         mu = identity; sigma = identity 
+Formula: n_touches ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + scale(number_bees) + (1 | make_corr | tray) 
+         touch_duration ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + scale(number_bees) + (1 | make_corr | tray) 
+   Data: summary_data %>% mutate(touch_duration = touch_dur (Number of observations: 395) 
+Samples: 4 chains, each with iter = 10000; warmup = 5000; thin = 1;
+         total post-warmup samples = 20000
+
+Group-Level Effects: 
+~tray (Number of levels: 35) 
+                                                Estimate Est.Error l-95% CI
+sd(ntouches_Intercept)                              0.28      0.05     0.20
+sd(touchduration_Intercept)                         0.63      0.12     0.43
+cor(ntouches_Intercept,touchduration_Intercept)     0.77      0.14     0.44
+                                                u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(ntouches_Intercept)                              0.38 1.00     7531    11878
+sd(touchduration_Intercept)                         0.88 1.00     8992    13336
+cor(ntouches_Intercept,touchduration_Intercept)     0.98 1.00     6112     6888
+
+Population-Level Effects: 
+                                  Estimate Est.Error l-95% CI u-95% CI Rhat
+ntouches_Intercept                    3.42      0.12     3.19     3.65 1.00
+touchduration_Intercept               3.65      0.30     3.07     4.25 1.00
+ntouches_has_10HDA1                   0.06      0.11    -0.16     0.28 1.00
+ntouches_has_HVA1                    -0.04      0.11    -0.26     0.18 1.00
+ntouches_has_HOB1                    -0.09      0.11    -0.31     0.13 1.00
+ntouches_has_9HDA1                   -0.01      0.11    -0.23     0.22 1.00
+ntouches_has_9ODA1                    0.20      0.11    -0.01     0.41 1.00
+ntouches_hiveSkylab                   0.42      0.14     0.15     0.68 1.00
+ntouches_hiveZoology                  0.52      0.13     0.26     0.76 1.00
+ntouches_scalenumber_bees             0.03      0.05    -0.07     0.13 1.00
+ntouches_has_HVA1:has_HOB1            0.14      0.16    -0.18     0.46 1.00
+ntouches_has_HVA1:has_9HDA1           0.04      0.16    -0.27     0.35 1.00
+ntouches_has_HVA1:has_9ODA1          -0.03      0.16    -0.33     0.28 1.00
+ntouches_has_HOB1:has_9HDA1           0.04      0.16    -0.28     0.36 1.00
+ntouches_has_HOB1:has_9ODA1           0.06      0.16    -0.25     0.37 1.00
+ntouches_has_9HDA1:has_9ODA1         -0.10      0.16    -0.41     0.21 1.00
+touchduration_has_10HDA1              0.06      0.32    -0.57     0.69 1.00
+touchduration_has_HVA1                0.27      0.32    -0.36     0.89 1.00
+touchduration_has_HOB1               -0.31      0.32    -0.94     0.32 1.00
+touchduration_has_9HDA1              -0.14      0.32    -0.76     0.50 1.00
+touchduration_has_9ODA1               0.81      0.31     0.21     1.41 1.00
+touchduration_hiveSkylab              0.78      0.32     0.14     1.42 1.00
+touchduration_hiveZoology             0.70      0.30     0.11     1.30 1.00
+touchduration_scalenumber_bees        0.07      0.13    -0.17     0.32 1.00
+touchduration_has_HVA1:has_HOB1       0.22      0.45    -0.66     1.10 1.00
+touchduration_has_HVA1:has_9HDA1      0.36      0.45    -0.52     1.24 1.00
+touchduration_has_HVA1:has_9ODA1     -0.21      0.44    -1.08     0.66 1.00
+touchduration_has_HOB1:has_9HDA1      0.34      0.46    -0.56     1.23 1.00
+touchduration_has_HOB1:has_9ODA1      0.52      0.45    -0.36     1.40 1.00
+touchduration_has_9HDA1:has_9ODA1    -0.07      0.44    -0.94     0.78 1.00
+                                  Bulk_ESS Tail_ESS
+ntouches_Intercept                    5964     9935
+touchduration_Intercept               6748    10501
+ntouches_has_10HDA1                  10708    12716
+ntouches_has_HVA1                     7738    11756
+ntouches_has_HOB1                     7822    11748
+ntouches_has_9HDA1                    7315    10768
+ntouches_has_9ODA1                    7513    12306
+ntouches_hiveSkylab                   6023    10309
+ntouches_hiveZoology                  5956    10289
+ntouches_scalenumber_bees             8175    11691
+ntouches_has_HVA1:has_HOB1            8735    12773
+ntouches_has_HVA1:has_9HDA1           7969    12523
+ntouches_has_HVA1:has_9ODA1           8376    12593
+ntouches_has_HOB1:has_9HDA1           8262    13215
+ntouches_has_HOB1:has_9ODA1           8901    13218
+ntouches_has_9HDA1:has_9ODA1          8222    12595
+touchduration_has_10HDA1             10837    13137
+touchduration_has_HVA1                7467    10905
+touchduration_has_HOB1                7686    11705
+touchduration_has_9HDA1               7837    12247
+touchduration_has_9ODA1               7381    11453
+touchduration_hiveSkylab              7494    12022
+touchduration_hiveZoology             6914    10979
+touchduration_scalenumber_bees       10228    13675
+touchduration_has_HVA1:has_HOB1       8514    11245
+touchduration_has_HVA1:has_9HDA1      8536    11314
+touchduration_has_HVA1:has_9ODA1      8357    11209
+touchduration_has_HOB1:has_9HDA1      9134    13098
+touchduration_has_HOB1:has_9ODA1      8686    11990
+touchduration_has_9HDA1:has_9ODA1     8381    13113
+
+Family Specific Parameters: 
+                    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+shape_ntouches          5.50      0.48     4.62     6.48 1.00    22427    13857
+sigma_touchduration     1.33      0.05     1.23     1.43 1.00    23858    14842
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+</pre>
+</div>
+</div>
+<div id="preliminary-model-comparison-ranking-using-frequentist-glmms" class="section level3">
+<h3>Preliminary model comparison ranking using frequentist GLMMs</h3>
+<p>Initial trials revealed that it is computationally challenging to run and compare very many <code>brms</code> models. To address this, we ran a preliminary model comparison step in the <code>glmmTMB</code> package, which fits frequentist generalised linear mixed models (GLMM), and used <code>glmmTMB</code> to select the 10 best-fitting models, which were then re-ranked using <code>brms</code> (see next section).</p>
+<p>Using the <code>glmmTMB</code> package, we first fit a full model with the following formula:</p>
+<p><code>y ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | tray)</code></p>
+<p>where <code>y</code> is the response variable, i.e. either the number of times a bee touched the pheromone-treated paper, or the total duration over which bees were in contact with the paper (measured in “bee-seconds”, such that 2 bees touching the paper for 10 seconds each would be recorded as 20).</p>
+<p>That is, we fit 6 main effect fixed factors and 1 random intercept (tray). “Hive” was fit as a fixed factor not a random factor because it only has 3 levels, and it is generally not advised to use random factors with fewer than about 6 levels (this is one difference from the pre-registration; we initially planned to include more hives, but not all of our hives contained enough workers for use in the experiments). We fit all possible 2-way interactions among the pheromone components that were presented as part of a 2-component mixture. There were 452 possible sub-models in this full model, all of which were run and compared using <code>glmmTMB</code>.</p>
+<pre class="r"><code>full_model &lt;- &quot;n_touches ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + number_bees + (1 | tray)&quot;
+
+if(!file.exists(&quot;output/model_selection_table_duration_glmmTMB.rds&quot;)){
+  
+  options(na.action=&quot;na.fail&quot;) # needed for dredge()
+  
+  # Run dredge() to compare all possible models:
+  
+  ## For the &quot;count&quot; response variable:
+  dredge_results_count &lt;- glmmTMB(
+    as.formula(full_model), 
+    family = nbinom1, 
+    data = summary_data, REML = FALSE) %&gt;%
+    dredge()
+  
+  ## And for the &quot;duration&quot; response variable:
+  log_transformed_data &lt;- summary_data %&gt;%
+      mutate(touch_duration = log(touch_duration + 0.01))
+  
+  dredge_results_duration &lt;- lmer(
+    as.formula(str_replace(full_model, &quot;n_touches&quot;, &quot;touch_duration&quot;)), 
+    data = log_transformed_data, 
+    REML = FALSE) %&gt;%
+    dredge()
+  
+  # Get the formulae for the top 10 models, as ranked by AICc
+  top_10_model_formulae_count &lt;- map_chr(
+    get.models(head(dredge_results_count, 10), subset=TRUE), 
+    ~ as.character(.x$call)[2]) %&gt;% unname() %&gt;%
+    strsplit(split = &quot; [+] &quot;) %&gt;% 
+    map_chr(~ paste0(c(sort(.x[!(.x %in% c(&quot;hive&quot;, &quot;(1 | tray)&quot;))]), 
+                       .x[.x == &quot;hive&quot;], .x[.x == &quot;(1 | tray)&quot;]), 
+                     collapse = &quot; + &quot;)) 
+  
+  # Do the same for the duration models
+  top_10_model_formulae_duration &lt;- map_chr(
+    get.models(head(dredge_results_duration, 10), subset=TRUE), 
+    ~ as.character(.x@call)[2]) %&gt;% unname() %&gt;%
+    strsplit(split = &quot; [+] &quot;) %&gt;% 
+    map_chr(~ paste0(c(sort(.x[!(.x %in% c(&quot;hive&quot;, &quot;(1 | tray)&quot;))]), 
+                       .x[.x == &quot;hive&quot;], .x[.x == &quot;(1 | tray)&quot;]), 
+                     collapse = &quot; + &quot;))
+  
+  # Make a nicely-formatted model selection table for each response variable
+  model_selection_table_count_glmmTMB &lt;- top_10_model_formulae_count %&gt;%
+    substr(nchar(&quot;n_touches ~ &quot;)+1, nchar(.)) %&gt;% 
+    str_remove_all(&quot; [+] [(]1 [|] tray[)]&quot;) %&gt;%
+    str_remove_all(&quot;has_&quot;) %&gt;% 
+    data.frame(Formula = ., 
+               head(dredge_results_count, 10) %&gt;% as.data.frame() %&gt;%
+                 select(df, logLik, AICc, delta, weight)) %&gt;% as_tibble() %&gt;%
+    mutate(Formula = strsplit(Formula, split = &quot; [+] &quot;),
+           Formula = map_chr(Formula, ~ paste0(c(sort(.x[.x != &quot;hive&quot;]), 
+                                                 .x[.x == &quot;hive&quot;]), collapse = &quot; + &quot;)),
+           logLik = round(logLik, 2),
+           AICc = round(AICc, 2),
+           delta = round(delta, 3),
+           weight = round(as.numeric(weight), 3))
+  
+  model_selection_table_duration_glmmTMB &lt;- top_10_model_formulae_duration %&gt;%
+    substr(nchar(&quot;touch_duration ~ &quot;)+1, nchar(.)) %&gt;% 
+    str_remove_all(&quot; [+] [(]1 [|] tray[)]&quot;) %&gt;%
+    str_remove_all(&quot;has_&quot;) %&gt;% 
+    data.frame(Formula = ., 
+               head(dredge_results_duration, 10) %&gt;% as.data.frame() %&gt;%
+                 select(df, logLik, AICc, delta, weight)) %&gt;% as_tibble() %&gt;%
+    mutate(Formula = strsplit(Formula, split = &quot; [+] &quot;),
+           Formula = map_chr(Formula, ~ paste0(c(sort(.x[.x != &quot;hive&quot;]), 
+                                                 .x[.x == &quot;hive&quot;]), collapse = &quot; + &quot;)),
+           logLik = round(logLik, 2),
+           AICc = round(AICc, 2),
+           delta = round(delta, 3),
+           weight = round(as.numeric(weight), 3))
+  
+  # Save all the results to save re-doing this
+  saveRDS(top_10_model_formulae_count, 
+          &quot;output/top_10_model_formulae_count.rds&quot;)
+  saveRDS(top_10_model_formulae_duration, 
+          &quot;output/top_10_model_formulae_duration.rds&quot;)
+  saveRDS(model_selection_table_count_glmmTMB, 
+          &quot;output/model_selection_table_count_glmmTMB.rds&quot;)
+  saveRDS(model_selection_table_duration_glmmTMB, 
+          &quot;output/model_selection_table_duration_glmmTMB.rds&quot;)
+
+  options(na.action=&quot;na.omit&quot;)
+  
+} else {
+  top_10_model_formulae_count &lt;- 
+    readRDS(&quot;output/top_10_model_formulae_count.rds&quot;)
+  top_10_model_formulae_duration &lt;- 
+    readRDS(&quot;output/top_10_model_formulae_duration.rds&quot;)
+  model_selection_table_count_glmmTMB &lt;- 
+    readRDS(&quot;output/model_selection_table_count_glmmTMB.rds&quot;)
+  model_selection_table_duration_glmmTMB &lt;- 
+    readRDS(&quot;output/model_selection_table_duration_glmmTMB.rds&quot;)
+}</code></pre>
+</div>
+<div id="inspect-the-results-of-the-preliminary-model-selection-step" class="section level3">
+<h3>Inspect the results of the preliminary model selection step</h3>
+<p>These two tables show the results of model comparison using AICc, showing the top 10 most plausible models given the data, for the two response variables. The “weight” column gives the Akkaike weight, which can be interpreted as the probability that the focal model is the best-fitting one in the set of models under comparison.</p>
+<div id="response-variable-number-of-contacts" class="section level4">
+<h4>Response variable: Number of contacts</h4>
+<p>The table shows the top 10 models, as ranked by AICc of <code>glmmTMB</code> models.</p>
+<pre class="r"><code>model_selection_table_count_glmmTMB %&gt;% 
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Formula
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+logLik
+</th>
+<th style="text-align:right;">
+AICc
+</th>
+<th style="text-align:right;">
+delta
+</th>
+<th style="text-align:right;">
+weight
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+9ODA + hive
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+-1734.06
+</td>
+<td style="text-align:right;">
+3480.33
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.183
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10HDA + 9ODA + hive
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+-1733.12
+</td>
+<td style="text-align:right;">
+3480.52
+</td>
+<td style="text-align:right;">
+0.188
+</td>
+<td style="text-align:right;">
+0.167
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9HDA + 9ODA + hive
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+-1733.40
+</td>
+<td style="text-align:right;">
+3481.09
+</td>
+<td style="text-align:right;">
+0.758
+</td>
+<td style="text-align:right;">
+0.126
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10HDA + 9ODA + HVA + hive
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+-1732.70
+</td>
+<td style="text-align:right;">
+3481.77
+</td>
+<td style="text-align:right;">
+1.436
+</td>
+<td style="text-align:right;">
+0.089
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10HDA + 9HDA + 9ODA + hive
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+-1732.75
+</td>
+<td style="text-align:right;">
+3481.88
+</td>
+<td style="text-align:right;">
+1.543
+</td>
+<td style="text-align:right;">
+0.085
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9ODA + HVA + hive
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+-1733.90
+</td>
+<td style="text-align:right;">
+3482.09
+</td>
+<td style="text-align:right;">
+1.756
+</td>
+<td style="text-align:right;">
+0.076
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9ODA + number_bees + hive
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+-1733.94
+</td>
+<td style="text-align:right;">
+3482.18
+</td>
+<td style="text-align:right;">
+1.842
+</td>
+<td style="text-align:right;">
+0.073
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9ODA + HOB + hive
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+-1734.02
+</td>
+<td style="text-align:right;">
+3482.33
+</td>
+<td style="text-align:right;">
+1.995
+</td>
+<td style="text-align:right;">
+0.068
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9HDA + 9HDA:9ODA + 9ODA + hive
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+-1732.98
+</td>
+<td style="text-align:right;">
+3482.33
+</td>
+<td style="text-align:right;">
+2.000
+</td>
+<td style="text-align:right;">
+0.067
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10HDA + 9ODA + number_bees + hive
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+-1733.01
+</td>
+<td style="text-align:right;">
+3482.39
+</td>
+<td style="text-align:right;">
+2.058
+</td>
+<td style="text-align:right;">
+0.066
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="response-variable-total-duration-of-contacts" class="section level4">
+<h4>Response variable: Total duration of contacts</h4>
+<p>The table shows the top 10 models, as ranked by AICc of <code>glmmTMB</code> models.</p>
+<pre class="r"><code>model_selection_table_duration_glmmTMB %&gt;% 
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Formula
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+logLik
+</th>
+<th style="text-align:right;">
+AICc
+</th>
+<th style="text-align:right;">
+delta
+</th>
+<th style="text-align:right;">
+weight
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+9ODA + HVA + hive
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+-686.69
+</td>
+<td style="text-align:right;">
+1387.66
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9ODA + 9ODA:HVA + HVA + hive
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+-686.05
+</td>
+<td style="text-align:right;">
+1388.48
+</td>
+<td style="text-align:right;">
+0.813
+</td>
+<td style="text-align:right;">
+0.138
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9ODA + 9ODA:HOB + HOB + HVA + hive
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+-685.06
+</td>
+<td style="text-align:right;">
+1388.58
+</td>
+<td style="text-align:right;">
+0.918
+</td>
+<td style="text-align:right;">
+0.131
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10HDA + 9ODA + HVA + hive
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+-686.52
+</td>
+<td style="text-align:right;">
+1389.42
+</td>
+<td style="text-align:right;">
+1.753
+</td>
+<td style="text-align:right;">
+0.086
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9HDA + 9HDA:HVA + 9ODA + HVA + hive
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+-685.51
+</td>
+<td style="text-align:right;">
+1389.50
+</td>
+<td style="text-align:right;">
+1.831
+</td>
+<td style="text-align:right;">
+0.083
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9ODA + HVA + number_bees + hive
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+-686.60
+</td>
+<td style="text-align:right;">
+1389.57
+</td>
+<td style="text-align:right;">
+1.901
+</td>
+<td style="text-align:right;">
+0.080
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9ODA + HOB + HVA + hive
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+-686.67
+</td>
+<td style="text-align:right;">
+1389.72
+</td>
+<td style="text-align:right;">
+2.053
+</td>
+<td style="text-align:right;">
+0.074
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9HDA + 9ODA + HVA + hive
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+-686.68
+</td>
+<td style="text-align:right;">
+1389.73
+</td>
+<td style="text-align:right;">
+2.070
+</td>
+<td style="text-align:right;">
+0.074
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10HDA + 9ODA + 9ODA:HVA + HVA + hive
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+-685.75
+</td>
+<td style="text-align:right;">
+1389.97
+</td>
+<td style="text-align:right;">
+2.308
+</td>
+<td style="text-align:right;">
+0.065
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9ODA + 9ODA:HOB + 9ODA:HVA + HOB + HVA + hive
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+-684.79
+</td>
+<td style="text-align:right;">
+1390.16
+</td>
+<td style="text-align:right;">
+2.496
+</td>
+<td style="text-align:right;">
+0.060
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="re-ranking-of-the-top-10-models-using-bayesian-glmms" class="section level3">
+<h3>Re-ranking of the top 10 models using Bayesian GLMMs</h3>
+<p>Here, we fit the Bayesian equivalents of the top 10 models identified in the previous section for each response variable, save the results to disk, then rank the models according to their posterior model probabilities.</p>
+<pre class="r"><code>model_files &lt;- list.files(&quot;/Volumes/LACIE_SHARE/brms_apis_retinue&quot;, full.names = TRUE)
+
+all_formulas &lt;- c(top_10_model_formulae_count, 
+                  top_10_model_formulae_duration)
+
+if(length(model_files) &lt; 20){
+  
+  # Function to run a model using formula &quot;i&quot; in &quot;formula_list&quot; on dataframe &quot;my_data&quot;
+  run_model &lt;- function(i, formula_list, my_data){
+    
+    save_location &lt;- &quot;/Volumes/LACIE_SHARE/brms_apis_retinue&quot;
+    num &lt;- str_pad(i, 2, pad = &quot;0&quot;)
+    file_name &lt;- glue(&quot;{save_location}/model_{num}.rds&quot;)
+    if(file.exists(file_name)) return(NULL)
+    
+    if(i %in% 1:10){
+      model &lt;- brm(formula_list[i],  data = my_data, 
+                   iter = 10000, chains = 4, cores = 1,
+                   prior = c(prior(normal(0, 3), class = &quot;b&quot;)),
+                   family = &quot;negbinomial&quot;,
+                   control = list(max_treedepth = 20, adapt_delta = 0.99),
+                   save_all_pars = TRUE)
+    } else if(i %in% 11:20) {
+      model &lt;- brm(formula_list[i],  data = my_data %&gt;% mutate(touch_duration = touch_duration + 0.01), 
+                   iter = 10000, chains = 4, cores = 1,
+                   prior = c(prior(normal(0, 3), class = &quot;b&quot;)),
+                   family = &quot;lognormal&quot;,
+                   control = list(max_treedepth = 20, adapt_delta = 0.99),
+                   save_all_pars = TRUE)
+    }
+    
+    
+    saveRDS(model, file = file_name)
+    rm(model) # Force clean up to help R not run out of memory
+    gc()
+    return(NULL)
+  }
+  
+  # Run all the models in parallel over 4 cores - this worked fine on a 2015 iMac with 32GB RAM
+  options(mc.cores = 4)
+  plan(multiprocess)
+  
+  future_lapply(1:length(all_formulas), run_model, 
+                formula_list = all_formulas, my_data = summary_data)
+}
+
+if(!file.exists(&quot;output/model_selection_table.rds&quot;)){
+  model_files &lt;- list.files(&quot;/Volumes/LACIE_SHARE/brms_apis_retinue&quot;, full.names = TRUE)
+  
+  # Rank all 20 models by their posterior model probabilities 
+  # (uses the post_prob function, see ?model_weights)
+  weights_post_probability &lt;- 
+    c(
+      model_weights(
+        readRDS(model_files[1]), readRDS(model_files[2]),
+        readRDS(model_files[3]), readRDS(model_files[4]),
+        readRDS(model_files[5]), readRDS(model_files[6]),
+        readRDS(model_files[7]), readRDS(model_files[8]),
+        readRDS(model_files[9]), readRDS(model_files[10]),
+        weights = &quot;bma&quot;),
+      
+      model_weights(
+        readRDS(model_files[11]), readRDS(model_files[12]),
+        readRDS(model_files[13]), readRDS(model_files[14]),
+        readRDS(model_files[15]), readRDS(model_files[16]),
+        readRDS(model_files[17]), readRDS(model_files[18]),
+        readRDS(model_files[19]), readRDS(model_files[20]),
+        weights = &quot;bma&quot;)
+    )
+  
+  # Format the posterior model probabilities nicely in a table
+  resp_model_weights &lt;- round(weights_post_probability, 3) 
+  names(resp_model_weights) &lt;- all_formulas
+  
+  model_selection_table &lt;- enframe(resp_model_weights, 
+                                   name = &quot;Model&quot;, 
+                                   value = &quot;Posterior model probability&quot;)
+  model_selection_table &lt;- bind_rows(
+    model_selection_table[1:10, ] %&gt;% 
+      mutate(i = 1:10) %&gt;% 
+      arrange(-`Posterior model probability`),
+    model_selection_table[11:20, ] %&gt;% 
+      mutate(i = 11:20) %&gt;% 
+      arrange(-`Posterior model probability`)) %&gt;%
+    filter(`Posterior model probability` &gt; 0.01)
+  
+  model_selection_table &lt;- model_selection_table %&gt;%
+    mutate(Model = str_remove_all(Model, &quot;n_touches ~ &quot;),
+           Model = str_remove_all(Model, &quot;touch_duration ~ &quot;),
+           Model = str_remove_all(Model, &quot;has_&quot;),
+           Model = str_remove_all(Model, &quot;\\+ hive \\+ \\(1 \\| tray\\)&quot;)) 
+  
+  model_selection_table %&gt;% saveRDS(&quot;output/model_selection_table.rds&quot;)
+} else{
+  model_selection_table &lt;- readRDS(&quot;output/model_selection_table.rds&quot;)
+}
+
+formulae &lt;- c(top_10_model_formulae_count, top_10_model_formulae_duration)</code></pre>
+</div>
+<div id="perform-bayesian-model-averaging" class="section level3">
+<h3>Perform Bayesian model averaging</h3>
+<p>Here, we performed model averaging of the top 10 Bayesian models of the “number of contacts” response variable, and the top 10 for the “duration of contacts” variable.</p>
+<pre class="r"><code># Define some new data to predict the response variables for
+new &lt;- summary_data %&gt;%
+  arrange(hive, treatment) %&gt;%
+  select(treatment, hive, has_10HDA, has_HVA, has_HOB, has_9HDA, has_9ODA) %&gt;%
+  mutate(number_bees = 5) %&gt;% 
+  distinct() %&gt;% mutate(key = paste(&quot;V&quot;, 1:n(), sep = &quot;&quot;))
+
+# Predict the treatment means for the n_count variable, averaging over 10 models
+means_count &lt;- pp_average(
+  readRDS(model_files[1]), readRDS(model_files[2]), 
+  readRDS(model_files[3]), readRDS(model_files[4]),
+  readRDS(model_files[5]), readRDS(model_files[6]),
+  readRDS(model_files[7]), readRDS(model_files[8]),
+  readRDS(model_files[9]), readRDS(model_files[10]),
+  method = &quot;pp_expect&quot;, weights = &quot;stacking&quot;, 
+  newdata = new, re_formula = NA, summary = FALSE) 
+
+# Predict the treatment means for the total_duration variable, averaging over 10 models
+means_duration &lt;- pp_average(
+  readRDS(model_files[11]), readRDS(model_files[12]), 
+  readRDS(model_files[13]), readRDS(model_files[14]),
+  readRDS(model_files[15]), readRDS(model_files[16]),
+  readRDS(model_files[17]), readRDS(model_files[18]),
+  readRDS(model_files[19]), readRDS(model_files[20]),
+  method = &quot;pp_expect&quot;, weights = &quot;stacking&quot;,
+  newdata = new, re_formula = NA, summary = FALSE) </code></pre>
+</div>
+</div>
+<div id="tables-of-model-results" class="section level2">
+<h2>Tables of model results</h2>
+<p>This section presents a table of the fixed effects estimates, either for the full model, or after model averaging over the top 10 models.</p>
+<div id="tables-of-fixed-effect-parameter-estimates" class="section level3 tabset">
+<h3>Tables of fixed effect parameter estimates</h3>
+<div id="as-estimated-by-the-full-model" class="section level4">
+<h4>As estimated by the full model</h4>
+<pre class="r"><code>pvalues &lt;- as.data.frame(p_direction(multivariate_brms)) %&gt;% 
+  mutate(Parameter = str_remove_all(Parameter, &quot;b_&quot;),
+         Parameter = str_replace_all(Parameter, &quot;[.]&quot;, &quot;:&quot;),
+         p = 1 - pd)  %&gt;% select(Parameter, p) %&gt;% distinct()</code></pre>
+<pre><code>Warning in (function (..., deparse.level = 1) : number of columns of result is
+not a multiple of vector length (arg 1)</code></pre>
+<pre class="r"><code>fixed_effects &lt;- fixef(multivariate_brms) %&gt;% 
+  as.data.frame() %&gt;%
+  rownames_to_column(&quot;Parameter&quot;) %&gt;%
+  mutate(old_names = Parameter) %&gt;%
+  left_join(pvalues, by = &quot;Parameter&quot;) %&gt;%
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;)) %&gt;%
+  mutate(`Response variable` = ifelse(grepl(&quot;ntouches&quot;, Parameter), &quot;Number of contacts&quot;, &quot;Total duration of contact&quot;),
+         Parameter = str_remove_all(Parameter, &quot;ntouches_&quot;),
+         Parameter = str_remove_all(Parameter, &quot;touchduration_&quot;),
+         Parameter = str_remove_all(Parameter, &quot;1&quot;),
+         Parameter = str_replace_all(Parameter, &quot;scalenumber_bees&quot;, &quot;Number of bees in group (scaled)&quot;),
+         Parameter = str_replace_all(Parameter, &quot;has_0&quot;, &quot;has_10&quot;),
+         Parameter = str_remove_all(Parameter, &quot;has_&quot;),
+         Parameter = str_replace_all(Parameter, &quot;hiveSkylab&quot;, &quot;Hive (Skylab)&quot;),
+         Parameter = str_replace_all(Parameter, &quot;hiveZoology&quot;, &quot;Hive (Zoology)&quot;),
+         Parameter = str_replace_all(Parameter, &quot;:&quot;, &quot; x &quot;)) %&gt;%
+  arrange(`Response variable`) %&gt;%
+  mutate_at(vars(Estimate, Est.Error, Q2.5, Q97.5), ~ round(.x, 3))  %&gt;%
+  mutate(p = round(p, 4)) %&gt;%
+  select(`Response variable`, everything())
+
+fixed_effects %&gt;% select(-old_names, -`Response variable`) %&gt;%
+  kable() %&gt;% kable_styling(full_width = FALSE) %&gt;%
+  group_rows(&quot;Number of contacts&quot;, 1, 15) %&gt;%
+  group_rows(&quot;Total duration of contact&quot;, 16, 30) </code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Q2.5
+</th>
+<th style="text-align:right;">
+Q97.5
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="15">
+<td colspan="7" style="border-bottom: 1px solid;">
+<strong>Number of contacts</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Intercept
+</td>
+<td style="text-align:right;">
+3.420
+</td>
+<td style="text-align:right;">
+0.116
+</td>
+<td style="text-align:right;">
+3.189
+</td>
+<td style="text-align:right;">
+3.649
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10HDA
+</td>
+<td style="text-align:right;">
+0.061
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+-0.160
+</td>
+<td style="text-align:right;">
+0.277
+</td>
+<td style="text-align:right;">
+0.2865
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA
+</td>
+<td style="text-align:right;">
+-0.037
+</td>
+<td style="text-align:right;">
+0.112
+</td>
+<td style="text-align:right;">
+-0.256
+</td>
+<td style="text-align:right;">
+0.181
+</td>
+<td style="text-align:right;">
+0.3697
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB
+</td>
+<td style="text-align:right;">
+-0.092
+</td>
+<td style="text-align:right;">
+0.113
+</td>
+<td style="text-align:right;">
+-0.314
+</td>
+<td style="text-align:right;">
+0.129
+</td>
+<td style="text-align:right;">
+0.2066
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA
+</td>
+<td style="text-align:right;">
+-0.007
+</td>
+<td style="text-align:right;">
+0.114
+</td>
+<td style="text-align:right;">
+-0.229
+</td>
+<td style="text-align:right;">
+0.220
+</td>
+<td style="text-align:right;">
+0.4711
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA
+</td>
+<td style="text-align:right;">
+0.202
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+-0.012
+</td>
+<td style="text-align:right;">
+0.413
+</td>
+<td style="text-align:right;">
+0.0332
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Hive (Skylab)
+</td>
+<td style="text-align:right;">
+0.416
+</td>
+<td style="text-align:right;">
+0.135
+</td>
+<td style="text-align:right;">
+0.151
+</td>
+<td style="text-align:right;">
+0.683
+</td>
+<td style="text-align:right;">
+0.0015
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Hive (Zoology)
+</td>
+<td style="text-align:right;">
+0.515
+</td>
+<td style="text-align:right;">
+0.127
+</td>
+<td style="text-align:right;">
+0.264
+</td>
+<td style="text-align:right;">
+0.764
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Number of bees in group (scaled)
+</td>
+<td style="text-align:right;">
+0.028
+</td>
+<td style="text-align:right;">
+0.052
+</td>
+<td style="text-align:right;">
+-0.075
+</td>
+<td style="text-align:right;">
+0.132
+</td>
+<td style="text-align:right;">
+0.2936
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA x HOB
+</td>
+<td style="text-align:right;">
+0.137
+</td>
+<td style="text-align:right;">
+0.162
+</td>
+<td style="text-align:right;">
+-0.181
+</td>
+<td style="text-align:right;">
+0.455
+</td>
+<td style="text-align:right;">
+0.1970
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA x 9HDA
+</td>
+<td style="text-align:right;">
+0.042
+</td>
+<td style="text-align:right;">
+0.160
+</td>
+<td style="text-align:right;">
+-0.273
+</td>
+<td style="text-align:right;">
+0.353
+</td>
+<td style="text-align:right;">
+0.3980
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA x 9ODA
+</td>
+<td style="text-align:right;">
+-0.027
+</td>
+<td style="text-align:right;">
+0.156
+</td>
+<td style="text-align:right;">
+-0.334
+</td>
+<td style="text-align:right;">
+0.279
+</td>
+<td style="text-align:right;">
+0.4331
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB x 9HDA
+</td>
+<td style="text-align:right;">
+0.042
+</td>
+<td style="text-align:right;">
+0.163
+</td>
+<td style="text-align:right;">
+-0.279
+</td>
+<td style="text-align:right;">
+0.362
+</td>
+<td style="text-align:right;">
+0.4008
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB x 9ODA
+</td>
+<td style="text-align:right;">
+0.064
+</td>
+<td style="text-align:right;">
+0.157
+</td>
+<td style="text-align:right;">
+-0.246
+</td>
+<td style="text-align:right;">
+0.373
+</td>
+<td style="text-align:right;">
+0.3446
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA x 9ODA
+</td>
+<td style="text-align:right;">
+-0.096
+</td>
+<td style="text-align:right;">
+0.159
+</td>
+<td style="text-align:right;">
+-0.411
+</td>
+<td style="text-align:right;">
+0.214
+</td>
+<td style="text-align:right;">
+0.2768
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr grouplength="15">
+<td colspan="7" style="border-bottom: 1px solid;">
+<strong>Total duration of contact</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Intercept
+</td>
+<td style="text-align:right;">
+3.655
+</td>
+<td style="text-align:right;">
+0.300
+</td>
+<td style="text-align:right;">
+3.068
+</td>
+<td style="text-align:right;">
+4.248
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10HDA
+</td>
+<td style="text-align:right;">
+0.060
+</td>
+<td style="text-align:right;">
+0.319
+</td>
+<td style="text-align:right;">
+-0.565
+</td>
+<td style="text-align:right;">
+0.690
+</td>
+<td style="text-align:right;">
+0.4253
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA
+</td>
+<td style="text-align:right;">
+0.274
+</td>
+<td style="text-align:right;">
+0.316
+</td>
+<td style="text-align:right;">
+-0.355
+</td>
+<td style="text-align:right;">
+0.891
+</td>
+<td style="text-align:right;">
+0.1924
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB
+</td>
+<td style="text-align:right;">
+-0.306
+</td>
+<td style="text-align:right;">
+0.318
+</td>
+<td style="text-align:right;">
+-0.939
+</td>
+<td style="text-align:right;">
+0.323
+</td>
+<td style="text-align:right;">
+0.1656
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA
+</td>
+<td style="text-align:right;">
+-0.137
+</td>
+<td style="text-align:right;">
+0.317
+</td>
+<td style="text-align:right;">
+-0.759
+</td>
+<td style="text-align:right;">
+0.497
+</td>
+<td style="text-align:right;">
+0.3296
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA
+</td>
+<td style="text-align:right;">
+0.814
+</td>
+<td style="text-align:right;">
+0.307
+</td>
+<td style="text-align:right;">
+0.214
+</td>
+<td style="text-align:right;">
+1.412
+</td>
+<td style="text-align:right;">
+0.0041
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Hive (Skylab)
+</td>
+<td style="text-align:right;">
+0.778
+</td>
+<td style="text-align:right;">
+0.324
+</td>
+<td style="text-align:right;">
+0.139
+</td>
+<td style="text-align:right;">
+1.420
+</td>
+<td style="text-align:right;">
+0.0086
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Hive (Zoology)
+</td>
+<td style="text-align:right;">
+0.703
+</td>
+<td style="text-align:right;">
+0.302
+</td>
+<td style="text-align:right;">
+0.107
+</td>
+<td style="text-align:right;">
+1.296
+</td>
+<td style="text-align:right;">
+0.0113
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+Number of bees in group (scaled)
+</td>
+<td style="text-align:right;">
+0.072
+</td>
+<td style="text-align:right;">
+0.126
+</td>
+<td style="text-align:right;">
+-0.173
+</td>
+<td style="text-align:right;">
+0.321
+</td>
+<td style="text-align:right;">
+0.2839
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA x HOB
+</td>
+<td style="text-align:right;">
+0.215
+</td>
+<td style="text-align:right;">
+0.453
+</td>
+<td style="text-align:right;">
+-0.658
+</td>
+<td style="text-align:right;">
+1.100
+</td>
+<td style="text-align:right;">
+0.3220
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA x 9HDA
+</td>
+<td style="text-align:right;">
+0.358
+</td>
+<td style="text-align:right;">
+0.449
+</td>
+<td style="text-align:right;">
+-0.522
+</td>
+<td style="text-align:right;">
+1.242
+</td>
+<td style="text-align:right;">
+0.2112
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA x 9ODA
+</td>
+<td style="text-align:right;">
+-0.209
+</td>
+<td style="text-align:right;">
+0.444
+</td>
+<td style="text-align:right;">
+-1.076
+</td>
+<td style="text-align:right;">
+0.662
+</td>
+<td style="text-align:right;">
+0.3202
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB x 9HDA
+</td>
+<td style="text-align:right;">
+0.344
+</td>
+<td style="text-align:right;">
+0.459
+</td>
+<td style="text-align:right;">
+-0.562
+</td>
+<td style="text-align:right;">
+1.231
+</td>
+<td style="text-align:right;">
+0.2272
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB x 9ODA
+</td>
+<td style="text-align:right;">
+0.523
+</td>
+<td style="text-align:right;">
+0.447
+</td>
+<td style="text-align:right;">
+-0.357
+</td>
+<td style="text-align:right;">
+1.404
+</td>
+<td style="text-align:right;">
+0.1185
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA x 9ODA
+</td>
+<td style="text-align:right;">
+-0.075
+</td>
+<td style="text-align:right;">
+0.441
+</td>
+<td style="text-align:right;">
+-0.943
+</td>
+<td style="text-align:right;">
+0.781
+</td>
+<td style="text-align:right;">
+0.4323
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="as-estimated-by-model-averaging-of-the-top-10-models" class="section level4">
+<h4>As estimated by model averaging of the top 10 models</h4>
+<pre class="r"><code># getting model-averaged parameter estimates...
+count_mod_avg &lt;- posterior_average(
+  readRDS(model_files[1]), readRDS(model_files[2]), 
+  readRDS(model_files[3]), readRDS(model_files[4]),
+  readRDS(model_files[5]), readRDS(model_files[6]),
+  readRDS(model_files[7]), readRDS(model_files[8]),
+  readRDS(model_files[9]), readRDS(model_files[10]),
+  weights = &quot;stacking&quot;, missing = 0) %&gt;%
+  select(contains(&quot;b_&quot;), contains(&quot;sd_&quot;))
+
+# getting model-averaged parameter estimates...
+duration_mod_avg &lt;- posterior_average(
+  readRDS(model_files[11]), readRDS(model_files[12]), 
+  readRDS(model_files[13]), readRDS(model_files[14]),
+  readRDS(model_files[15]), readRDS(model_files[16]),
+  readRDS(model_files[17]), readRDS(model_files[18]),
+  readRDS(model_files[19]), readRDS(model_files[20]),
+  weights = &quot;stacking&quot;, missing = 0) %&gt;%
+  select(contains(&quot;b_&quot;), contains(&quot;sd_&quot;))
+
+count_mod_avg_p &lt;- 
+ count_mod_avg %&gt;% select(starts_with(&quot;b_has&quot;)) %&gt;% 
+    summarise_all(~ as.numeric(p_direction(.x))) %&gt;%
+  gather(Parameter, p) %&gt;% mutate(p = 1 - p)
+
+duration_mod_avg_p &lt;- 
+ duration_mod_avg %&gt;% select(starts_with(&quot;b_has&quot;)) %&gt;% 
+    summarise_all(~ as.numeric(p_direction(.x))) %&gt;%
+  gather(Parameter, p) %&gt;% mutate(p = 1 - p)
+
+# parameter values averaged over models...
+bind_rows(
+  count_mod_avg %&gt;% select(starts_with(&quot;b_has&quot;)) %&gt;% 
+    summarise_all(~ list(posterior_summary(.x))) %&gt;% 
+    gather(Parameter, value) %&gt;%
+    mutate(Estimate = map_dbl(value, ~ .x[1]),
+           Est.Error = map_dbl(value, ~ .x[2]),
+           Lower_95_CI = map_dbl(value, ~ .x[3]),
+           Upper_95_CI = map_dbl(value, ~ .x[4])) %&gt;%
+    mutate(Response = &quot;Count&quot;) %&gt;%
+    left_join(count_mod_avg_p, by = &quot;Parameter&quot;),
+  
+  duration_mod_avg %&gt;%  select(starts_with(&quot;b_has&quot;)) %&gt;% 
+    summarise_all(~ list(posterior_summary(.x))) %&gt;% 
+    gather(Parameter, value) %&gt;%
+    mutate(Estimate = map_dbl(value, ~ .x[1]),
+           Est.Error = map_dbl(value, ~ .x[2]),
+           Lower_95_CI = map_dbl(value, ~ .x[3]),
+           Upper_95_CI = map_dbl(value, ~ .x[4])) %&gt;%
+    mutate(Response = &quot;Duration&quot;) %&gt;%
+    left_join(duration_mod_avg_p, by = &quot;Parameter&quot;) 
+)  %&gt;%
+  select(-value) %&gt;%
+  mutate(Parameter = str_remove_all(Parameter, &quot;b_has_&quot;),
+         Parameter = str_remove_all(Parameter, &quot;has_&quot;),
+         Parameter = str_remove_all(Parameter, &quot;1&quot;),
+         Parameter = str_replace_all(Parameter, &quot;0&quot;, &quot;10&quot;),
+         Parameter = str_replace_all(Parameter, &quot;:&quot;, &quot; x &quot;)) %&gt;%
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;)) %&gt;%
+    arrange(Response, -abs(Estimate)) %&gt;%
+  select(-Response) %&gt;%
+  kable(digits = 3) %&gt;% kable_styling(full_width = FALSE) %&gt;%
+  group_rows(&quot;Number of contacts&quot;, 1, 6) %&gt;%
+  group_rows(&quot;Total duration of contact&quot;, 7, 14)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Lower_95_CI
+</th>
+<th style="text-align:right;">
+Upper_95_CI
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="6">
+<td colspan="7" style="border-bottom: 1px solid;">
+<strong>Number of contacts</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+0.049
+</td>
+<td style="text-align:right;">
+0.078
+</td>
+<td style="text-align:right;">
+0.269
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10HDA
+</td>
+<td style="text-align:right;">
+0.034
+</td>
+<td style="text-align:right;">
+0.067
+</td>
+<td style="text-align:right;">
+-0.041
+</td>
+<td style="text-align:right;">
+0.216
+</td>
+<td style="text-align:right;">
+0.669
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.999
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA x 9ODA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="7" style="border-bottom: 1px solid;">
+<strong>Total duration of contact</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA
+</td>
+<td style="text-align:right;">
+0.778
+</td>
+<td style="text-align:right;">
+0.178
+</td>
+<td style="text-align:right;">
+0.419
+</td>
+<td style="text-align:right;">
+1.120
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA
+</td>
+<td style="text-align:right;">
+0.330
+</td>
+<td style="text-align:right;">
+0.161
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+<td style="text-align:right;">
+0.647
+</td>
+<td style="text-align:right;">
+0.021
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA x HOB
+</td>
+<td style="text-align:right;">
+0.166
+</td>
+<td style="text-align:right;">
+0.308
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.994
+</td>
+<td style="text-align:right;">
+0.714
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA x HVA
+</td>
+<td style="text-align:right;">
+-0.067
+</td>
+<td style="text-align:right;">
+0.192
+</td>
+<td style="text-align:right;">
+-0.677
+</td>
+<td style="text-align:right;">
+0.044
+</td>
+<td style="text-align:right;">
+0.827
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB
+</td>
+<td style="text-align:right;">
+-0.055
+</td>
+<td style="text-align:right;">
+0.125
+</td>
+<td style="text-align:right;">
+-0.420
+</td>
+<td style="text-align:right;">
+0.044
+</td>
+<td style="text-align:right;">
+0.743
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA x HVA
+</td>
+<td style="text-align:right;">
+0.034
+</td>
+<td style="text-align:right;">
+0.148
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.599
+</td>
+<td style="text-align:right;">
+0.933
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA
+</td>
+<td style="text-align:right;">
+-0.011
+</td>
+<td style="text-align:right;">
+0.061
+</td>
+<td style="text-align:right;">
+-0.222
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.941
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10HDA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="table-ranking-the-top-10-models-by-posterior-probability" class="section level3">
+<h3>Table ranking the top 10 models by posterior probability</h3>
+<p>This table the posterior probability of each of the top 10 models, for each response variable. The posterior probability is equivalent to the probability that the focal model is the best-fitting one in the set, given the data and the priors (NB: each model was assumed ot be equally likely a priori).</p>
+<pre class="r"><code>model_selection_table %&gt;%
+  select(-i) %&gt;%
+  kable() %&gt;% kable_styling(full_width = FALSE) %&gt;%
+  group_rows(&quot;Number of contacts&quot;, 1, 6) %&gt;%
+  group_rows(&quot;Total duration of contact&quot;, 7, 14)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Model
+</th>
+<th style="text-align:right;">
+Posterior model probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="6">
+<td colspan="2" style="border-bottom: 1px solid;">
+<strong>Number of contacts</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA
+</td>
+<td style="text-align:right;">
+0.854
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA + number_bees
+</td>
+<td style="text-align:right;">
+0.056
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10HDA + 9ODA
+</td>
+<td style="text-align:right;">
+0.040
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA + HOB
+</td>
+<td style="text-align:right;">
+0.017
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA + 9ODA
+</td>
+<td style="text-align:right;">
+0.016
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA + HVA
+</td>
+<td style="text-align:right;">
+0.014
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="2" style="border-bottom: 1px solid;">
+<strong>Total duration of contact</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA + HVA
+</td>
+<td style="text-align:right;">
+0.622
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA + 9ODA:HVA + HVA
+</td>
+<td style="text-align:right;">
+0.119
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA + HVA + number_bees
+</td>
+<td style="text-align:right;">
+0.097
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10HDA + 9ODA + HVA
+</td>
+<td style="text-align:right;">
+0.061
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA + HOB + HVA
+</td>
+<td style="text-align:right;">
+0.031
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9HDA + 9ODA + HVA
+</td>
+<td style="text-align:right;">
+0.030
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9ODA + 9ODA:HOB + HOB + HVA
+</td>
+<td style="text-align:right;">
+0.016
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10HDA + 9ODA + 9ODA:HVA + HVA
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tables-of-effect-size-estimates" class="section level3 tabset">
+<h3>Tables of effect size estimates</h3>
+<div id="derived-from-the-full-model" class="section level4">
+<h4>Derived from the full model</h4>
+<pre class="r"><code># Get the posterior predictions for the means for both response variables
+multivar_predictions &lt;- bind_rows(
+  
+  fitted(multivariate_brms, newdata = new, 
+         re_formula = NA, resp = &quot;ntouches&quot;, summary = FALSE) %&gt;% 
+    as.data.frame() %&gt;% mutate(draw = 1:n()) %&gt;%
+    gather(key, value, -draw) %&gt;% 
+    left_join(new, by = &quot;key&quot;) %&gt;% 
+    mutate(resp = &quot;Number of contacts with lure&quot;),
+  
+  fitted(multivariate_brms, newdata = new, 
+         re_formula = NA, resp = &quot;touchduration&quot;, summary = FALSE) %&gt;% 
+    as.data.frame() %&gt;% mutate(draw = 1:n()) %&gt;%
+    gather(key, value, -draw) %&gt;% 
+    left_join(new, by = &quot;key&quot;) %&gt;% 
+    mutate(resp = &quot;Duration of contact (seconds)&quot;)
+  
+  ) %&gt;%
+  mutate(contains_9ODA = ifelse(grepl(&quot;9-ODA&quot;, treatment), &quot;Yes&quot;, &quot;No&quot;)) %&gt;%
+  mutate(treatment = factor(treatment, rev(treatment_levels))) %&gt;%
+  group_by(treatment, resp, contains_9ODA, draw) %&gt;% # average over hives
+  summarise(value = mean(value)) %&gt;%
+  ungroup()
+
+SD_n_touches &lt;- sd(summary_data$n_touches)
+SD_touch_duration &lt;- sd(summary_data$touch_duration)
+
+# calculate effect size as (mean_i - mean_control) / SD, i.e. Cohen&#39;s d
+full_model_effect_sizes &lt;- multivar_predictions %&gt;%
+  mutate(resp = relevel(factor(resp), ref = &quot;Number of contacts with lure&quot;)) %&gt;%
+  arrange(desc(treatment)) %&gt;%
+  group_by(draw, resp) %&gt;%
+  mutate(value = ifelse(resp == &quot;Duration of contact (seconds)&quot;,
+                        (value - value[1]) / SD_touch_duration,
+                        (value - value[1]) / SD_n_touches)) %&gt;%
+  ungroup() %&gt;%
+  filter(treatment != &quot;Solvent control&quot;) %&gt;%
+  rename(response = resp)
+
+p_vals_full &lt;- full_model_effect_sizes %&gt;%
+  group_by(response, treatment) %&gt;%
+  summarise(p = 1 - as.numeric(p_direction(value)))
+
+full_model_effect_sizes %&gt;%
+  group_by(response, treatment) %&gt;%
+  summarise(value = list(posterior_summary(value))) %&gt;% 
+  ungroup() %&gt;%
+  mutate(`Effect size\n(Cohen&#39;s d)` = map_dbl(value, ~ .x[1]),
+         Est.Error = map_dbl(value, ~ .x[2]),
+         Lower_95_CI = map_dbl(value, ~ .x[3]),
+         Upper_95_CI = map_dbl(value, ~ .x[4])) %&gt;%
+  left_join(p_vals_full, by = c(&quot;response&quot;, &quot;treatment&quot;)) %&gt;%
+  arrange(response, desc(treatment)) %&gt;%
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;)) %&gt;%
+  select(-value, -response) %&gt;%
+  rename(Treatment = treatment) %&gt;%
+  kable(digits = 3) %&gt;%
+  kable_styling(full_width = FALSE) %&gt;%
+  group_rows(&quot;Number of contacts&quot;, 1, 11) %&gt;%
+  group_rows(&quot;Total duration of contact&quot;, 12, 22)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Treatment
+</th>
+<th style="text-align:right;">
+Effect size (Cohen’s d)
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Lower_95_CI
+</th>
+<th style="text-align:right;">
+Upper_95_CI
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="11">
+<td colspan="7" style="border-bottom: 1px solid;">
+<strong>Number of contacts</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+0.106
+</td>
+<td style="text-align:right;">
+0.194
+</td>
+<td style="text-align:right;">
+-0.277
+</td>
+<td style="text-align:right;">
+0.489
+</td>
+<td style="text-align:right;">
+0.287
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB
+</td>
+<td style="text-align:right;">
+-0.147
+</td>
+<td style="text-align:right;">
+0.182
+</td>
+<td style="text-align:right;">
+-0.510
+</td>
+<td style="text-align:right;">
+0.209
+</td>
+<td style="text-align:right;">
+0.207
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA
+</td>
+<td style="text-align:right;">
+-0.061
+</td>
+<td style="text-align:right;">
+0.186
+</td>
+<td style="text-align:right;">
+-0.423
+</td>
+<td style="text-align:right;">
+0.304
+</td>
+<td style="text-align:right;">
+0.370
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA
+</td>
+<td style="text-align:right;">
+-0.010
+</td>
+<td style="text-align:right;">
+0.193
+</td>
+<td style="text-align:right;">
+-0.385
+</td>
+<td style="text-align:right;">
+0.378
+</td>
+<td style="text-align:right;">
+0.471
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA
+</td>
+<td style="text-align:right;">
+0.377
+</td>
+<td style="text-align:right;">
+0.205
+</td>
+<td style="text-align:right;">
+-0.022
+</td>
+<td style="text-align:right;">
+0.784
+</td>
+<td style="text-align:right;">
+0.033
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+0.014
+</td>
+<td style="text-align:right;">
+0.195
+</td>
+<td style="text-align:right;">
+-0.360
+</td>
+<td style="text-align:right;">
+0.399
+</td>
+<td style="text-align:right;">
+0.471
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA and HOB
+</td>
+<td style="text-align:right;">
+-0.092
+</td>
+<td style="text-align:right;">
+0.188
+</td>
+<td style="text-align:right;">
+-0.465
+</td>
+<td style="text-align:right;">
+0.283
+</td>
+<td style="text-align:right;">
+0.310
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+-0.004
+</td>
+<td style="text-align:right;">
+0.186
+</td>
+<td style="text-align:right;">
+-0.370
+</td>
+<td style="text-align:right;">
+0.366
+</td>
+<td style="text-align:right;">
+0.492
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and HOB
+</td>
+<td style="text-align:right;">
+0.320
+</td>
+<td style="text-align:right;">
+0.210
+</td>
+<td style="text-align:right;">
+-0.083
+</td>
+<td style="text-align:right;">
+0.748
+</td>
+<td style="text-align:right;">
+0.061
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and HVA
+</td>
+<td style="text-align:right;">
+0.250
+</td>
+<td style="text-align:right;">
+0.202
+</td>
+<td style="text-align:right;">
+-0.137
+</td>
+<td style="text-align:right;">
+0.652
+</td>
+<td style="text-align:right;">
+0.105
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:right;">
+0.178
+</td>
+<td style="text-align:right;">
+0.197
+</td>
+<td style="text-align:right;">
+-0.202
+</td>
+<td style="text-align:right;">
+0.571
+</td>
+<td style="text-align:right;">
+0.184
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr grouplength="11">
+<td colspan="7" style="border-bottom: 1px solid;">
+<strong>Total duration of contact</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+0.035
+</td>
+<td style="text-align:right;">
+0.185
+</td>
+<td style="text-align:right;">
+-0.326
+</td>
+<td style="text-align:right;">
+0.414
+</td>
+<td style="text-align:right;">
+0.425
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB
+</td>
+<td style="text-align:right;">
+-0.142
+</td>
+<td style="text-align:right;">
+0.156
+</td>
+<td style="text-align:right;">
+-0.471
+</td>
+<td style="text-align:right;">
+0.151
+</td>
+<td style="text-align:right;">
+0.166
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+0.209
+</td>
+<td style="text-align:right;">
+-0.215
+</td>
+<td style="text-align:right;">
+0.612
+</td>
+<td style="text-align:right;">
+0.192
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA
+</td>
+<td style="text-align:right;">
+-0.068
+</td>
+<td style="text-align:right;">
+0.166
+</td>
+<td style="text-align:right;">
+-0.404
+</td>
+<td style="text-align:right;">
+0.265
+</td>
+<td style="text-align:right;">
+0.330
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA
+</td>
+<td style="text-align:right;">
+0.681
+</td>
+<td style="text-align:right;">
+0.315
+</td>
+<td style="text-align:right;">
+0.160
+</td>
+<td style="text-align:right;">
+1.387
+</td>
+<td style="text-align:right;">
+0.004
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+0.112
+</td>
+<td style="text-align:right;">
+0.202
+</td>
+<td style="text-align:right;">
+-0.262
+</td>
+<td style="text-align:right;">
+0.542
+</td>
+<td style="text-align:right;">
+0.291
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA and HOB
+</td>
+<td style="text-align:right;">
+-0.048
+</td>
+<td style="text-align:right;">
+0.176
+</td>
+<td style="text-align:right;">
+-0.402
+</td>
+<td style="text-align:right;">
+0.301
+</td>
+<td style="text-align:right;">
+0.382
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+0.347
+</td>
+<td style="text-align:right;">
+0.245
+</td>
+<td style="text-align:right;">
+-0.078
+</td>
+<td style="text-align:right;">
+0.887
+</td>
+<td style="text-align:right;">
+0.058
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and HOB
+</td>
+<td style="text-align:right;">
+0.984
+</td>
+<td style="text-align:right;">
+0.416
+</td>
+<td style="text-align:right;">
+0.322
+</td>
+<td style="text-align:right;">
+1.943
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and HVA
+</td>
+<td style="text-align:right;">
+0.766
+</td>
+<td style="text-align:right;">
+0.346
+</td>
+<td style="text-align:right;">
+0.203
+</td>
+<td style="text-align:right;">
+1.551
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:right;">
+0.450
+</td>
+<td style="text-align:right;">
+0.275
+</td>
+<td style="text-align:right;">
+-0.017
+</td>
+<td style="text-align:right;">
+1.068
+</td>
+<td style="text-align:right;">
+0.029
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="derived-from-model-averaging" class="section level4">
+<h4>Derived from model averaging</h4>
+<pre class="r"><code>effect_size_calc &lt;- function(averaged_means, resp){
+  
+  # Helper function to get the posterior log2 ratio of treatment means
+  get_data &lt;- function(elements, hive_number) {
+    lapply(elements, function(i) {
+      
+      posterior_mean_differences &lt;- 
+        averaged_means[,i] - averaged_means[,1 + 12 * (hive_number-1)]
+      
+      if(resp == &quot;Number of contacts with lure&quot;){
+        posterior_cohens_d &lt;- posterior_mean_differences / SD_n_touches
+      } else {
+        posterior_cohens_d &lt;- posterior_mean_differences / SD_touch_duration
+      }
+      
+      posterior_cohens_d
+      }) %&gt;% 
+      do.call(&quot;cbind&quot;, .) %&gt;% 
+      as.data.frame() %&gt;% 
+      mutate(draw = 1:n()) %&gt;%
+      gather(key, value, -draw) %&gt;% 
+      left_join(new, by = &quot;key&quot;) %&gt;%
+      mutate(response = resp) %&gt;%
+      filter(treatment != &quot;Solvent control&quot;) %&gt;% 
+      mutate(hive = hive_number) %&gt;% 
+      as_tibble()
+  }
+  
+  # Average across hives
+  bind_rows(get_data(1:12, 1), 
+            get_data(13:24, 2), 
+            get_data(25:36, 3)) %&gt;%
+    mutate(contains_9ODA = ifelse(grepl(&quot;9-ODA&quot;, treatment), &quot;Yes&quot;, &quot;No&quot;)) %&gt;%
+    mutate(treatment = factor(treatment, rev(treatment_levels))) %&gt;%
+    group_by(treatment, response, draw, contains_9ODA) %&gt;%
+    summarise(value = mean(value)) %&gt;% 
+    ungroup()
+  
+}
+
+model_avg_effect_sizes &lt;- bind_rows(
+  means_count %&gt;% effect_size_calc(&quot;Number of contacts with lure&quot;),
+  means_duration %&gt;% effect_size_calc(&quot;Duration of contact with lure&quot;)
+) %&gt;%
+    mutate(response = relevel(factor(response), ref = &quot;Number of contacts with lure&quot;)) 
+
+p_vals_avg &lt;- model_avg_effect_sizes %&gt;%
+  group_by(response, treatment) %&gt;%
+  summarise(p = 1 - as.numeric(p_direction(value)))
+
+
+model_avg_effect_sizes %&gt;%
+  group_by(response, treatment) %&gt;%
+  summarise(value = list(posterior_summary(value))) %&gt;% 
+  ungroup() %&gt;%
+  mutate(Estimate = map_dbl(value, ~ .x[1]),
+         Est.Error = map_dbl(value, ~ .x[2]),
+         Lower_95_CI = map_dbl(value, ~ .x[3]),
+         Upper_95_CI = map_dbl(value, ~ .x[4])) %&gt;%
+  left_join(p_vals_avg, by = c(&quot;response&quot;, &quot;treatment&quot;)) %&gt;%
+  arrange(response, desc(treatment)) %&gt;%
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;)) %&gt;%
+  select(-value, -response) %&gt;%
+  rename(Treatment = treatment) %&gt;%
+  kable(digits = 3) %&gt;%
+  kable_styling(full_width = FALSE) %&gt;%
+  group_rows(&quot;Number of contacts&quot;, 1, 11) %&gt;%
+  group_rows(&quot;Total duration of contact&quot;, 12, 22)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Treatment
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Lower_95_CI
+</th>
+<th style="text-align:right;">
+Upper_95_CI
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="11">
+<td colspan="7" style="border-bottom: 1px solid;">
+<strong>Number of contacts</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+0.059
+</td>
+<td style="text-align:right;">
+0.119
+</td>
+<td style="text-align:right;">
+-0.068
+</td>
+<td style="text-align:right;">
+0.386
+</td>
+<td style="text-align:right;">
+0.670
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.999
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA
+</td>
+<td style="text-align:right;">
+0.312
+</td>
+<td style="text-align:right;">
+0.092
+</td>
+<td style="text-align:right;">
+0.136
+</td>
+<td style="text-align:right;">
+0.496
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.999
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA and HOB
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.999
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and HOB
+</td>
+<td style="text-align:right;">
+0.311
+</td>
+<td style="text-align:right;">
+0.092
+</td>
+<td style="text-align:right;">
+0.136
+</td>
+<td style="text-align:right;">
+0.496
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and HVA
+</td>
+<td style="text-align:right;">
+0.312
+</td>
+<td style="text-align:right;">
+0.092
+</td>
+<td style="text-align:right;">
+0.136
+</td>
+<td style="text-align:right;">
+0.496
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:right;">
+0.312
+</td>
+<td style="text-align:right;">
+0.092
+</td>
+<td style="text-align:right;">
+0.136
+</td>
+<td style="text-align:right;">
+0.496
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr grouplength="11">
+<td colspan="7" style="border-bottom: 1px solid;">
+<strong>Total duration of contact</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB
+</td>
+<td style="text-align:right;">
+-0.025
+</td>
+<td style="text-align:right;">
+0.060
+</td>
+<td style="text-align:right;">
+-0.196
+</td>
+<td style="text-align:right;">
+0.025
+</td>
+<td style="text-align:right;">
+0.745
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HVA
+</td>
+<td style="text-align:right;">
+0.197
+</td>
+<td style="text-align:right;">
+0.107
+</td>
+<td style="text-align:right;">
+0.009
+</td>
+<td style="text-align:right;">
+0.427
+</td>
+<td style="text-align:right;">
+0.020
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA
+</td>
+<td style="text-align:right;">
+-0.005
+</td>
+<td style="text-align:right;">
+0.029
+</td>
+<td style="text-align:right;">
+-0.102
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.941
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA
+</td>
+<td style="text-align:right;">
+0.592
+</td>
+<td style="text-align:right;">
+0.185
+</td>
+<td style="text-align:right;">
+0.277
+</td>
+<td style="text-align:right;">
+1.004
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+0.161
+</td>
+<td style="text-align:right;">
+0.126
+</td>
+<td style="text-align:right;">
+-0.089
+</td>
+<td style="text-align:right;">
+0.421
+</td>
+<td style="text-align:right;">
+0.091
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA and HOB
+</td>
+<td style="text-align:right;">
+-0.030
+</td>
+<td style="text-align:right;">
+0.064
+</td>
+<td style="text-align:right;">
+-0.205
+</td>
+<td style="text-align:right;">
+0.039
+</td>
+<td style="text-align:right;">
+0.686
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+0.215
+</td>
+<td style="text-align:right;">
+0.122
+</td>
+<td style="text-align:right;">
+0.024
+</td>
+<td style="text-align:right;">
+0.497
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and HOB
+</td>
+<td style="text-align:right;">
+0.734
+</td>
+<td style="text-align:right;">
+0.294
+</td>
+<td style="text-align:right;">
+0.356
+</td>
+<td style="text-align:right;">
+1.499
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and HVA
+</td>
+<td style="text-align:right;">
+0.929
+</td>
+<td style="text-align:right;">
+0.310
+</td>
+<td style="text-align:right;">
+0.405
+</td>
+<td style="text-align:right;">
+1.615
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:right;">
+0.580
+</td>
+<td style="text-align:right;">
+0.186
+</td>
+<td style="text-align:right;">
+0.258
+</td>
+<td style="text-align:right;">
+0.992
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="plotting-the-results" class="section level2">
+<h2>Plotting the results</h2>
+<p>These plots show the estimates of effect size for each pheromone treatment. We define effect size as <span class="math inline">\(log2(\bar{x}_{i} / \bar{x}_{control})\)</span>, where <span class="math inline">\(\bar{x}_{i}\)</span> is the posterior estimate of the mean in treatment <span class="math inline">\(i\)</span>, and <span class="math inline">\(\bar{x}_{control}\)</span> is the same for the solvent-only control.</p>
+<p>These estimates are plotted either using estimates of the mean from the full model, or from model averaging over the top 10 models.</p>
+<div id="estimated-effect-size-for-each-treatment" class="section level3 tabset">
+<h3>Estimated effect size for each treatment</h3>
+<div id="estimated-using-the-full-model" class="section level4">
+<h4>Estimated using the full model</h4>
+<pre class="r"><code>nice_dot_plot &lt;- function(effect_sizes, with_dots = TRUE){
+  plot &lt;- effect_sizes %&gt;%
+    ggplot(aes(value, treatment)) +
+    geom_vline(xintercept = 0, linetype = 2) + 
+    geom_vline(xintercept = 0.5, linetype = 3, colour = &quot;tomato&quot;) + 
+    stat_pointintervalh(position = position_nudge(y = -0.07), .width = c(0.5, 0.95), alpha = 0.8) +
+    theme_bw() +
+    scale_fill_brewer(palette = &quot;BrBG&quot;) + 
+    facet_wrap(~ response, scales = &quot;free_x&quot;) +
+    theme(legend.position = &quot;none&quot;) + 
+    xlab(&quot;Posterior estimate of effect size (Cohen&#39;s d)&quot;) +
+    ylab(&quot;Pheromone treatment&quot;)
+  
+    if(with_dots) plot + stat_dotsh(quantiles = 100, colour = &quot;grey10&quot;, aes(fill = response)) 
+    else plot
+}
+
+
+full_model_effect_size_plot &lt;- nice_dot_plot(full_model_effect_sizes)
+
+full_model_effect_size_plot</code></pre>
+<p><img src="figure/statistics.Rmd/plot_post_predictions_1-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="estimated-by-averaging-over-the-top-10-models" class="section level4">
+<h4>Estimated by averaging over the top 10 models</h4>
+<pre class="r"><code>model_avg_effect_size_plot &lt;- nice_dot_plot(model_avg_effect_sizes)
+
+model_avg_effect_size_plot</code></pre>
+<p><img src="figure/statistics.Rmd/plot_post_predictions_2-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="testing-for-synergy-between-the-four-queen-chemicals" class="section level3 tabset">
+<h3>Testing for synergy between the four queen chemicals</h3>
+<p>Here, we calculate a metric to capture the type and degree of synergy between each pair of the four queen-like chemicals. Synergy is calculated as <code>effect_of_both - (effect_of_chem1 + effect_of_chem2)</code>. The resulting “synergy score” therefore describes how much more or less positive is the effect size of both chemicals together, relative to the sum of their individual effects. There seems to be some positive synergy between 9-ODA and HOB, though it is not statistically significant (as expected given that the relevant 2-way interaction was not significant in the models above).</p>
+<div id="estimated-using-the-full-model-1" class="section level4">
+<h4>Estimated using the full model</h4>
+<pre class="r"><code>make_synergy_plot &lt;- function(effect_size_posterior, with_dots = TRUE){
+  
+  # Set up a table of the 6 pheromone blends, listing chem1 and chem2 for each one
+  combos &lt;- tibble(
+    treatment = treatment_levels[grepl(&quot;and&quot;, treatment_levels)],
+    chem1 = map_chr(strsplit(treatment, split = &quot; &quot;), ~ .x[1]),
+    chem2 = map_chr(strsplit(treatment, split = &quot;and &quot;), ~ .x[2])
+  ) %&gt;% as.data.frame()
+  
+  wide_format &lt;- effect_size_posterior %&gt;%
+    select(-contains_9ODA) %&gt;%
+    spread(treatment, value)
+  
+  # Synergy metric: it is zero under additivity, 
+  # positive = &quot;greater than sum of parts&quot;, negative = &quot;less than sum of parts&quot;
+  calculate_synergy &lt;- function(effect_of_both, effect_of_chem1, effect_of_chem2){
+    effect_of_both - (effect_of_chem1 + effect_of_chem2)
+  }
+  
+  # Calculte posterior synergy metric for each of the six 2-chemical blends
+  synergy_test &lt;- wide_format %&gt;% select(response, draw) %&gt;%
+    bind_cols(
+      lapply(1:nrow(combos), function(i){
+        calculate_synergy(
+          effect_of_both = wide_format %&gt;% pull(combos$treatment[i]),
+          effect_of_chem1 = wide_format %&gt;% pull(combos$chem1[i]),
+          effect_of_chem2 = wide_format %&gt;% pull(combos$chem2[i])
+        )
+      }) %&gt;% bind_cols() 
+    )
+  
+  names(synergy_test)[3:ncol(synergy_test)] &lt;- combos$treatment
+  
+  plot &lt;- synergy_test %&gt;%
+    gather(treatment, synergy_stat, -response, -draw) %&gt;%
+    ggplot(aes(synergy_stat, treatment)) +
+   # geom_vline(xintercept = 0.5, linetype = 3, colour = &quot;tomato&quot;) + 
+    geom_vline(xintercept = 0, linetype = 2) + 
+    stat_pointintervalh(position = position_nudge(y = -0.07), .width = c(0.5, 0.95)) +
+    scale_fill_brewer(palette = &quot;BrBG&quot;) + 
+    theme_bw() +
+    facet_wrap(~ response, scales = &quot;free_x&quot;) +
+    theme(legend.position = &quot;none&quot;) + 
+    xlab(&quot;Posterior estimate of synergy\n(positive values indicate positive synergy between chemicals)&quot;) +
+    ylab(&quot;Pheromone treatment&quot;)
+  
+  if(with_dots) {
+    plot + 
+      geom_vline(xintercept = 0.5, linetype = 3, colour = &quot;tomato&quot;) + 
+      stat_dotsh(quantiles = 100, colour = &quot;grey10&quot;, aes(fill = response)) 
+  } else plot
+}
+
+make_synergy_plot(full_model_effect_sizes)</code></pre>
+<p><img src="figure/statistics.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="estimated-by-averaging-over-the-top-10-models-1" class="section level4">
+<h4>Estimated by averaging over the top 10 models</h4>
+<pre class="r"><code>make_synergy_plot(model_avg_effect_sizes, with_dots = FALSE)</code></pre>
+<p><img src="figure/statistics.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!-- ```{r run_brms} -->
+<!-- run_all_brms <- function(){ -->
+<!--   run_mod <- function(formula, return_model = FALSE){ -->
+<!--     model <- brm( -->
+<!--       as.formula(formula), -->
+<!--       family = "negbinomial", -->
+<!--       data = summary_data, -->
+<!--       prior = prior(normal(0, 5), class = b), -->
+<!--       cores = 1, chains = 4, iter = 10000, -->
+<!--       save_all_pars = TRUE, -->
+<!--       control = list(adapt_delta = 0.999, max_treedepth = 14))  -->
+<!--     if(return_model) return(model) -->
+<!--     list(formula = formula,  -->
+<!--          loo = brms::loo(model),  -->
+<!--          bs = brms::bridge_sampler(model)) %>% -->
+<!--       saveRDS(file = paste("model_", sample(999999, 1), ".rds", sep = "")) -->
+<!--     rm(model); Sys.sleep(2) # to save memory and prevent crashes -->
+<!--     return(NULL) -->
+<!--   } -->
+<!--   compare_models_function <- function(model_fit_metrics){ -->
+<!--      # Use functions from the loo package to compute LOO model weights  -->
+<!--   # and posterior model probability for the top 10 models -->
+<!--   tibble( -->
+<!--     formula = map_chr(model_fit_metrics, ~ .x[[1]]), -->
+<!--     pseudo_BMA_weight = as.numeric( -->
+<!--       loo::loo_model_weights(list( -->
+<!--         m1 = model_fit_metrics[[1]]$loo,  -->
+<!--         m2 = model_fit_metrics[[2]]$loo,  -->
+<!--         m3 = model_fit_metrics[[3]]$loo, -->
+<!--         m4 = model_fit_metrics[[4]]$loo, -->
+<!--         m5 = model_fit_metrics[[5]]$loo, -->
+<!--         m6 = model_fit_metrics[[6]]$loo, -->
+<!--         m7 = model_fit_metrics[[7]]$loo, -->
+<!--         m8 = model_fit_metrics[[8]]$loo, -->
+<!--         m9 = model_fit_metrics[[9]]$loo, -->
+<!--         m10 = model_fit_metrics[[10]]$loo), method = "pseudobma")), -->
+<!--     post_prob = as.numeric( -->
+<!--       bridgesampling::post_prob( -->
+<!--         model_fit_metrics[[1]]$bs,  -->
+<!--         model_fit_metrics[[2]]$bs,  -->
+<!--         model_fit_metrics[[3]]$bs, -->
+<!--         model_fit_metrics[[4]]$bs, -->
+<!--         model_fit_metrics[[5]]$bs, -->
+<!--         model_fit_metrics[[6]]$bs, -->
+<!--         model_fit_metrics[[7]]$bs, -->
+<!--         model_fit_metrics[[8]]$bs, -->
+<!--         model_fit_metrics[[9]]$bs, -->
+<!--         model_fit_metrics[[10]]$bs)),  -->
+<!--     stacking_weight = as.numeric( -->
+<!--       loo::loo_model_weights(list( -->
+<!--         m1 = model_fit_metrics[[1]]$loo,  -->
+<!--         m2 = model_fit_metrics[[2]]$loo,  -->
+<!--         m3 = model_fit_metrics[[3]]$loo, -->
+<!--         m4 = model_fit_metrics[[4]]$loo, -->
+<!--         m5 = model_fit_metrics[[5]]$loo, -->
+<!--         m6 = model_fit_metrics[[6]]$loo, -->
+<!--         m7 = model_fit_metrics[[7]]$loo, -->
+<!--         m8 = model_fit_metrics[[8]]$loo, -->
+<!--         m9 = model_fit_metrics[[9]]$loo, -->
+<!--         m10 = model_fit_metrics[[10]]$loo), method = "stacking"))) %>% -->
+<!--     arrange(-pseudo_BMA_weight) %>% -->
+<!--     mutate(pseudo_BMA_weight = round(pseudo_BMA_weight, 4), -->
+<!--            post_prob = round(post_prob, 4), -->
+<!--            neat_formula = str_remove_all(formula, "has_"), -->
+<!--            neat_formula = str_replace_all(neat_formula, "10", "10-"), -->
+<!--            neat_formula = str_replace_all(neat_formula, "9", "9-")) -->
+<!--   } -->
+<!--   # Run the top 10 models selected by glmmTMB in brms, and save the fit statistics to disk -->
+<!--   lapply(top_10_model_formulae_count, run_mod)  -->
+<!--   model_fit_files <- list.files(pattern = "model_") -->
+<!--   model_comparison_table_count_brms <- model_fit_files %>% lapply(readRDS) %>% compare_models_function() -->
+<!--   saveRDS(model_comparison_table_count_brms, "output/model_comparison_table_count_brms.rds") -->
+<!--   unlink(model_fit_files) -->
+<!--   # Do the same, but with duration as the response variable -->
+<!--   lapply(top_10_model_formulae_duration, run_mod)  -->
+<!--   model_fit_files <- list.files(pattern = "model_") -->
+<!--   model_comparison_table_duration_brms <- model_fit_files %>% lapply(readRDS) %>% compare_models_function()  -->
+<!--   saveRDS(model_comparison_table_duration_brms, "output/model_comparison_table_duration_brms.rds") -->
+<!--   unlink(model_fit_files) -->
+<!--   # to_run <- model_comparison_table_duration_brms %>% filter(stacking_weight > 0.01) %>% pull(formula) -->
+<!--   # high_stacking_weight_models <- lapply(to_run, run_mod, return_model = TRUE)  -->
+<!--   # model_avg_results <- posterior_average(high_stacking_weight_models[[1]], -->
+<!--   #                                        high_stacking_weight_models[[2]], -->
+<!--   #                                        high_stacking_weight_models[[3]], -->
+<!--   #                                        high_stacking_weight_models[[4]], -->
+<!--   #                                        missing = 0, -->
+<!--   #                                        weights = "stacking") -->
+<!--   count_model <- brm( -->
+<!--     n_touches ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | tray), -->
+<!--     family = "negbinomial", -->
+<!--     data = summary_data, -->
+<!--     prior = prior(normal(0, 5), class = b), -->
+<!--     cores = 1, chains = 4, iter = 10000, -->
+<!--     control = list(adapt_delta = 0.999, max_treedepth = 14) -->
+<!--   ) -->
+<!--   duration_model <- brm( -->
+<!--     touch_duration ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | tray), -->
+<!--     family = "negbinomial", -->
+<!--     data = summary_data, -->
+<!--     prior = prior(normal(0, 5), class = b), -->
+<!--     cores = 1, chains = 4, iter = 10000, -->
+<!--     control = list(adapt_delta = 0.999, max_treedepth = 14) -->
+<!--   ) -->
+<!--   saveRDS(count_model, "output/count_model.rds") -->
+<!--   saveRDS(duration_model, "output/duration_model.rds") -->
+<!-- } -->
+<!-- if(!file.exists("output/duration_model.rds")) run_all_brms() -->
+<!-- else{ -->
+<!--   count_model <- readRDS("output/count_model.rds") -->
+<!--   duration_model <- readRDS("output/duration_model.rds") -->
+<!--   model_comparison_table_count_brms <- readRDS("output/model_comparison_table_count_brms.rds") -->
+<!--   model_comparison_table_duration_brms <- readRDS("output/model_comparison_table_duration_brms.rds") -->
+<!-- } -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- new <- summary_data %>% -->
+<!--   arrange(treatment, hive) %>% -->
+<!--   select(treatment, has_10HDA, has_HVA, has_HOB, has_9HDA, has_9ODA) %>% -->
+<!--   mutate(n_touches = 100, hive = "Zoology") %>%  -->
+<!--   distinct() %>% mutate(key = as.character(1:n())) -->
+<!-- posterior_samples(count_model) %>% as_tibble() %>% -->
+<!--   select(contains("b_has")) %>% -->
+<!--   gather() %>%  -->
+<!--   ggplot(aes(key, value, fill = key)) +  -->
+<!--   geom_hline(yintercept = 0, linetype = 2) +  -->
+<!--   geom_eye(.width = c(0.66, 0.95)) + coord_flip() + -->
+<!--   theme(legend.position = "none")  -->
+<!-- posterior_samples(duration_model) %>% as_tibble() %>% -->
+<!--   select(contains("b_has")) %>% -->
+<!--   gather() %>%  -->
+<!--   ggplot(aes(key, value, fill = key)) +  -->
+<!--   geom_hline(yintercept = 0, linetype = 2) +  -->
+<!--   geom_eye(.width = c(0.66, 0.95)) + coord_flip() + -->
+<!--   theme(legend.position = "none")  -->
+<!-- n_draws <- nrow(posterior_samples(duration_model)) -->
+<!-- count_preds <- fitted(count_model, newdata = new, re_formula = NA, summary = FALSE) %>%  -->
+<!--   as.data.frame() %>% as_tibble() %>% mutate(posterior_draw = 1:n()) %>%  -->
+<!--   rename_all(~ str_remove(.x, "V")) %>% -->
+<!--   gather("key", "value", -posterior_draw) %>%  -->
+<!--   left_join(new, by = "key") %>% -->
+<!--   mutate(response = "Number of contacts with pheormone") %>% select(-key) -->
+<!-- duration_preds <- fitted(duration_model, newdata = new, re_formula = NA, summary = FALSE) %>%   # , scale = "linear" -->
+<!--   as.data.frame() %>% as_tibble() %>% mutate(posterior_draw = 1:n()) %>%  -->
+<!--   rename_all(~ str_remove(.x, "V")) %>% -->
+<!--   gather("key", "value", -posterior_draw) %>%  -->
+<!--   left_join(new, by = "key") %>% -->
+<!--   mutate(response = "Number of contacts with pheormone") %>% select(-key) -->
+<!-- count_preds %>% -->
+<!--   mutate(treatment = factor(treatment, rev(levels(treatment)))) %>% -->
+<!--   ggplot(aes(value, treatment, fill = treatment)) +  -->
+<!--   geom_eyeh(.width = c(0.66, 0.95)) +  -->
+<!--   xlab("Mean number of contacts (posterior estimate)") +  -->
+<!--   ylab("Pheromone treatment") +  -->
+<!--   theme(legend.position = "none") + -->
+<!--   coord_cartesian(xlim = c(30, 90)) -->
+<!-- duration_preds %>% -->
+<!--   mutate(treatment = factor(treatment, rev(levels(treatment)))) %>% -->
+<!--   ggplot(aes(value, treatment, fill = treatment)) +  -->
+<!--   geom_eyeh(.width = c(0.66, 0.95)) +  -->
+<!--   xlab("Mean duration of contact with pheromone (posterior estimate)") +  -->
+<!--   ylab("Pheromone treatment") +  -->
+<!--   theme(legend.position = "none") + -->
+<!--   scale_x_log10() -->
+<!-- funky_plot <- function(preds, yl){ -->
+<!--   bind_rows( -->
+<!--   preds %>% -->
+<!--     filter(treatment %in% c("Solvent control", "9-ODA", "HVA", "9-ODA and HVA")) %>% mutate(f="9-ODA and HVA"), -->
+<!--   preds %>% -->
+<!--     filter(treatment %in% c("Solvent control", "9-ODA", "HOB", "9-ODA and HOB"))%>% mutate(f="9-ODA and HOB"),  -->
+<!--   preds %>% -->
+<!--     filter(treatment %in% c("Solvent control", "9-ODA", "9-HDA", "9-ODA and 9-HDA"))%>% mutate(f="9-ODA and 9-HDA"), -->
+<!--   preds %>% -->
+<!--     filter(treatment %in% c("Solvent control", "9-HDA", "HOB", "9-HDA and HOB"))%>% mutate(f="9-HDA and HOB"), -->
+<!--   preds %>% -->
+<!--     filter(treatment %in% c("Solvent control", "9-HDA", "HVA", "9-HDA and HVA"))%>% mutate(f="9-HDA and HVA"), -->
+<!--   preds %>% -->
+<!--     filter(treatment %in% c("Solvent control", "HOB", "HVA", "HOB and HVA"))%>% mutate(f="HOB and HVA") -->
+<!-- ) %>%  -->
+<!--   mutate(f = factor(f, unique(f))) %>% -->
+<!--   mutate(has_focal = ifelse(grepl("9-ODA and", f) & has_9ODA == 1, "Yes", "No"), -->
+<!--          has_focal = replace(has_focal, grepl("9-HDA and", f) & has_9HDA == 1, "Yes"), -->
+<!--          has_focal = replace(has_focal, grepl("HOB and", f) & has_HOB == 1, "Yes")) %>% -->
+<!--   ggplot(aes(has_focal, value, fill = treatment)) +  -->
+<!--   stat_eye(position = position_dodge(0.8), alpha = 0.7, pch = 21, point_fill = "white", point_alpha = 1)  + -->
+<!--   ylab("Mean duration of contact with pheromone (posterior estimate)") +  -->
+<!--   coord_cartesian(ylim = yl) +  -->
+<!--   facet_wrap(~f)   # , scales = "free_y" -->
+<!-- } -->
+<!-- funky_plot(duration_preds, yl = c(40, 750))   -->
+<!-- funky_plot(count_preds, yl = c(25, 88)) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- sd_n_touches <- sd(summary_data$n_touches) -->
+<!-- sd_duration <- sd(summary_data$touch_duration) -->
+<!-- count_preds %>% -->
+<!--   group_by(posterior_draw) %>% -->
+<!--   mutate(value = (value - value[1]) / 1) %>% -->
+<!--   ungroup() %>% -->
+<!--   filter(treatment != "Solvent control") %>% -->
+<!--     mutate(treatment = factor(treatment, rev(levels(treatment)))) %>% -->
+<!--   ggplot(aes(value, treatment, fill = treatment)) +  -->
+<!--   geom_vline(xintercept = 0, colour = "white", linetype = 2) +  -->
+<!--   geom_eyeh(.width = c(0.66, 0.95)) +  -->
+<!--   xlab("Effect size (number of contacts, posterior estimate)") +  -->
+<!--   ylab("Pheromone treatment") +  -->
+<!--   theme_black() +  -->
+<!--   theme(legend.position = "none") -->
+<!-- duration_preds %>% -->
+<!--   group_by(posterior_draw) %>% -->
+<!--   mutate(value = (value - value[1]) / 1) %>% -->
+<!--   ungroup() %>% -->
+<!--   filter(treatment != "Solvent control") %>% -->
+<!--     mutate(treatment = factor(treatment, rev(levels(treatment)))) %>% -->
+<!--   ggplot(aes(value, treatment, fill = treatment)) +  -->
+<!--   geom_vline(xintercept = 0, colour = "white", linetype = 2) +  -->
+<!--   geom_eyeh(.width = c(0.66, 0.95)) +  -->
+<!--   xlab("Effect size (duration of contact, posterior estimate)") +  -->
+<!--   ylab("Pheromone treatment") +  -->
+<!--   theme_black() +  -->
+<!--   theme(legend.position = "none") -->
+<!-- ``` -->
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre>R version 3.6.2 (2019-12-12)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] knitrhooks_0.0.4   knitr_1.28         bayestestR_0.5.1   future.apply_1.4.0
+ [5] future_1.16.0      glue_1.3.1         kableExtra_1.1.0   MuMIn_1.43.15     
+ [9] lme4_1.1-21        Matrix_1.2-18      glmmTMB_1.0.0      gridExtra_2.3     
+[13] brms_2.12.0        Rcpp_1.0.3         tidybayes_2.0.1    ggbeeswarm_0.6.0  
+[17] forcats_0.4.0      stringr_1.4.0      dplyr_0.8.4        purrr_0.3.3       
+[21] readr_1.3.1        tidyr_1.0.2        tibble_2.1.3       ggplot2_3.3.0     
+[25] tidyverse_1.3.0   
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.3.1         backports_1.1.5      workflowr_1.6.0     
+  [4] plyr_1.8.5           igraph_1.2.4.2       TMB_1.7.16          
+  [7] splines_3.6.2        svUnit_0.7-12        listenv_0.8.0       
+ [10] crosstalk_1.0.0      TH.data_1.0-10       rstantools_2.0.0    
+ [13] inline_0.3.15        digest_0.6.23        htmltools_0.4.0     
+ [16] rsconnect_0.8.16     fansi_0.4.1          magrittr_1.5        
+ [19] globals_0.12.5       modelr_0.1.5         matrixStats_0.55.0  
+ [22] xts_0.12-0           sandwich_2.5-1       prettyunits_1.1.1   
+ [25] colorspace_1.4-1     rvest_0.3.5          haven_2.2.0         
+ [28] xfun_0.12            callr_3.4.1          crayon_1.3.4        
+ [31] jsonlite_1.6.1       survival_3.1-8       zoo_1.8-7           
+ [34] gtable_0.3.0         emmeans_1.4.4009002  webshot_0.5.2       
+ [37] pkgbuild_1.0.6       rstan_2.19.2         abind_1.4-5         
+ [40] scales_1.1.0         mvtnorm_1.0-12       DBI_1.1.0           
+ [43] miniUI_0.1.1.1       viridisLite_0.3.0    xtable_1.8-4        
+ [46] stats4_3.6.2         StanHeaders_2.21.0-1 DT_0.12             
+ [49] htmlwidgets_1.5.1    httr_1.4.1           threejs_0.3.3       
+ [52] RColorBrewer_1.1-2   arrayhelpers_1.1-0   ellipsis_0.3.0      
+ [55] farver_2.0.3         pkgconfig_2.0.3      loo_2.2.0           
+ [58] dbplyr_1.4.2         labeling_0.3         tidyselect_1.0.0    
+ [61] rlang_0.4.4          reshape2_1.4.3       later_1.0.0         
+ [64] munsell_0.5.0        cellranger_1.1.0     tools_3.6.2         
+ [67] cli_2.0.1            generics_0.0.2       broom_0.5.4         
+ [70] ggridges_0.5.2       evaluate_0.14        fastmap_1.0.1       
+ [73] yaml_2.2.1           processx_3.4.2       fs_1.3.1            
+ [76] nlme_3.1-144         whisker_0.4          mime_0.9            
+ [79] xml2_1.2.2           compiler_3.6.2       bayesplot_1.7.1     
+ [82] shinythemes_1.1.2    rstudioapi_0.11      beeswarm_0.2.3      
+ [85] reprex_0.3.0         stringi_1.4.5        highr_0.8           
+ [88] ps_1.3.0             Brobdingnag_1.2-6    lattice_0.20-38     
+ [91] nloptr_1.2.1         markdown_1.1         shinyjs_1.1         
+ [94] vctrs_0.2.2          pillar_1.4.3         lifecycle_0.1.0     
+ [97] bridgesampling_0.8-1 estimability_1.3     insight_0.8.1       
+[100] httpuv_1.5.2         R6_2.4.1             promises_1.1.0      
+[103] vipor_0.4.5          codetools_0.2-16     boot_1.3-24         
+[106] colourpicker_1.0     MASS_7.3-51.5        gtools_3.8.1        
+[109] assertthat_0.2.1     rprojroot_1.3-2      withr_2.1.2         
+[112] shinystan_2.5.0      multcomp_1.4-12      parallel_3.6.2      
+[115] hms_0.5.3            grid_3.6.2           coda_0.19-3         
+[118] minqa_1.2.4          rmarkdown_2.1        git2r_0.26.1        
+[121] shiny_1.4.0          lubridate_1.7.4      base64enc_0.1-3     
+[124] dygraphs_1.1.1.6    
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
