@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Pre-registered statistical analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">apis_retinue_expt</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Pre-registered statistical analysis</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-03-11
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>apis_retinue_expt/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190828code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190828)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190828code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190828)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttreeb536404d0cbab9fce9eec20c79a905b2c94160a8targetblankb536404a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/b536404d0cbab9fce9eec20c79a905b2c94160a8" target="_blank">b536404</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttreeb536404d0cbab9fce9eec20c79a905b2c94160a8targetblankb536404a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    Figures and tables.docx
+    Ignored:    data/.DS_Store
+    Ignored:    data/behaviour_data_OLDER_VERSION.csv
+    Ignored:    data/raw_blinded_behaviour_data_OLD_VERSION.csv
+    Ignored:    output/hive_as_fixed_effect_model.rds
+    Ignored:    output/model_comparison_table_count_brms.rds
+    Ignored:    output/model_comparison_table_duration_brms.rds
+    Ignored:    output/model_selection_table.rds
+    Ignored:    output/model_selection_table_count_glmmTMB.rds
+    Ignored:    output/model_selection_table_duration_glmmTMB.rds
+    Ignored:    output/model_weights_random_slope.rds
+    Ignored:    output/multivariate_brms.rds
+    Ignored:    output/pre_reg_model.rds
+    Ignored:    output/top_10_model_formulae_count.rds
+    Ignored:    output/top_10_model_formulae_duration.rds
+    Ignored:    pheromone paper draft.docx
+    Ignored:    ~$gures and tables.docx
+
+Untracked files:
+    Untracked:  analysis/preregistered_analysis.Rmd
+    Untracked:  data/data_for_each_group_bees.csv
+    Untracked:  data/metadata_for_each_dish_and_tray.csv
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/clean_raw_data.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/statistics.Rmd
+    Modified:   data/raw_blinded_behaviour_data.csv
+    Modified:   data/unblinded_behaviour_data.csv
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="recap-analysis-plan-from-the-pre-registration" class="section level2">
+<h2>Recap: analysis plan from the pre-registration</h2>
+<p>The pre-registration for this study can be found at <a href="">https://osf.io/ncf9z/</a>. As well as outlining the experimental methods, the pre-registration included a plan for the statistical analysis, which we quote here:</p>
+<blockquote>
+<p><em>We will conduct two separate analyses, one for the behavioural data and one for the ovary dissection data. The analyses will use generalised linear mixed models (GLMM) be implemented using the R package brms, using one of the following two model formulas (in the syntax of brms): Model 1: <code>Response_variable ~ Pheromone_treatment + (1 | Block) + (1 | Hive)</code>     or     Model 2: <code>Response_variable ~ Pheromone_treatment + (1 | Block) + (Pheromone_treatment | Hive)</code> Where <code>Pheromone_treatment</code> is a 12-level fixed factor. Model 1 fits hive as a random intercept, which constrains all the hives to show the same response to queen pheromone, while the latter allows for a variable response between hives by additionally including treatment as a random slope. We will use cross-validation to determine which of these models provides a better fit, and then use that in subsequent analyses. The behavioural data represent counts of events, and so will probably be analysed using a GLMM with Poisson errors (or perhaps zero-inflated Poisson or negative binomial – to be decided based on which one provides the best fit, according to posterior predictive checks).</em></p>
+</blockquote>
+<p>In this document, we follow these instructions to the letter. However, after writing the pre-registration and collecting the data, we thought of a better way to model the data (see LINK HERE), which forms the paper’s main analysis. In the interests of completeness and transparency we present the pre-registered analysis here as well; the conclusions are very similar to the main analysis.</p>
+</div>
+<div id="load-the-data" class="section level2">
+<h2>Load the data</h2>
+<pre class="r"><code>library(tidyverse)
+library(ggbeeswarm)
+library(tidybayes)
+library(brms)
+library(gridExtra)
+library(kableExtra)
+library(bayestestR)
+library(knitrhooks) # install with devtools::install_github(&quot;nathaneastwood/knitrhooks&quot;)
+output_max_height() # a knitrhook option
+options(stringsAsFactors = FALSE)
+
+# Here are the treatments, ranked roughly from least to most like a queen bee
+treatment_levels &lt;-
+  # two &quot;controls&quot;
+  c(&quot;Solvent control&quot;, &quot;10-HDA (worker control)&quot;,
+
+    # 4 individual queen-type chemicals
+    &quot;HOB&quot;, &quot;HVA&quot;, &quot;9-HDA&quot;, &quot;9-ODA&quot;,
+
+    # 6 pairwise combinations of two of the queen-type chemicals
+    &quot;HOB and HVA&quot;,
+    &quot;9-HDA and HOB&quot;, &quot;9-HDA and HVA&quot;,
+    &quot;9-ODA and HOB&quot;, &quot;9-ODA and HVA&quot;, &quot;9-ODA and 9-HDA&quot;)
+
+
+# Load the behaviour data and rename the variables as in the pre-registration
+# Also put the pheromone treatment levels in a biologically sensible order (not alphabetical)
+behaviour_data &lt;- read.csv(&quot;data/unblinded_behaviour_data.csv&quot;) %&gt;%
+  as_tibble() %&gt;%
+  rename(Pheromone_treatment = treatment,
+         Block = tray,
+         Hive = hive) %&gt;%
+  mutate(Pheromone_treatment = factor(Pheromone_treatment, levels = treatment_levels))
+
+# Finally, count up the number of times the bees in each dish touched the filter paper, 
+# so that we now have 1 observation for each Petri dish (number of touches in 30 minute-observation period)
+summary_data &lt;- behaviour_data %&gt;%
+  group_by(Pheromone_treatment, Block, Hive, dish) %&gt;%
+  summarise(Response_variable = n()) %&gt;% 
+  ungroup() %&gt;%
+  arrange(Pheromone_treatment, Hive, Block) </code></pre>
+</div>
+<div id="inspect-overall-distribution-of-the-response-variable" class="section level2">
+<h2>Inspect overall distribution of the response variable</h2>
+<p>It does not look zero-inflated (as proposed in the pre-registration), though the right tail is longer than I would expect for a Poisson-distributed random variable. Therefore, it seems appropriate to select the negative binomial distribution, which has an additional free parameter for the variance, and so should be able to fit the data better.</p>
+<pre class="r"><code>ggplot(summary_data, aes(Response_variable)) + 
+  geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
+  xlab(&quot;Number of contacts with pheromone-treated lure in 30 minutes&quot;)</code></pre>
+<p><img src="figure/preregistered_analysis.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="now-run-the-pre-registered-analysis-in-brms" class="section level2">
+<h2>Now run the pre-registered analysis in <code>brms</code></h2>
+<p>Here, we run the model exactly as stated in the pre-registration. Note that the pre-registered model throws a warning about having 3 “divergent transitions”, meaning that problems (probably mild) were encountered during model fitting. The most likely reason is that the random effect <code>Hive</code> has only 3 levels, making the between-hive variance hard to estimate from these data.</p>
+<p>Because this issue could not be resolved by increasing the sampling parameters <code>adapt_delta</code> and <code>max_treedepth</code> well above their defaults, we also fit an otherwise identical model in which <code>Hive</code> was treated as a fixed effect. Unlike the pre-registered version, this model runs very quickly (often a sign that the sampler is not struggling to fit the model) and it does not throw any errors, and we later show that the main conclusions are qualitatively identical, and quantitatively near-identical.</p>
+<pre class="r"><code>if(!file.exists(&quot;output/pre_reg_model.rds&quot;)){ 
+  
+  priors &lt;- c(prior(normal(0, 3), class = b))
+  
+  pre_reg_model &lt;- brm(
+    formula = Response_variable ~ Pheromone_treatment + (1 | Block) + (1 | Hive),
+    family = &quot;negbinomial&quot;,
+    sample_prior = TRUE,
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = summary_data)
+  
+  pre_reg_with_random_slope &lt;- brm(
+    formula = Response_variable ~ Pheromone_treatment + (1 | Block) + (Pheromone_treatment | Hive), 
+    family = &quot;negbinomial&quot;, 
+    sample_prior = TRUE,
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = summary_data)
+  
+  model_weights_random_slope &lt;- model_weights(pre_reg_model, pre_reg_with_random_slope, weights = &quot;loo&quot;)
+  
+  hive_as_fixed_effect_model &lt;- brm(
+    formula = Response_variable ~ Pheromone_treatment + Hive + (1 | Block), 
+    family = &quot;negbinomial&quot;, 
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = summary_data)
+  
+  saveRDS(hive_as_fixed_effect_model, file = &quot;output/hive_as_fixed_effect_model.rds&quot;)
+  saveRDS(model_weights_random_slope, &quot;output/model_weights_random_slope.rds&quot;)
+  saveRDS(pre_reg_model, file = &quot;output/pre_reg_model.rds&quot;)
+} else {
+  pre_reg_model &lt;- readRDS(&quot;output/pre_reg_model.rds&quot;)
+  hive_as_fixed_effect_model &lt;- readRDS(&quot;output/hive_as_fixed_effect_model.rds&quot;)
+  model_weights_random_slope &lt;- readRDS(&quot;output/model_weights_random_slope.rds&quot;)
+}</code></pre>
+</div>
+<div id="the-model-without-the-random-slope-fits-better" class="section level2">
+<h2>The model without the random slope fits better</h2>
+<p>The model formula named “Model 1” in the pre-registration had a better fit than the one named Model 2 (i.e. the simpler model lacking the random slope was preferred). The model weight of Model 1 was &gt;99.999% (computed using “LOO”, or leave-one-out cross validation), indicating strong support over the more complex model.</p>
+<pre class="r"><code>model_weights_random_slope </code></pre>
+<pre>            pre_reg_model pre_reg_with_random_slope 
+              0.999966292               0.000033708 
+</pre>
+</div>
+<div id="posterior-predictive-plots-to-verify-model-fit" class="section level2">
+<h2>Posterior predictive plots to verify model fit</h2>
+<p>Here we perform a “posterior predictive check” on both models. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. Both models look fine: the fitted values recapitulate the orignal data well, which is a necessary condition for the model to produce useful inferences.</p>
+<pre class="r"><code>grid.arrange(
+  pp_check(pre_reg_model) + labs(title = &quot;Pre-registered model&quot;),
+  pp_check(hive_as_fixed_effect_model) + labs(title = &quot;Model with hive as a fixed effect&quot;))</code></pre>
+<p><img src="figure/preregistered_analysis.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="inspect-the-models-parameter-estimates" class="section level2 tabset">
+<h2>Inspect the model’s parameter estimates</h2>
+<p>Click the tabs to compare the results for the model that was pre-registered, and the modified one that treated hive as a fixed effect to improve fit. The results are almost identical.</p>
+<div id="for-the-model-with-hive-as-a-random-effect" class="section level3">
+<h3>For the model with hive as a <strong>random</strong> effect</h3>
+<pre class="r"><code>pvalues &lt;- as.data.frame(p_direction(pre_reg_model)) %&gt;% 
+  mutate(Parameter = str_remove_all(Parameter, &quot;b_&quot;),
+         Parameter = str_replace_all(Parameter, &quot;[.]&quot;, &quot;:&quot;),
+         p = 1- pd)  %&gt;% select(Parameter, p) %&gt;% distinct()
+
+fixed_effects &lt;- fixef(pre_reg_model) %&gt;% 
+  as.data.frame() %&gt;%
+  rownames_to_column(&quot;Parameter&quot;) %&gt;%
+  mutate(old_names = Parameter) %&gt;%
+  left_join(pvalues, by = &quot;Parameter&quot;) %&gt;%
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;),
+         Parameter = str_replace_all(Parameter, &quot;Pheromone_treatment&quot;, &quot;&quot;),
+         Parameter = str_replace_all(Parameter, &quot;M&quot;, &quot;-&quot;),
+         Parameter = str_replace_all(Parameter, &quot;and&quot;, &quot; and &quot;),
+         Parameter = str_replace_all(Parameter, &quot;workercontrol&quot;, &quot; (worker control)&quot;)) %&gt;%
+  mutate_at(vars(-Parameter, - ` `, - old_names), ~ round(.x, 3)) 
+
+fixed_effects %&gt;% select(-old_names) %&gt;%
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Q2.5
+</th>
+<th style="text-align:right;">
+Q97.5
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.724
+</td>
+<td style="text-align:right;">
+0.757
+</td>
+<td style="text-align:right;">
+2.228
+</td>
+<td style="text-align:right;">
+5.234
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+0.071
+</td>
+<td style="text-align:right;">
+0.109
+</td>
+<td style="text-align:right;">
+-0.142
+</td>
+<td style="text-align:right;">
+0.283
+</td>
+<td style="text-align:right;">
+0.260
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB
+</td>
+<td style="text-align:right;">
+-0.049
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+-0.270
+</td>
+<td style="text-align:right;">
+0.168
+</td>
+<td style="text-align:right;">
+0.326
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:right;">
+-0.025
+</td>
+<td style="text-align:right;">
+0.110
+</td>
+<td style="text-align:right;">
+-0.242
+</td>
+<td style="text-align:right;">
+0.189
+</td>
+<td style="text-align:right;">
+0.412
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+-0.211
+</td>
+<td style="text-align:right;">
+0.220
+</td>
+<td style="text-align:right;">
+0.476
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA
+</td>
+<td style="text-align:right;">
+0.211
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+-0.002
+</td>
+<td style="text-align:right;">
+0.422
+</td>
+<td style="text-align:right;">
+0.026
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+0.017
+</td>
+<td style="text-align:right;">
+0.112
+</td>
+<td style="text-align:right;">
+-0.200
+</td>
+<td style="text-align:right;">
+0.234
+</td>
+<td style="text-align:right;">
+0.437
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HOB
+</td>
+<td style="text-align:right;">
+-0.045
+</td>
+<td style="text-align:right;">
+0.114
+</td>
+<td style="text-align:right;">
+-0.272
+</td>
+<td style="text-align:right;">
+0.178
+</td>
+<td style="text-align:right;">
+0.348
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+0.016
+</td>
+<td style="text-align:right;">
+0.109
+</td>
+<td style="text-align:right;">
+-0.198
+</td>
+<td style="text-align:right;">
+0.230
+</td>
+<td style="text-align:right;">
+0.444
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HOB
+</td>
+<td style="text-align:right;">
+0.179
+</td>
+<td style="text-align:right;">
+0.112
+</td>
+<td style="text-align:right;">
+-0.040
+</td>
+<td style="text-align:right;">
+0.399
+</td>
+<td style="text-align:right;">
+0.055
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:right;">
+0.155
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+-0.060
+</td>
+<td style="text-align:right;">
+0.370
+</td>
+<td style="text-align:right;">
+0.076
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+0.109
+</td>
+<td style="text-align:right;">
+-0.102
+</td>
+<td style="text-align:right;">
+0.323
+</td>
+<td style="text-align:right;">
+0.154
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="for-the-model-with-hive-as-a-fixed-effect" class="section level3">
+<h3>For the model with hive as a <strong>fixed</strong> effect</h3>
+<pre class="r"><code>pvalues &lt;- as.data.frame(p_direction(hive_as_fixed_effect_model)) %&gt;% 
+  mutate(Parameter = str_remove_all(Parameter, &quot;b_&quot;),
+         Parameter = str_replace_all(Parameter, &quot;[.]&quot;, &quot;:&quot;),
+         p = 1- pd)  %&gt;% select(Parameter, p) %&gt;% distinct()
+
+fixed_effects &lt;- fixef(hive_as_fixed_effect_model) %&gt;% 
+  as.data.frame() %&gt;%
+  rownames_to_column(&quot;Parameter&quot;) %&gt;%
+  mutate(old_names = Parameter) %&gt;%
+  left_join(pvalues, by = &quot;Parameter&quot;) %&gt;%
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;),
+         Parameter = str_replace_all(Parameter, &quot;Pheromone_treatment&quot;, &quot;&quot;),
+         Parameter = str_replace_all(Parameter, &quot;M&quot;, &quot;-&quot;),
+         Parameter = str_replace_all(Parameter, &quot;and&quot;, &quot; and &quot;),
+         Parameter = str_replace_all(Parameter, &quot;workercontrol&quot;, &quot; (worker control)&quot;),
+         Parameter = str_replace_all(Parameter, &quot;Hive&quot;, &quot;Hive: &quot;)) %&gt;%
+  mutate_at(vars(-Parameter, - ` `, - old_names), ~ round(.x, 3)) 
+
+fixed_effects %&gt;% select(-old_names) %&gt;%
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Q2.5
+</th>
+<th style="text-align:right;">
+Q97.5
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.412
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+3.194
+</td>
+<td style="text-align:right;">
+3.630
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+0.068
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+-0.149
+</td>
+<td style="text-align:right;">
+0.288
+</td>
+<td style="text-align:right;">
+0.267
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB
+</td>
+<td style="text-align:right;">
+-0.052
+</td>
+<td style="text-align:right;">
+0.113
+</td>
+<td style="text-align:right;">
+-0.273
+</td>
+<td style="text-align:right;">
+0.169
+</td>
+<td style="text-align:right;">
+0.325
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA
+</td>
+<td style="text-align:right;">
+-0.027
+</td>
+<td style="text-align:right;">
+0.112
+</td>
+<td style="text-align:right;">
+-0.244
+</td>
+<td style="text-align:right;">
+0.193
+</td>
+<td style="text-align:right;">
+0.400
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+<td style="text-align:right;">
+0.112
+</td>
+<td style="text-align:right;">
+-0.217
+</td>
+<td style="text-align:right;">
+0.222
+</td>
+<td style="text-align:right;">
+0.485
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA
+</td>
+<td style="text-align:right;">
+0.208
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+-0.006
+</td>
+<td style="text-align:right;">
+0.420
+</td>
+<td style="text-align:right;">
+0.028
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB and HVA
+</td>
+<td style="text-align:right;">
+0.014
+</td>
+<td style="text-align:right;">
+0.113
+</td>
+<td style="text-align:right;">
+-0.208
+</td>
+<td style="text-align:right;">
+0.233
+</td>
+<td style="text-align:right;">
+0.450
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HOB
+</td>
+<td style="text-align:right;">
+-0.048
+</td>
+<td style="text-align:right;">
+0.113
+</td>
+<td style="text-align:right;">
+-0.270
+</td>
+<td style="text-align:right;">
+0.174
+</td>
+<td style="text-align:right;">
+0.340
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA and HVA
+</td>
+<td style="text-align:right;">
+0.012
+</td>
+<td style="text-align:right;">
+0.110
+</td>
+<td style="text-align:right;">
+-0.202
+</td>
+<td style="text-align:right;">
+0.230
+</td>
+<td style="text-align:right;">
+0.459
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HOB
+</td>
+<td style="text-align:right;">
+0.176
+</td>
+<td style="text-align:right;">
+0.112
+</td>
+<td style="text-align:right;">
+-0.040
+</td>
+<td style="text-align:right;">
+0.394
+</td>
+<td style="text-align:right;">
+0.058
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and HVA
+</td>
+<td style="text-align:right;">
+0.153
+</td>
+<td style="text-align:right;">
+0.110
+</td>
+<td style="text-align:right;">
+-0.065
+</td>
+<td style="text-align:right;">
+0.370
+</td>
+<td style="text-align:right;">
+0.080
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA and 9-HDA
+</td>
+<td style="text-align:right;">
+0.110
+</td>
+<td style="text-align:right;">
+0.110
+</td>
+<td style="text-align:right;">
+-0.106
+</td>
+<td style="text-align:right;">
+0.325
+</td>
+<td style="text-align:right;">
+0.157
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hive: Skylab
+</td>
+<td style="text-align:right;">
+0.410
+</td>
+<td style="text-align:right;">
+0.129
+</td>
+<td style="text-align:right;">
+0.154
+</td>
+<td style="text-align:right;">
+0.663
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hive: Zoology
+</td>
+<td style="text-align:right;">
+0.524
+</td>
+<td style="text-align:right;">
+0.117
+</td>
+<td style="text-align:right;">
+0.291
+</td>
+<td style="text-align:right;">
+0.752
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="model-results-raw-output-provided-by-brms" class="section level2 tabset">
+<h2>Model results: raw output provided by <code>brms</code></h2>
+<p>For completeness, here is the complete output from the summary method for the model fitted with <code>brms</code>. The table shows the random effects, which are missing in the previous table.</p>
+<div id="for-the-model-with-hive-as-a-random-effect-1" class="section level3">
+<h3>For the model with hive as a <strong>random</strong> effect</h3>
+<pre class="r"><code>summary(pre_reg_model)</code></pre>
+<pre><code>Warning: There were 11 divergent transitions after warmup. Increasing
+adapt_delta above 0.9999 may help. See http://mc-stan.org/misc/
+warnings.html#divergent-transitions-after-warmup</code></pre>
+<pre style = "max-height:300px; overflow-y: auto;"> Family: negbinomial 
+  Links: mu = log; shape = identity 
+Formula: Response_variable ~ Pheromone_treatment + (1 | Block) + (1 | Hive) 
+   Data: summary_data (Number of observations: 394) 
+Samples: 4 chains, each with iter = 8000; warmup = 4000; thin = 1;
+         total post-warmup samples = 16000
+
+Group-Level Effects: 
+~Block (Number of levels: 35) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.26      0.04     0.19     0.36 1.00     5019     7676
+
+~Hive (Number of levels: 3) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.96      1.27     0.14     4.49 1.00     2714     3505
+
+Population-Level Effects: 
+                                       Estimate Est.Error l-95% CI u-95% CI
+Intercept                                  3.72      0.76     2.23     5.23
+Pheromone_treatment10MHDAworkercontrol     0.07      0.11    -0.14     0.28
+Pheromone_treatmentHOB                    -0.05      0.11    -0.27     0.17
+Pheromone_treatmentHVA                    -0.03      0.11    -0.24     0.19
+Pheromone_treatment9MHDA                   0.01      0.11    -0.21     0.22
+Pheromone_treatment9MODA                   0.21      0.11    -0.00     0.42
+Pheromone_treatmentHOBandHVA               0.02      0.11    -0.20     0.23
+Pheromone_treatment9MHDAandHOB            -0.05      0.11    -0.27     0.18
+Pheromone_treatment9MHDAandHVA             0.02      0.11    -0.20     0.23
+Pheromone_treatment9MODAandHOB             0.18      0.11    -0.04     0.40
+Pheromone_treatment9MODAandHVA             0.15      0.11    -0.06     0.37
+Pheromone_treatment9MODAand9MHDA           0.11      0.11    -0.10     0.32
+                                       Rhat Bulk_ESS Tail_ESS
+Intercept                              1.00     3496     3198
+Pheromone_treatment10MHDAworkercontrol 1.00     4605     8118
+Pheromone_treatmentHOB                 1.00     4747     8393
+Pheromone_treatmentHVA                 1.00     4781     8199
+Pheromone_treatment9MHDA               1.00     4514     8147
+Pheromone_treatment9MODA               1.00     4484     7613
+Pheromone_treatmentHOBandHVA           1.00     4790     7422
+Pheromone_treatment9MHDAandHOB         1.00     4924     8247
+Pheromone_treatment9MHDAandHVA         1.00     4599     8070
+Pheromone_treatment9MODAandHOB         1.00     4708     8043
+Pheromone_treatment9MODAandHVA         1.00     4483     7857
+Pheromone_treatment9MODAand9MHDA       1.00     4637     8399
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+shape     5.61      0.48     4.72     6.59 1.00    15118    11257
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+</pre>
+</div>
+<div id="for-the-model-with-hive-as-a-fixed-effect-1" class="section level3">
+<h3>For the model with hive as a <strong>fixed</strong> effect</h3>
+<pre class="r"><code>summary(hive_as_fixed_effect_model)</code></pre>
+<pre style = "max-height:300px; overflow-y: auto;"> Family: negbinomial 
+  Links: mu = log; shape = identity 
+Formula: Response_variable ~ Pheromone_treatment + Hive + (1 | Block) 
+   Data: summary_data (Number of observations: 394) 
+Samples: 4 chains, each with iter = 8000; warmup = 4000; thin = 1;
+         total post-warmup samples = 16000
+
+Group-Level Effects: 
+~Block (Number of levels: 35) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.26      0.04     0.19     0.36 1.00     4937     7556
+
+Population-Level Effects: 
+                                       Estimate Est.Error l-95% CI u-95% CI
+Intercept                                  3.41      0.11     3.19     3.63
+Pheromone_treatment10MHDAworkercontrol     0.07      0.11    -0.15     0.29
+Pheromone_treatmentHOB                    -0.05      0.11    -0.27     0.17
+Pheromone_treatmentHVA                    -0.03      0.11    -0.24     0.19
+Pheromone_treatment9MHDA                   0.00      0.11    -0.22     0.22
+Pheromone_treatment9MODA                   0.21      0.11    -0.01     0.42
+Pheromone_treatmentHOBandHVA               0.01      0.11    -0.21     0.23
+Pheromone_treatment9MHDAandHOB            -0.05      0.11    -0.27     0.17
+Pheromone_treatment9MHDAandHVA             0.01      0.11    -0.20     0.23
+Pheromone_treatment9MODAandHOB             0.18      0.11    -0.04     0.39
+Pheromone_treatment9MODAandHVA             0.15      0.11    -0.06     0.37
+Pheromone_treatment9MODAand9MHDA           0.11      0.11    -0.11     0.33
+HiveSkylab                                 0.41      0.13     0.15     0.66
+HiveZoology                                0.52      0.12     0.29     0.75
+                                       Rhat Bulk_ESS Tail_ESS
+Intercept                              1.00     4023     6553
+Pheromone_treatment10MHDAworkercontrol 1.00     6185    10299
+Pheromone_treatmentHOB                 1.00     6542     9671
+Pheromone_treatmentHVA                 1.00     5927     8314
+Pheromone_treatment9MHDA               1.00     6586    10288
+Pheromone_treatment9MODA               1.00     6019     8853
+Pheromone_treatmentHOBandHVA           1.00     6505     9633
+Pheromone_treatment9MHDAandHOB         1.00     6426     9881
+Pheromone_treatment9MHDAandHVA         1.00     6328     9642
+Pheromone_treatment9MODAandHOB         1.00     6226     8837
+Pheromone_treatment9MODAandHVA         1.00     6071     9024
+Pheromone_treatment9MODAand9MHDA       1.00     6077     9124
+HiveSkylab                             1.00     5546     7851
+HiveZoology                            1.00     5327     7744
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+shape     5.62      0.48     4.72     6.60 1.00    17054    11656
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+</pre>
+</div>
+</div>
+<div id="plotting-the-parameter-estimates-from-the-model" class="section level2 tabset">
+<h2>Plotting the parameter estimates from the model</h2>
+<div id="for-the-model-with-hive-as-a-random-effect-2" class="section level3">
+<h3>For the model with hive as a <strong>random</strong> effect</h3>
+<pre class="r"><code>posterior_samples(pre_reg_model) %&gt;% 
+  as_tibble() %&gt;%
+  select(contains(&quot;b_&quot;), -contains(&quot;Intercept&quot;)) %&gt;%
+  gather() %&gt;% 
+  mutate(key = str_remove_all(key, &quot;b_&quot;)) %&gt;%
+  left_join(fixed_effects %&gt;% select(Parameter, old_names), by = c(&quot;key&quot; = &quot;old_names&quot;)) %&gt;%
+  mutate(Parameter = factor(Parameter, rev(treatment_levels))) %&gt;%
+  ggplot(aes(value, Parameter, fill = Parameter)) +
+  geom_vline(xintercept = 0, linetype = 2) + 
+  geom_vline(xintercept = 0.5, linetype = 3, colour = &quot;tomato&quot;) + 
+  stat_dotsh(quantiles = 100, colour = &quot;grey10&quot;) + 
+  stat_pointintervalh(position = position_nudge(y = -0.07), .width = c(0.5, 0.95), alpha = 0.8) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  ylab(&quot;Pheromone treatment&quot;) +
+  xlab(&quot;Effect of chemical on number of contacts\n(relative to the solvent-only control)&quot;)</code></pre>
+<p><img src="figure/preregistered_analysis.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /> <br></br> <strong>Figure S1</strong>: The figure shows the posterior distribution for each chemical’s effect size, from the pre-registered model shown in Table XXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical was touched more times by worker bees than the solvent-only control, and negative effect sizes mean it was touched fewer times. Note that positive effect sizes are plausible for the 9-ODA treatment, as well as for some other treatments containing 9-ODA.</p>
+</div>
+<div id="for-the-model-with-hive-as-a-fixed-effect-2" class="section level3">
+<h3>For the model with hive as a <strong>fixed</strong> effect</h3>
+<pre class="r"><code>posterior_samples(hive_as_fixed_effect_model) %&gt;% 
+  as_tibble() %&gt;%
+  select(contains(&quot;b_&quot;), -contains(&quot;Intercept&quot;), -contains(&quot;Hive&quot;)) %&gt;%
+  gather() %&gt;% 
+  mutate(key = str_remove_all(key, &quot;b_&quot;)) %&gt;%
+  left_join(fixed_effects %&gt;% select(Parameter, old_names), by = c(&quot;key&quot; = &quot;old_names&quot;)) %&gt;%
+  mutate(Parameter = factor(Parameter, rev(treatment_levels))) %&gt;%
+  ggplot(aes(value, Parameter, fill = Parameter)) +
+  geom_vline(xintercept = 0, linetype = 2) + 
+  geom_vline(xintercept = 0.5, linetype = 3, colour = &quot;tomato&quot;) + 
+  stat_dotsh(quantiles = 100, colour = &quot;grey10&quot;) + 
+  stat_pointintervalh(position = position_nudge(y = -0.07), .width = c(0.5, 0.95), alpha = 0.8) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;) + 
+  ylab(&quot;Pheromone treatment&quot;) +
+  xlab(&quot;Effect of chemical on number of contacts\n(relative to the solvent-only control)&quot;)</code></pre>
+<p><img src="figure/preregistered_analysis.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre>R version 3.6.2 (2019-12-12)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] knitrhooks_0.0.4 knitr_1.28       bayestestR_0.5.1 kableExtra_1.1.0
+ [5] gridExtra_2.3    brms_2.12.0      Rcpp_1.0.3       tidybayes_2.0.1 
+ [9] ggbeeswarm_0.6.0 forcats_0.4.0    stringr_1.4.0    dplyr_0.8.4     
+[13] purrr_0.3.3      readr_1.3.1      tidyr_1.0.2      tibble_2.1.3    
+[17] ggplot2_3.3.0    tidyverse_1.3.0 
+
+loaded via a namespace (and not attached):
+  [1] colorspace_1.4-1     ellipsis_0.3.0       ggridges_0.5.2      
+  [4] rsconnect_0.8.16     rprojroot_1.3-2      markdown_1.1        
+  [7] base64enc_0.1-3      fs_1.3.1             rstudioapi_0.11     
+ [10] farver_2.0.3         rstan_2.19.2         svUnit_0.7-12       
+ [13] DT_0.12              fansi_0.4.1          mvtnorm_1.0-12      
+ [16] lubridate_1.7.4      xml2_1.2.2           bridgesampling_0.8-1
+ [19] shinythemes_1.1.2    bayesplot_1.7.1      jsonlite_1.6.1      
+ [22] workflowr_1.6.0      broom_0.5.4          dbplyr_1.4.2        
+ [25] shiny_1.4.0          compiler_3.6.2       httr_1.4.1          
+ [28] backports_1.1.5      assertthat_0.2.1     Matrix_1.2-18       
+ [31] fastmap_1.0.1        cli_2.0.1            later_1.0.0         
+ [34] prettyunits_1.1.1    htmltools_0.4.0      tools_3.6.2         
+ [37] igraph_1.2.4.2       coda_0.19-3          gtable_0.3.0        
+ [40] glue_1.3.1           reshape2_1.4.3       cellranger_1.1.0    
+ [43] vctrs_0.2.2          nlme_3.1-144         crosstalk_1.0.0     
+ [46] insight_0.8.1        xfun_0.12            ps_1.3.0            
+ [49] rvest_0.3.5          mime_0.9             miniUI_0.1.1.1      
+ [52] lifecycle_0.1.0      gtools_3.8.1         zoo_1.8-7           
+ [55] scales_1.1.0         colourpicker_1.0     hms_0.5.3           
+ [58] promises_1.1.0       Brobdingnag_1.2-6    parallel_3.6.2      
+ [61] inline_0.3.15        shinystan_2.5.0      yaml_2.2.1          
+ [64] StanHeaders_2.21.0-1 loo_2.2.0            stringi_1.4.5       
+ [67] highr_0.8            dygraphs_1.1.1.6     pkgbuild_1.0.6      
+ [70] rlang_0.4.4          pkgconfig_2.0.3      matrixStats_0.55.0  
+ [73] evaluate_0.14        lattice_0.20-38      labeling_0.3        
+ [76] rstantools_2.0.0     htmlwidgets_1.5.1    processx_3.4.2      
+ [79] tidyselect_1.0.0     plyr_1.8.5           magrittr_1.5        
+ [82] R6_2.4.1             generics_0.0.2       DBI_1.1.0           
+ [85] pillar_1.4.3         haven_2.2.0          withr_2.1.2         
+ [88] xts_0.12-0           abind_1.4-5          modelr_0.1.5        
+ [91] crayon_1.3.4         arrayhelpers_1.1-0   rmarkdown_2.1       
+ [94] grid_3.6.2           readxl_1.3.1         callr_3.4.1         
+ [97] git2r_0.26.1         threejs_0.3.3        webshot_0.5.2       
+[100] reprex_0.3.0         digest_0.6.23        xtable_1.8-4        
+[103] httpuv_1.5.2         stats4_3.6.2         munsell_0.5.0       
+[106] viridisLite_0.3.0    beeswarm_0.2.3       vipor_0.4.5         
+[109] shinyjs_1.1         
+</pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
