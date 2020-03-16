@@ -1,0 +1,263 @@
+---
+title: "Pre-registered statistical analysis"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide 
+editor_options:
+  chunk_output_type: console
+---
+
+## Recap: analysis plan from the pre-registration
+
+The pre-registration for this study can be found at [https://osf.io/ncf9z/](). As well as outlining the experimental methods, the pre-registration included a plan for the statistical analysis, which we quote here: 
+
+> _We will conduct two separate analyses, one for the behavioural data and one for the ovary dissection data. The analyses will use generalised linear mixed models (GLMM) be implemented using the R package brms, using one of the following two model formulas (in the syntax of brms): \p Model 1: `Response_variable ~ Pheromone_treatment + (1 | Block) + (1 | Hive)` &nbsp; &nbsp; or &nbsp; &nbsp;  Model 2: `Response_variable ~ Pheromone_treatment + (1 | Block) + (Pheromone_treatment | Hive)` \p Where `Pheromone_treatment` is a 12-level fixed factor. Model 1 fits hive as a random intercept, which constrains all the hives to show the same response to queen pheromone, while the latter allows for a variable response between hives by additionally including treatment as a random slope. We will use cross-validation to determine which of these models provides a better fit, and then use that in subsequent analyses. The behavioural data represent counts of events, and so will probably be analysed using a GLMM with Poisson errors (or perhaps zero-inflated Poisson or negative binomial – to be decided based on which one provides the best fit, according to posterior predictive checks)._
+
+In this document, we follow these instructions to the letter. However, after writing the pre-registration and collecting the data, we thought of a better way to model the data (see LINK HERE), which forms the paper's main analysis. In the interests of completeness and transparency we present the pre-registered analysis here as well; the conclusions are very similar to the main analysis. 
+
+## Load the data
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggbeeswarm)
+library(tidybayes)
+library(brms)
+library(gridExtra)
+library(kableExtra)
+library(bayestestR)
+library(knitrhooks) # install with devtools::install_github("nathaneastwood/knitrhooks")
+output_max_height() # a knitrhook option
+options(stringsAsFactors = FALSE)
+
+# Here are the treatments, ranked roughly from least to most like a queen bee
+treatment_levels <-
+  # two "controls"
+  c("Solvent control", "10-HDA (worker control)",
+
+    # 4 individual queen-type chemicals
+    "HOB", "HVA", "9-HDA", "9-ODA",
+
+    # 6 pairwise combinations of two of the queen-type chemicals
+    "HOB and HVA",
+    "9-HDA and HOB", "9-HDA and HVA",
+    "9-ODA and HOB", "9-ODA and HVA", "9-ODA and 9-HDA")
+
+
+# Load the behaviour data and rename the variables as in the pre-registration
+# Also put the pheromone treatment levels in a biologically sensible order (not alphabetical)
+behaviour_data <- read.csv("data/unblinded_behaviour_data.csv") %>%
+  as_tibble() %>%
+  rename(Pheromone_treatment = treatment,
+         Block = tray,
+         Hive = hive) %>%
+  mutate(Pheromone_treatment = factor(Pheromone_treatment, levels = treatment_levels))
+
+# Finally, count up the number of times the bees in each dish touched the filter paper, 
+# so that we now have 1 observation for each Petri dish (number of touches in 30 minute-observation period)
+summary_data <- behaviour_data %>%
+  group_by(Pheromone_treatment, Block, Hive, dish) %>%
+  summarise(Response_variable = n()) %>% 
+  ungroup() %>%
+  arrange(Pheromone_treatment, Hive, Block) 
+```
+
+## Inspect overall distribution of the response variable
+
+It does not look zero-inflated (as proposed in the pre-registration), though the right tail is longer than I would expect for a Poisson-distributed random variable. Therefore, it seems appropriate to select the negative binomial distribution, which has an additional free parameter for the variance, and so should be able to fit the data better.
+
+```{r}
+ggplot(summary_data, aes(Response_variable)) + 
+  geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
+  xlab("Number of contacts with pheromone-treated lure in 30 minutes")
+```
+
+
+## Now run the pre-registered analysis in `brms`
+
+Here, we run the model exactly as stated in the pre-registration. Note that the pre-registered model throws a warning about having 3 "divergent transitions", meaning that problems (probably mild) were encountered during model fitting. The most likely reason is that the random effect `Hive` has only 3 levels, making the between-hive variance hard to estimate from these data. 
+
+Because this issue could not be resolved by increasing the sampling parameters `adapt_delta` and `max_treedepth` well above their defaults, we also fit an otherwise identical model in which `Hive` was treated as a fixed effect. Unlike the pre-registered version, this model runs very quickly (often a sign that the sampler is not struggling to fit the model) and it does not throw any errors, and we later show that the main conclusions are qualitatively identical, and quantitatively near-identical.
+
+```{r run_all_models}
+if(!file.exists("output/pre_reg_model.rds")){ 
+  
+  priors <- c(prior(normal(0, 3), class = b))
+  
+  pre_reg_model <- brm(
+    formula = Response_variable ~ Pheromone_treatment + (1 | Block) + (1 | Hive),
+    family = "negbinomial",
+    sample_prior = TRUE,
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = summary_data)
+  
+  pre_reg_with_random_slope <- brm(
+    formula = Response_variable ~ Pheromone_treatment + (1 | Block) + (Pheromone_treatment | Hive), 
+    family = "negbinomial", 
+    sample_prior = TRUE,
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = summary_data)
+  
+  model_weights_random_slope <- model_weights(pre_reg_model, pre_reg_with_random_slope, weights = "loo")
+  
+  hive_as_fixed_effect_model <- brm(
+    formula = Response_variable ~ Pheromone_treatment + Hive + (1 | Block), 
+    family = "negbinomial", 
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = summary_data)
+  
+  saveRDS(hive_as_fixed_effect_model, file = "output/hive_as_fixed_effect_model.rds")
+  saveRDS(model_weights_random_slope, "output/model_weights_random_slope.rds")
+  saveRDS(pre_reg_model, file = "output/pre_reg_model.rds")
+} else {
+  pre_reg_model <- readRDS("output/pre_reg_model.rds")
+  hive_as_fixed_effect_model <- readRDS("output/hive_as_fixed_effect_model.rds")
+  model_weights_random_slope <- readRDS("output/model_weights_random_slope.rds")
+}
+```
+
+## The model without the random slope fits better
+
+The model formula named "Model 1" in the pre-registration had a better fit than the one named Model 2 (i.e. the simpler model lacking the random slope was preferred). The model weight of Model 1 was >99.999% (computed using "LOO", or leave-one-out cross validation), indicating strong support over the more complex model.
+
+```{r}
+model_weights_random_slope 
+```
+
+
+
+## Posterior predictive plots to verify model fit
+
+Here we perform a "posterior predictive check" on both models. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. Both models look fine: the fitted values recapitulate the orignal data well, which is a necessary condition for the model to produce useful inferences. 
+
+```{r message=FALSE, warning=FALSE}
+grid.arrange(
+  pp_check(pre_reg_model) + labs(title = "Pre-registered model"),
+  pp_check(hive_as_fixed_effect_model) + labs(title = "Model with hive as a fixed effect"))
+```
+
+## Inspect the model's parameter estimates {.tabset}
+
+Click the tabs to compare the results for the model that was pre-registered, and the modified one that treated hive as a fixed effect to improve fit. The results are almost identical. 
+
+### For the model with hive as a **random** effect
+
+```{r}
+pvalues <- as.data.frame(p_direction(pre_reg_model)) %>% 
+  mutate(Parameter = str_remove_all(Parameter, "b_"),
+         Parameter = str_replace_all(Parameter, "[.]", ":"),
+         p = 1- pd)  %>% select(Parameter, p) %>% distinct()
+
+fixed_effects <- fixef(pre_reg_model) %>% 
+  as.data.frame() %>%
+  rownames_to_column("Parameter") %>%
+  mutate(old_names = Parameter) %>%
+  left_join(pvalues, by = "Parameter") %>%
+  mutate(` ` = ifelse(p < 0.05, "\\*", ""),
+         ` ` = replace(` `, p > 0.05 & p < 0.1, "~"),
+         ` ` = replace(` `, p < 0.01, "**"), 
+         ` ` = replace(` `, p < 0.001, "***"),
+         Parameter = str_replace_all(Parameter, "Pheromone_treatment", ""),
+         Parameter = str_replace_all(Parameter, "M", "-"),
+         Parameter = str_replace_all(Parameter, "and", " and "),
+         Parameter = str_replace_all(Parameter, "workercontrol", " (worker control)")) %>%
+  mutate_at(vars(-Parameter, - ` `, - old_names), ~ round(.x, 3)) 
+
+fixed_effects %>% select(-old_names) %>%
+  kable() %>% kable_styling(full_width = FALSE)
+```
+
+
+### For the model with hive as a **fixed** effect
+
+```{r}
+pvalues <- as.data.frame(p_direction(hive_as_fixed_effect_model)) %>% 
+  mutate(Parameter = str_remove_all(Parameter, "b_"),
+         Parameter = str_replace_all(Parameter, "[.]", ":"),
+         p = 1- pd)  %>% select(Parameter, p) %>% distinct()
+
+fixed_effects <- fixef(hive_as_fixed_effect_model) %>% 
+  as.data.frame() %>%
+  rownames_to_column("Parameter") %>%
+  mutate(old_names = Parameter) %>%
+  left_join(pvalues, by = "Parameter") %>%
+  mutate(` ` = ifelse(p < 0.05, "\\*", ""),
+         ` ` = replace(` `, p > 0.05 & p < 0.1, "~"),
+         ` ` = replace(` `, p < 0.01, "**"), 
+         ` ` = replace(` `, p < 0.001, "***"),
+         Parameter = str_replace_all(Parameter, "Pheromone_treatment", ""),
+         Parameter = str_replace_all(Parameter, "M", "-"),
+         Parameter = str_replace_all(Parameter, "and", " and "),
+         Parameter = str_replace_all(Parameter, "workercontrol", " (worker control)"),
+         Parameter = str_replace_all(Parameter, "Hive", "Hive: ")) %>%
+  mutate_at(vars(-Parameter, - ` `, - old_names), ~ round(.x, 3)) 
+
+fixed_effects %>% select(-old_names) %>%
+  kable() %>% kable_styling(full_width = FALSE)
+```
+
+
+## Model results: raw output provided by `brms` {.tabset}
+
+For completeness, here is the complete output from the summary method for the model fitted with `brms`. The table shows the random effects, which are missing in the previous table.
+
+### For the model with hive as a **random** effect
+```{r output_max_height = "300px"}
+summary(pre_reg_model)
+```
+
+### For the model with hive as a **fixed** effect
+```{r output_max_height = "300px"}
+summary(hive_as_fixed_effect_model)
+```
+
+## Plotting the parameter estimates from the model {.tabset}
+
+
+### For the model with hive as a **random** effect
+```{r fig.height=7}
+posterior_samples(pre_reg_model) %>% 
+  as_tibble() %>%
+  select(contains("b_"), -contains("Intercept")) %>%
+  gather() %>% 
+  mutate(key = str_remove_all(key, "b_")) %>%
+  left_join(fixed_effects %>% select(Parameter, old_names), by = c("key" = "old_names")) %>%
+  mutate(Parameter = factor(Parameter, rev(treatment_levels))) %>%
+  ggplot(aes(value, Parameter, fill = Parameter)) +
+  geom_vline(xintercept = 0, linetype = 2) + 
+  geom_vline(xintercept = 0.5, linetype = 3, colour = "tomato") + 
+  stat_dotsh(quantiles = 100, colour = "grey10") + 
+  stat_pointintervalh(position = position_nudge(y = -0.07), .width = c(0.5, 0.95), alpha = 0.8) +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  ylab("Pheromone treatment") +
+  xlab("Effect of chemical on number of contacts\n(relative to the solvent-only control)")
+```
+<br></br>
+**Figure S1**: The figure shows the posterior distribution for each chemical's effect size, from the pre-registered model shown in Table XXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical was touched more times by worker bees than the solvent-only control, and negative effect sizes mean it was touched fewer times. Note that positive effect sizes are plausible for the 9-ODA treatment, as well as for some other treatments containing 9-ODA. 
+
+### For the model with hive as a **fixed** effect
+```{r fig.height=7}
+posterior_samples(hive_as_fixed_effect_model) %>% 
+  as_tibble() %>%
+  select(contains("b_"), -contains("Intercept"), -contains("Hive")) %>%
+  gather() %>% 
+  mutate(key = str_remove_all(key, "b_")) %>%
+  left_join(fixed_effects %>% select(Parameter, old_names), by = c("key" = "old_names")) %>%
+  mutate(Parameter = factor(Parameter, rev(treatment_levels))) %>%
+  ggplot(aes(value, Parameter, fill = Parameter)) +
+  geom_vline(xintercept = 0, linetype = 2) + 
+  geom_vline(xintercept = 0.5, linetype = 3, colour = "tomato") + 
+  stat_dotsh(quantiles = 100, colour = "grey10") + 
+  stat_pointintervalh(position = position_nudge(y = -0.07), .width = c(0.5, 0.95), alpha = 0.8) +
+  theme_bw() +
+  theme(legend.position = "none") + 
+  ylab("Pheromone treatment") +
+  xlab("Effect of chemical on number of contacts\n(relative to the solvent-only control)")
+```
+

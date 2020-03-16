@@ -1,6 +1,8 @@
 ---
 title: "De-blinding and cleaning the data collection sheet"
-output: workflowr::wflow_html
+output: 
+  workflowr::wflow_html:
+    code_folding: hide 
 editor_options:
   chunk_output_type: console
 ---
@@ -83,7 +85,6 @@ unblinded_data <- read.csv("data/raw_blinded_behaviour_data.csv",
          end_touch = 60 * map_dbl(split_end, ~ .x[1]) + map_dbl(split_end, ~ .x[2]),
          touch_duration = end_touch - start_touch) %>%
   select(-split_start, -split_end) %>%
-  filter(touch_duration >= 0) %>%                                    #######             # Get Daisy to check all these!! #######
 
   # merge with the dish-to-treat_num mappings
   left_join(blind_codes_full %>% select(-treatment), by = c("tray", "dish")) %>%  
@@ -91,8 +92,12 @@ unblinded_data <- read.csv("data/raw_blinded_behaviour_data.csv",
   # merge with the treat_num-to-pheromone mappings
   left_join(blind_codes, by = "treat_num") %>%        
   
+  # merge with the datasheet that lists how many bees were in each Petri dish (usually 5, occasionally 4)
+    left_join(read_csv("data/metadata_for_each_dish_and_tray.csv") %>%
+              select(tray, dish, number_bees), by = c("tray", "dish")) %>%
+  
   # re-order the rows and columns for neatness
-  select(hive, treatment, tray, dish, start_touch, end_touch, touch_duration, notes) %>%
+  select(hive, treatment, tray, dish, number_bees, start_touch, end_touch, touch_duration, notes) %>%
   mutate(treatment = factor(treatment, levels = treatment_levels)) %>%
   arrange(hive, treatment, tray, dish)
 ```
