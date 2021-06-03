@@ -525,16 +525,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree9641bb4c3ee4e412ee4eb8f23ed4c024e6633690targetblank9641bb4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/9641bb4c3ee4e412ee4eb8f23ed4c024e6633690" target="_blank">9641bb4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttreecef055301feab3e4ec61adabd573a063a749de41targetblankcef0553a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/cef055301feab3e4ec61adabd573a063a749de41" target="_blank">cef0553</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree9641bb4c3ee4e412ee4eb8f23ed4c024e6633690targetblank9641bb4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttreecef055301feab3e4ec61adabd573a063a749de41targetblankcef0553a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/lukeholman/apis_retinue_expt/tree/9641bb4c3ee4e412ee4eb8f23ed4c024e6633690" target="_blank">9641bb4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/lukeholman/apis_retinue_expt/tree/cef055301feab3e4ec61adabd573a063a749de41" target="_blank">cef0553</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -604,6 +604,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/cef055301feab3e4ec61adabd573a063a749de41/analysis/statistics.Rmd" target="_blank">cef0553</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+<td>
+workflowr::wflow_publish(“analysis/statistics.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/lukeholman/apis_retinue_expt/498bae80496852ffc5f717dcf4cd7fe2bd08c9ac/docs/statistics.html" target="_blank">498bae8</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -764,19 +798,19 @@ behaviour_data &lt;- read.csv(&quot;data/unblinded_behaviour_data.csv&quot;) %&g
          hive = hive) %&gt;%
   mutate(treatment = factor(treatment, levels = treatment_levels))
 
-# Finally, count up the number of times the bees in each dish touched the filter paper, 
-# so that we now have 1 observation for each Petri dish (number of touches in 30 minute-observation period)
+# Finally, count up the number of times the bees in each dish inspected the filter paper, 
+# so that we now have 1 observation for each Petri dish (number of inspections in 30 minute-observation period)
 data_by_petri_dish &lt;- behaviour_data %&gt;% 
   group_by(treatment, block, hive, dish) %&gt;%
-  summarise(n_touches = length(touch_duration),
-            duration_touches = sum(touch_duration) + 1, # +1 is for the log10 analyses
+  summarise(n_inspections = length(touch_duration),
+            duration_inspections = sum(touch_duration) + 1, # +1 is for the log10 analyses
             .groups = &quot;drop&quot;) %&gt;% 
   ungroup() %&gt;%
   arrange(treatment, hive, block) </code></pre>
 </div>
 <div id="plotting-the-raw-data" class="section level2">
 <h2>Plotting the raw data</h2>
-<p>These plots show the means <span class="math inline">\(\pm\)</span> SE (top) or the individual data points with boxplots for each group of bees (bottom). The left plots show the number of times bees made contact with the pheromone lure in 30 minutes, while the right plots show the total duration the bees were in contact with the lure.</p>
+<p>These plots show the means <span class="math inline">\(\pm\)</span> SE (top) or the individual data points with boxplots for each group of bees (bottom). The left plots show the number of times bees inspected the pheromone lure in 30 minutes, while the right plots show the total duration the bees were inspecting the lure.</p>
 <pre class="r"><code>raw_to_plot &lt;- data_by_petri_dish %&gt;% 
   mutate(treatment = str_replace_all(treatment, &quot;and&quot;, &quot;&amp;&quot;),
          treatment = factor(treatment, levels_ampersand))
@@ -784,8 +818,8 @@ data_by_petri_dish &lt;- behaviour_data %&gt;%
 
 p1 &lt;- raw_to_plot %&gt;%
   group_by(treatment) %&gt;%
-  summarise(mean = mean(n_touches),
-            SE = sd(n_touches) / sqrt(n()),
+  summarise(mean = mean(n_inspections),
+            SE = sd(n_inspections) / sqrt(n()),
             .groups = &quot;drop&quot;) %&gt;%
   mutate(treatment = factor(treatment, rev(treatment))) %&gt;%
   ggplot(aes(treatment, mean, fill = treatment)) + 
@@ -798,8 +832,8 @@ p1 &lt;- raw_to_plot %&gt;%
 
 p2 &lt;- raw_to_plot %&gt;%
   group_by(treatment) %&gt;%
-  summarise(mean = mean(duration_touches),
-            SE = sd(duration_touches) / sqrt(n()),
+  summarise(mean = mean(duration_inspections),
+            SE = sd(duration_inspections) / sqrt(n()),
             .groups = &quot;drop&quot;) %&gt;%
   mutate(treatment = factor(treatment, rev(treatment))) %&gt;%
   ggplot(aes(treatment, mean, fill = treatment)) + 
@@ -814,7 +848,7 @@ p2 &lt;- raw_to_plot %&gt;%
 
 p3 &lt;- raw_to_plot %&gt;%
     mutate(treatment = factor(treatment, rev(levels(treatment)))) %&gt;%
-    ggplot(aes(treatment, n_touches, colour = treatment)) + 
+    ggplot(aes(treatment, n_inspections, colour = treatment)) + 
     geom_beeswarm(alpha = .7) + 
     geom_boxplot(fill = NA, colour = &quot;black&quot;, size = 0.3, outlier.shape = NA) +
     coord_flip() + 
@@ -825,7 +859,7 @@ p3 &lt;- raw_to_plot %&gt;%
 
 p4 &lt;- raw_to_plot %&gt;%
     mutate(treatment = factor(treatment, rev(levels(treatment)))) %&gt;%
-    ggplot(aes(treatment, duration_touches, colour = treatment)) + 
+    ggplot(aes(treatment, duration_inspections, colour = treatment)) + 
     geom_beeswarm(alpha = .7) + 
     geom_boxplot(fill = NA, colour = &quot;black&quot;, size = 0.3, outlier.shape = NA) +
     coord_flip() + 
@@ -864,6 +898,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/498bae80496852ffc5f717dcf4cd7fe2bd08c9ac/docs/figure/statistics.Rmd/unnamed-chunk-2-1.png" target="_blank">498bae8</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-2-1.png" target="_blank">5931d53</a>
 </td>
 <td>
@@ -878,21 +923,21 @@ lukeholman
 </div>
 </div>
 </div>
-<div id="analysis-of-the-number-of-contacts-in-30-minutes" class="section level2">
-<h2>Analysis of the number of contacts in 30 minutes</h2>
+<div id="analysis-of-the-number-of-inspections" class="section level2">
+<h2>Analysis of the number of inspections</h2>
 <div id="recap-of-the-pre-registered-plan-for-the-analysis" class="section level3">
 <h3>Recap of the pre-registered plan for the analysis</h3>
-<p>In this section (i.e. <code>Analysis of the number of contacts in 30 minutes</code>), we carry out the pre-planned analysis, focusing on the response variable that was mentioned in the pre-registration, namely “the number of antennal contacts between workers and the pheromone-treated paper that occur over 30 minutes” (represented in this R Markdown document by the variable <code>data_by_petri_dish$n_touches</code>).</p>
+<p>In this section (i.e. <code>Analysis of the number of inspections</code>), we carry out the pre-planned analysis, focusing on the response variable that was mentioned in the pre-registration (represented in this R Markdown document by the variable <code>data_by_petri_dish$n_inspections</code>).</p>
 <p>To recap, the pre-registered plan for this study can be found at <a href="">https://osf.io/ncf9z/</a>, and the relevant part is quoted here:</p>
 <blockquote>
 <p><em>We will conduct two separate analyses, one for the behavioural data and one for the ovary dissection data. The analyses will use generalised linear mixed models (GLMM) be implemented using the R package brms, using one of the following two model formulas (in the syntax of brms): Model 1: <code>Response_variable ~ Pheromone_treatment + (1 | Block) + (1 | Hive)</code>     or     Model 2: <code>Response_variable ~ Pheromone_treatment + (1 | Block) + (Pheromone_treatment | Hive)</code> Where <code>Pheromone_treatment</code> is a 12-level fixed factor. Model 1 fits hive as a random intercept, which constrains all the hives to show the same response to queen pheromone, while the latter allows for a variable response between hives by additionally including treatment as a random slope. We will use cross-validation to determine which of these models provides a better fit, and then use that in subsequent analyses. The behavioural data represent counts of events, and so will probably be analysed using a GLMM with Poisson errors (or perhaps zero-inflated Poisson or negative binomial – to be decided based on which one provides the best fit, according to posterior predictive checks).</em></p>
 </blockquote>
-<p>In the next section (<code>Analysis of touch duration</code>), we use the same statistical methods to analyse the other response variable, namely the total duration that bees were in contact with the lure over the 30-minute observation period (measured in “bee seconds”; represented in this document by the variable <code>data_by_petri_dish$duration_touches</code>). As the plot above suggests, the differences between treatments are larger for the <code>duration_touches</code> response variable than for <code>n_touches</code> though the results are qualitatively similar.</p>
+<p>In the next section (<code>Analysis of inspection duration</code>), we use the same statistical methods to analyse the other response variable, namely the total duration that bees were inspecting the lure over the 30-minute observation period (measured in “bee seconds”; represented in this document by the variable <code>data_by_petri_dish$duration_inspections</code>). As the plot above suggests, the differences between treatments are larger for the <code>duration_inspections</code> response variable than for <code>n_inspections</code> though the results are qualitatively similar.</p>
 </div>
-<div id="plot-distribution-of-the-response-variable-n_touches" class="section level3">
-<h3>Plot distribution of the response variable, <code>n_touches</code></h3>
+<div id="plot-distribution-of-the-response-variable-n_inspections" class="section level3">
+<h3>Plot distribution of the response variable, <code>n_inspections</code></h3>
 <p>The response variable does not look zero-inflated (as we speculated in the pre-registration), though the right tail seems longer than expected for a Poisson-distributed random variable. Therefore, it seems appropriate to select the negative binomial distribution, which has an additional free parameter for the variance, and so should provide a better fit to the data.</p>
-<pre class="r"><code>ggplot(data_by_petri_dish, aes(n_touches)) + 
+<pre class="r"><code>ggplot(data_by_petri_dish, aes(n_inspections)) + 
   geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
   xlab(&quot;Number of inspections&quot;)</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -920,6 +965,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/498bae80496852ffc5f717dcf4cd7fe2bd08c9ac/docs/figure/statistics.Rmd/unnamed-chunk-3-1.png" target="_blank">498bae8</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-3-1.png" target="_blank">5931d53</a>
 </td>
 <td>
@@ -942,7 +998,7 @@ lukeholman
   priors &lt;- c(prior(normal(0, 3), class = b))
   
   pre_reg_model &lt;- brm(
-    formula = n_touches ~ treatment + (1 | block) + (1 | hive),
+    formula = n_inspections ~ treatment + (1 | block) + (1 | hive),
     family = &quot;negbinomial&quot;,
     chains = 4, cores = 1, iter = 8000,
     control = list(adapt_delta = 0.9999, max_treedepth = 14),
@@ -951,7 +1007,7 @@ lukeholman
   saveRDS(pre_reg_model, file = &quot;output/pre_reg_model.rds&quot;)
   
   pre_reg_with_random_slope &lt;- brm(
-    formula = n_touches ~  treatment + (1 | block) + (treatment | hive), 
+    formula = n_inspections ~  treatment + (1 | block) + (treatment | hive), 
     family = &quot;negbinomial&quot;, 
     sample_prior = TRUE,
     chains = 4, cores = 1, iter = 8000,
@@ -1005,6 +1061,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/498bae80496852ffc5f717dcf4cd7fe2bd08c9ac/docs/figure/statistics.Rmd/unnamed-chunk-5-1.png" target="_blank">498bae8</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-5-1.png" target="_blank">5931d53</a>
@@ -1080,7 +1147,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).
 </div>
 <div id="table-of-the-fixed-effects-estimates" class="section level4">
 <h4>Table of the fixed effects estimates</h4>
-<p>Table SXXX: Treatment effects on the number of contacts with pheromone lure observed in 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the “probability of direction” (i.e. the probability that the true effect size has the same sign as the estimated effect size).</p>
+<p>Table SXXX: Treatment effects on the number of inspections of the pheromone lure observed in 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the “probability of direction” (i.e. the probability that the true effect size has the same sign as the estimated effect size).</p>
 <pre class="r"><code>pvalues &lt;- as.data.frame(p_direction(pre_reg_model)) %&gt;% 
   mutate(Parameter = str_remove_all(Parameter, &quot;b_&quot;),
          Parameter = str_replace_all(Parameter, &quot;[.]&quot;, &quot;:&quot;),
@@ -1454,6 +1521,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/498bae80496852ffc5f717dcf4cd7fe2bd08c9ac/docs/figure/statistics.Rmd/unnamed-chunk-8-1.png" target="_blank">498bae8</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-8-1.png" target="_blank">5931d53</a>
 </td>
 <td>
@@ -1467,7 +1545,7 @@ lukeholman
 </table>
 </div>
 </div>
-<p><br></br> <strong>Figure S1</strong>: The figure shows the posterior distribution for each chemical’s effect size, from the pre-registered model shown in Table SXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical received more contacts from worker bees than the solvent-only control, and negative effect sizes mean it received fewer contacts. Note that there is some evidence that the true effect size is positive for the four treatments containing 9-ODA, though there is no evidence that pairs of chemicals had synergistic effects.</p>
+<p><br></br> <strong>Figure S1</strong>: The figure shows the posterior distribution for each chemical’s effect size, from the pre-registered model shown in Table SXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical received more inspections from worker bees than the solvent-only control, and negative effect sizes mean it received fewer inspections. Note that there is some evidence that the true effect size is positive for the four treatments containing 9-ODA, though there is no evidence that pairs of chemicals had synergistic effects.</p>
 </div>
 <div id="pairwise-comparisons-of-means-planned-contrasts" class="section level3 tabset">
 <h3>Pairwise comparisons of means (planned contrasts)</h3>
@@ -1483,14 +1561,14 @@ lukeholman
   arrange(treatment) %&gt;% 
   mutate(para = paste(&quot;V&quot;, 1:n(), sep = &quot;&quot;))
 
-contrasts_n_touches &lt;- as.data.frame(fitted(pre_reg_model, newdata = new, 
+contrasts_n_inspections &lt;- as.data.frame(fitted(pre_reg_model, newdata = new, 
                      re_formula = NA, summary = FALSE)) %&gt;% 
   mutate(draw = 1:n()) %&gt;% 
   as_tibble() %&gt;% 
-  gather(para, n_touches, -draw) %&gt;% 
+  gather(para, n_inspections, -draw) %&gt;% 
   left_join(new, by = &quot;para&quot;) %&gt;% 
-  select(draw, treatment, n_touches) %&gt;% 
-  spread(treatment, n_touches) %&gt;% 
+  select(draw, treatment, n_inspections) %&gt;% 
+  spread(treatment, n_inspections) %&gt;% 
   mutate(
     `HOB &amp; HVA − HOB` = `HOB and HVA` - HOB,
     `HOB &amp; HVA − HVA` = `HOB and HVA` - HVA,
@@ -1525,11 +1603,11 @@ contrasts_n_touches &lt;- as.data.frame(fitted(pre_reg_model, newdata = new,
 
 get_p &lt;- function(x) 1 - as.numeric(p_direction(x))
 
-contrast_table_touches &lt;- left_join(
-  contrasts_n_touches[,-1] %&gt;% 
+contrast_table_n_inspections &lt;- left_join(
+  contrasts_n_inspections[,-1] %&gt;% 
     summarise_all(~ list(as.data.frame(posterior_summary(.x)))) %&gt;% 
     gather(Contrast, value) %&gt;% unnest(value),
-  contrasts_n_touches[,-1] %&gt;% 
+  contrasts_n_inspections[,-1] %&gt;% 
     summarise_all(~ get_p(.x)) %&gt;% 
     gather(Contrast, p) %&gt;% unnest(p), by = &quot;Contrast&quot;) %&gt;% 
   mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
@@ -1538,9 +1616,9 @@ contrast_table_touches &lt;- left_join(
          ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;)) %&gt;% 
   arrange(-Estimate)
 
-contrasts_n_touches %&gt;% 
+contrasts_n_inspections %&gt;% 
   gather(contrast, difference, -draw) %&gt;% 
-  mutate(contrast = factor(contrast, rev(contrast_table_touches$Contrast))) %&gt;% 
+  mutate(contrast = factor(contrast, rev(contrast_table_n_inspections$Contrast))) %&gt;% 
   ggplot(aes(difference, contrast, fill = contrast)) +
   stat_eyeh() + 
   geom_vline(xintercept = 0, linetype = 2) +
@@ -1601,7 +1679,7 @@ lukeholman
 <div id="table-of-contrasts" class="section level4">
 <h4>Table of contrasts</h4>
 <p>The table shows summary statistics about the posterior distribution of the contrasts shown in the previous figure.</p>
-<pre class="r"><code>contrast_table_touches %&gt;% 
+<pre class="r"><code>contrast_table_n_inspections %&gt;% 
   kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -2185,7 +2263,7 @@ HOB − solvent
         text = element_text(family = nice_font))
 }
 
-contrasts_n_touches %&gt;% synergy_plot(c(-50, 50))</code></pre>
+contrasts_n_inspections %&gt;% synergy_plot(c(-50, 50))</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
@@ -2226,16 +2304,16 @@ lukeholman
 </div>
 </div>
 </div>
-<div id="analysis-of-touch-duration" class="section level2">
-<h2>Analysis of touch duration</h2>
-<div id="plot-distribution-of-the-response-variable-duration_touches" class="section level3">
-<h3>Plot distribution of the response variable, <code>duration_touches</code></h3>
+<div id="analysis-of-inspection-duration" class="section level2">
+<h2>Analysis of inspection duration</h2>
+<div id="plot-distribution-of-the-response-variable-duration_inspections" class="section level3">
+<h3>Plot distribution of the response variable, <code>duration_inspections</code></h3>
 <p>The response variable is highly non-Normal, though a log transformation produces an approximately Normal distribution. We therefore chose to analyse these data with the <code>lognormal</code> family in <code>brms</code>, which is designed for variables for which a log transformation makes the distribution approximately Normal. We also tested a model using the <code>gamma</code> family, but this model provided a worse fit than the <code>lognormal</code> model as ranked by leave-one-out cross validation (not shown).</p>
 <pre class="r"><code>grid.arrange(
-  ggplot(data_by_petri_dish, aes(duration_touches)) + 
+  ggplot(data_by_petri_dish, aes(duration_inspections)) + 
     geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
     xlab(&quot;Total duration of inspections&quot;),
-  ggplot(data_by_petri_dish, aes(duration_touches)) + 
+  ggplot(data_by_petri_dish, aes(duration_inspections)) + 
     geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
     scale_x_log10() + 
     xlab(&quot;Total duration of inspections (log10 scale)&quot;)
@@ -2265,6 +2343,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/498bae80496852ffc5f717dcf4cd7fe2bd08c9ac/docs/figure/statistics.Rmd/unnamed-chunk-12-1.png" target="_blank">498bae8</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-12-1.png" target="_blank">5931d53</a>
 </td>
 <td>
@@ -2284,7 +2373,7 @@ lukeholman
 <p>The predictors and priors in the Bayesian GLMM are the same as before, with one one difference: the predictor <code>hive</code> has been treated as a fixed effect (not random), because the model did not sample properly when <code>hive</code> was modeled as a random effect. Random effects are sometimes difficult to fit when there are few levels (here, there are only 3 hives), and the usual solution is to use a fixed effect.</p>
 <pre class="r"><code>if(!file.exists(&quot;output/pre_reg_model.rds&quot;)){ 
   duration_model &lt;- brm(
-    formula = duration_touches ~ treatment + (1 | block) + hive,
+    formula = duration_inspections ~ treatment + (1 | block) + hive,
     family = &quot;lognormal&quot;, 
     chains = 4, cores = 1, iter = 8000,
     control = list(adapt_delta = 0.9, max_treedepth = 14),
@@ -2325,6 +2414,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/498bae80496852ffc5f717dcf4cd7fe2bd08c9ac/docs/figure/statistics.Rmd/unnamed-chunk-14-1.png" target="_blank">498bae8</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-14-1.png" target="_blank">5931d53</a>
@@ -2401,7 +2501,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).
 </div>
 <div id="table-of-the-fixed-effects-estimates-1" class="section level4">
 <h4>Table of the fixed effects estimates</h4>
-<p>Table SXXX: Treatment effects on the total duration of contact with pheromone lure (in seconds) observed over 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the “probability of direction” (i.e. the probability that the true effect size has the same sign as the estimated effect size).</p>
+<p>Table SXXX: Treatment effects on the total duration of inspections of the pheromone lure (in seconds) observed over 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the “probability of direction” (i.e. the probability that the true effect size has the same sign as the estimated effect size).</p>
 <pre class="r"><code>pvalues &lt;- as.data.frame(p_direction(duration_model)) %&gt;% 
   mutate(Parameter = str_remove_all(Parameter, &quot;b_&quot;),
          Parameter = str_replace_all(Parameter, &quot;[.]&quot;, &quot;:&quot;),
@@ -2799,6 +2899,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/498bae80496852ffc5f717dcf4cd7fe2bd08c9ac/docs/figure/statistics.Rmd/unnamed-chunk-17-1.png" target="_blank">498bae8</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-17-1.png" target="_blank">5931d53</a>
 </td>
 <td>
@@ -2836,10 +2947,10 @@ lukeholman
          re_formula = NA, summary = FALSE)) %&gt;% 
   mutate(draw = 1:n()) %&gt;% 
   as_tibble() %&gt;% 
-  gather(para, n_touches, -draw) %&gt;% 
+  gather(para, n_inspections, -draw) %&gt;% 
   left_join(new, by = &quot;para&quot;) %&gt;% 
-  select(draw, treatment, n_touches) %&gt;% 
-  spread(treatment, n_touches) %&gt;% 
+  select(draw, treatment, n_inspections) %&gt;% 
+  spread(treatment, n_inspections) %&gt;% 
   mutate(
     `HOB &amp; HVA − HOB` = `HOB and HVA` - HOB,
     `HOB &amp; HVA − HVA` = `HOB and HVA` - HVA,
@@ -3488,7 +3599,7 @@ HOB − solvent
 </div>
 <div id="synergy-score-1" class="section level3">
 <h3>Synergy score</h3>
-<p>We again calculate the posterior estimate of the “synergy score”, <span class="math inline">\(d_{1,2} - d_1 + d_2\)</span>. As before, the posterior distribution overlaps zero for every pair of chemicals, meaning that there is no strong evidence that any of the two-chemical mixtures have synergistic effects on the duration of contact with the lure.</p>
+<p>We again calculate the posterior estimate of the “synergy score”, <span class="math inline">\(d_{1,2} - d_1 + d_2\)</span>. As before, the posterior distribution overlaps zero for every pair of chemicals, meaning that there is no strong evidence that any of the two-chemical mixtures have synergistic effects on the duration of inspections of the lure.</p>
 <pre class="r"><code>contrasts_duration %&gt;% synergy_plot(c(-500, 500))</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -3557,8 +3668,8 @@ barplot_data &lt;- slessor %&gt;%
   bind_rows(data_by_petri_dish %&gt;%
               filter(treatment != &quot;10-HDA (worker control)&quot;) %&gt;%
               group_by(treatment) %&gt;%
-              summarise(mean = mean(duration_touches),
-                        SE = sd(duration_touches) / sqrt(n()),
+              summarise(mean = mean(duration_inspections),
+                        SE = sd(duration_inspections) / sqrt(n()),
                         .groups = &quot;drop&quot;) %&gt;%
               mutate(study = &quot;Present study&quot;, n = NA,
                      treatment = str_replace_all(as.character(treatment), &quot;and&quot;, &quot;&amp;&quot;)) %&gt;%
@@ -3586,8 +3697,8 @@ correlation_data &lt;- slessor %&gt;%
   select(treatment, mean, SE, study) %&gt;%
   bind_rows(data_by_petri_dish %&gt;%
               group_by(treatment) %&gt;%
-              summarise(mean = mean(duration_touches),
-                        SE = sd(duration_touches) / sqrt(n()),
+              summarise(mean = mean(duration_inspections),
+                        SE = sd(duration_inspections) / sqrt(n()),
                         .groups = &quot;drop&quot;) %&gt;%
               mutate(study = &quot;us&quot;,
                      treatment = str_replace_all(as.character(treatment), &quot;and&quot;, &quot;&amp;&quot;))) %&gt;%
