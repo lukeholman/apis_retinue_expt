@@ -59,12 +59,12 @@ behaviour_data <- read.csv("data/unblinded_behaviour_data.csv") %>%
          hive = hive) %>%
   mutate(treatment = factor(treatment, levels = treatment_levels))
 
-# Finally, count up the number of times the bees in each dish touched the filter paper, 
-# so that we now have 1 observation for each Petri dish (number of touches in 30 minute-observation period)
+# Finally, count up the number of times the bees in each dish inspected the filter paper, 
+# so that we now have 1 observation for each Petri dish (number of inspections in 30 minute-observation period)
 data_by_petri_dish <- behaviour_data %>% 
   group_by(treatment, block, hive, dish) %>%
-  summarise(n_touches = length(touch_duration),
-            duration_touches = sum(touch_duration) + 1, # +1 is for the log10 analyses
+  summarise(n_inspections = length(touch_duration),
+            duration_inspections = sum(touch_duration) + 1, # +1 is for the log10 analyses
             .groups = "drop") %>% 
   ungroup() %>%
   arrange(treatment, hive, block) 
@@ -73,7 +73,7 @@ data_by_petri_dish <- behaviour_data %>%
 
 ## Plotting the raw data
 
-These plots show the means $\pm$ SE (top) or the individual data points with boxplots for each group of bees (bottom). The left plots show the number of times bees made contact with the pheromone lure in 30 minutes, while the right plots show the total duration the bees were in contact with the lure. 
+These plots show the means $\pm$ SE (top) or the individual data points with boxplots for each group of bees (bottom). The left plots show the number of times bees inspected the pheromone lure in 30 minutes, while the right plots show the total duration the bees were inspecting the lure. 
 ```{r fig.height=10, fig.showtext=TRUE}
 raw_to_plot <- data_by_petri_dish %>% 
   mutate(treatment = str_replace_all(treatment, "and", "&"),
@@ -82,8 +82,8 @@ raw_to_plot <- data_by_petri_dish %>%
 
 p1 <- raw_to_plot %>%
   group_by(treatment) %>%
-  summarise(mean = mean(n_touches),
-            SE = sd(n_touches) / sqrt(n()),
+  summarise(mean = mean(n_inspections),
+            SE = sd(n_inspections) / sqrt(n()),
             .groups = "drop") %>%
   mutate(treatment = factor(treatment, rev(treatment))) %>%
   ggplot(aes(treatment, mean, fill = treatment)) + 
@@ -96,8 +96,8 @@ p1 <- raw_to_plot %>%
 
 p2 <- raw_to_plot %>%
   group_by(treatment) %>%
-  summarise(mean = mean(duration_touches),
-            SE = sd(duration_touches) / sqrt(n()),
+  summarise(mean = mean(duration_inspections),
+            SE = sd(duration_inspections) / sqrt(n()),
             .groups = "drop") %>%
   mutate(treatment = factor(treatment, rev(treatment))) %>%
   ggplot(aes(treatment, mean, fill = treatment)) + 
@@ -112,7 +112,7 @@ p2 <- raw_to_plot %>%
 
 p3 <- raw_to_plot %>%
     mutate(treatment = factor(treatment, rev(levels(treatment)))) %>%
-    ggplot(aes(treatment, n_touches, colour = treatment)) + 
+    ggplot(aes(treatment, n_inspections, colour = treatment)) + 
     geom_beeswarm(alpha = .7) + 
     geom_boxplot(fill = NA, colour = "black", size = 0.3, outlier.shape = NA) +
     coord_flip() + 
@@ -123,7 +123,7 @@ p3 <- raw_to_plot %>%
 
 p4 <- raw_to_plot %>%
     mutate(treatment = factor(treatment, rev(levels(treatment)))) %>%
-    ggplot(aes(treatment, duration_touches, colour = treatment)) + 
+    ggplot(aes(treatment, duration_inspections, colour = treatment)) + 
     geom_beeswarm(alpha = .7) + 
     geom_boxplot(fill = NA, colour = "black", size = 0.3, outlier.shape = NA) +
     coord_flip() + 
@@ -141,26 +141,26 @@ plot(rbind(cbind(ggplotGrob(p1), ggplotGrob(p2), size = "last"),
 
 
 
-## Analysis of the number of contacts in 30 minutes
+## Analysis of the number of inspections
 
 ### Recap of the pre-registered plan for the analysis
 
-In this section (i.e. `Analysis of the number of contacts in 30 minutes`), we carry out the pre-planned analysis, focusing on the response variable that was mentioned in the pre-registration, namely "the number of antennal contacts between workers and the pheromone-treated paper that occur over 30 minutes" (represented in this R Markdown document by the variable `data_by_petri_dish$n_touches`).
+In this section (i.e. `Analysis of the number of inspections`), we carry out the pre-planned analysis, focusing on the response variable that was mentioned in the pre-registration (represented in this R Markdown document by the variable `data_by_petri_dish$n_inspections`).
 
 To recap, the pre-registered plan for this study can be found at [https://osf.io/ncf9z/](), and the relevant part is quoted here:
 
 > _We will conduct two separate analyses, one for the behavioural data and one for the ovary dissection data. The analyses will use generalised linear mixed models (GLMM) be implemented using the R package brms, using one of the following two model formulas (in the syntax of brms): \p Model 1: `Response_variable ~ Pheromone_treatment + (1 | Block) + (1 | Hive)` &nbsp; &nbsp; or &nbsp; &nbsp;  Model 2: `Response_variable ~ Pheromone_treatment + (1 | Block) + (Pheromone_treatment | Hive)` \p Where `Pheromone_treatment` is a 12-level fixed factor. Model 1 fits hive as a random intercept, which constrains all the hives to show the same response to queen pheromone, while the latter allows for a variable response between hives by additionally including treatment as a random slope. We will use cross-validation to determine which of these models provides a better fit, and then use that in subsequent analyses. The behavioural data represent counts of events, and so will probably be analysed using a GLMM with Poisson errors (or perhaps zero-inflated Poisson or negative binomial – to be decided based on which one provides the best fit, according to posterior predictive checks)._
 
 
-In the next section (`Analysis of touch duration`), we use the same statistical methods to analyse the other response variable, namely the total duration that bees were in contact with the lure over the 30-minute observation period (measured in "bee seconds"; represented in this document by the variable `data_by_petri_dish$duration_touches`). As the plot above suggests, the differences between treatments are larger for the `duration_touches` response variable than for `n_touches` though the results are qualitatively similar.
+In the next section (`Analysis of inspection duration`), we use the same statistical methods to analyse the other response variable, namely the total duration that bees were inspecting the lure over the 30-minute observation period (measured in "bee seconds"; represented in this document by the variable `data_by_petri_dish$duration_inspections`). As the plot above suggests, the differences between treatments are larger for the `duration_inspections` response variable than for `n_inspections` though the results are qualitatively similar.
 
 
-### Plot distribution of the response variable, `n_touches`
+### Plot distribution of the response variable, `n_inspections`
 
 The response variable does not look zero-inflated (as we speculated in the pre-registration), though the right tail seems longer than expected for a Poisson-distributed random variable. Therefore, it seems appropriate to select the negative binomial distribution, which has an additional free parameter for the variance, and so should provide a better fit to the data.
 
 ```{r}
-ggplot(data_by_petri_dish, aes(n_touches)) + 
+ggplot(data_by_petri_dish, aes(n_inspections)) + 
   geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
   xlab("Number of inspections")
 ```
@@ -176,7 +176,7 @@ if(!file.exists("output/pre_reg_model.rds")){
   priors <- c(prior(normal(0, 3), class = b))
   
   pre_reg_model <- brm(
-    formula = n_touches ~ treatment + (1 | block) + (1 | hive),
+    formula = n_inspections ~ treatment + (1 | block) + (1 | hive),
     family = "negbinomial",
     chains = 4, cores = 1, iter = 8000,
     control = list(adapt_delta = 0.9999, max_treedepth = 14),
@@ -185,7 +185,7 @@ if(!file.exists("output/pre_reg_model.rds")){
   saveRDS(pre_reg_model, file = "output/pre_reg_model.rds")
   
   pre_reg_with_random_slope <- brm(
-    formula = n_touches ~  treatment + (1 | block) + (treatment | hive), 
+    formula = n_inspections ~  treatment + (1 | block) + (treatment | hive), 
     family = "negbinomial", 
     sample_prior = TRUE,
     chains = 4, cores = 1, iter = 8000,
@@ -234,7 +234,7 @@ summary(pre_reg_model)
 
 #### Table of the fixed effects estimates
 
-Table SXXX: Treatment effects on the number of contacts with pheromone lure observed in 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the "probability of direction" (i.e. the probability that the true effect size has the same sign as the estimated effect size). 
+Table SXXX: Treatment effects on the number of inspections of the pheromone lure observed in 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the "probability of direction" (i.e. the probability that the true effect size has the same sign as the estimated effect size). 
 
 ```{r}
 pvalues <- as.data.frame(p_direction(pre_reg_model)) %>% 
@@ -293,14 +293,14 @@ plot_model <- function(model){
 pre_reg_model %>% plot_model()
 ```
 <br></br>
-**Figure S1**: The figure shows the posterior distribution for each chemical's effect size, from the pre-registered model shown in Table SXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical received more contacts from worker bees than the solvent-only control, and negative effect sizes mean it received fewer contacts. Note that there is some evidence that the true effect size is positive for the four treatments containing 9-ODA, though there is no evidence that pairs of chemicals had synergistic effects. 
+**Figure S1**: The figure shows the posterior distribution for each chemical's effect size, from the pre-registered model shown in Table SXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical received more inspections from worker bees than the solvent-only control, and negative effect sizes mean it received fewer inspections. Note that there is some evidence that the true effect size is positive for the four treatments containing 9-ODA, though there is no evidence that pairs of chemicals had synergistic effects. 
 
 
 ### Pairwise comparisons of means (planned contrasts) {.tabset}
 
 We also wrote the following in the pre-registered plan for the analysis:
 
-> Firstly, we will calculate pairwise differences in means between all the 12 treatments, similar to post hoc testing in the frequentist framework.   For example, we might find that the mean number of contacts with the pheromone lure was significantly higher in the 9-ODA treatment relative to the solvent control 
+> Firstly, we will calculate pairwise differences in means between all the 12 treatments, similar to post hoc testing in the frequentist framework. For example, we might find that the mean number of contacts with the pheromone lure was significantly higher in the 9-ODA treatment relative to the solvent control 
 
 Here, we calculate the posterior estimates for the mean number of inspections of the pheromone lure for each of the 12 treatments, and then find the _difference_ in means between various pairs of treatments. For example, we compare each of the 11 treatments to the solvent-only control, and compare each of the two-component mixtures to the individual chemicals they contain. In the graph below, the y-axis includes a minus sign (`−`) to illustrate the direction of the comparison, e.g. positive values for the first variable (`9-ODA & HOB − HOB`) indicate the mixture of 9-ODA & HOB had a higher number of inspections than HOB alone. 
 
@@ -312,14 +312,14 @@ new <- data_by_petri_dish %>%
   arrange(treatment) %>% 
   mutate(para = paste("V", 1:n(), sep = ""))
 
-contrasts_n_touches <- as.data.frame(fitted(pre_reg_model, newdata = new, 
+contrasts_n_inspections <- as.data.frame(fitted(pre_reg_model, newdata = new, 
                      re_formula = NA, summary = FALSE)) %>% 
   mutate(draw = 1:n()) %>% 
   as_tibble() %>% 
-  gather(para, n_touches, -draw) %>% 
+  gather(para, n_inspections, -draw) %>% 
   left_join(new, by = "para") %>% 
-  select(draw, treatment, n_touches) %>% 
-  spread(treatment, n_touches) %>% 
+  select(draw, treatment, n_inspections) %>% 
+  spread(treatment, n_inspections) %>% 
   mutate(
     `HOB & HVA − HOB` = `HOB and HVA` - HOB,
     `HOB & HVA − HVA` = `HOB and HVA` - HVA,
@@ -354,11 +354,11 @@ contrasts_n_touches <- as.data.frame(fitted(pre_reg_model, newdata = new,
 
 get_p <- function(x) 1 - as.numeric(p_direction(x))
 
-contrast_table_touches <- left_join(
-  contrasts_n_touches[,-1] %>% 
+contrast_table_n_inspections <- left_join(
+  contrasts_n_inspections[,-1] %>% 
     summarise_all(~ list(as.data.frame(posterior_summary(.x)))) %>% 
     gather(Contrast, value) %>% unnest(value),
-  contrasts_n_touches[,-1] %>% 
+  contrasts_n_inspections[,-1] %>% 
     summarise_all(~ get_p(.x)) %>% 
     gather(Contrast, p) %>% unnest(p), by = "Contrast") %>% 
   mutate(` ` = ifelse(p < 0.05, "\\*", ""),
@@ -367,9 +367,9 @@ contrast_table_touches <- left_join(
          ` ` = replace(` `, p < 0.001, "***")) %>% 
   arrange(-Estimate)
 
-contrasts_n_touches %>% 
+contrasts_n_inspections %>% 
   gather(contrast, difference, -draw) %>% 
-  mutate(contrast = factor(contrast, rev(contrast_table_touches$Contrast))) %>% 
+  mutate(contrast = factor(contrast, rev(contrast_table_n_inspections$Contrast))) %>% 
   ggplot(aes(difference, contrast, fill = contrast)) +
   stat_eyeh() + 
   geom_vline(xintercept = 0, linetype = 2) +
@@ -385,7 +385,7 @@ contrasts_n_touches %>%
 The table shows summary statistics about the posterior distribution of the contrasts shown in the previous figure. 
 
 ```{r}
-contrast_table_touches %>% 
+contrast_table_n_inspections %>% 
   kable() %>% kable_styling(full_width = FALSE)
 ```
 
@@ -432,25 +432,25 @@ synergy_plot <- function(df, lims){
         text = element_text(family = nice_font))
 }
 
-contrasts_n_touches %>% synergy_plot(c(-50, 50))
+contrasts_n_inspections %>% synergy_plot(c(-50, 50))
 ```
 
 
 
 
 
-## Analysis of touch duration
+## Analysis of inspection duration
 
-### Plot distribution of the response variable, `duration_touches`
+### Plot distribution of the response variable, `duration_inspections`
 
 The response variable is highly non-Normal, though a log transformation produces an approximately Normal distribution. We therefore chose to analyse these data with the `lognormal` family in `brms`, which is designed for variables for which a log transformation makes the distribution approximately Normal. We also tested a model using the `gamma` family, but this model provided a worse fit than the `lognormal` model as ranked by leave-one-out cross validation (not shown).
 
 ```{r}
 grid.arrange(
-  ggplot(data_by_petri_dish, aes(duration_touches)) + 
+  ggplot(data_by_petri_dish, aes(duration_inspections)) + 
     geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
     xlab("Total duration of inspections"),
-  ggplot(data_by_petri_dish, aes(duration_touches)) + 
+  ggplot(data_by_petri_dish, aes(duration_inspections)) + 
     geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
     scale_x_log10() + 
     xlab("Total duration of inspections (log10 scale)")
@@ -464,7 +464,7 @@ The predictors and priors in the Bayesian GLMM are the same as before, with one 
 ```{r}
 if(!file.exists("output/pre_reg_model.rds")){ 
   duration_model <- brm(
-    formula = duration_touches ~ treatment + (1 | block) + hive,
+    formula = duration_inspections ~ treatment + (1 | block) + hive,
     family = "lognormal", 
     chains = 4, cores = 1, iter = 8000,
     control = list(adapt_delta = 0.9, max_treedepth = 14),
@@ -502,7 +502,7 @@ summary(duration_model)
 
 #### Table of the fixed effects estimates
 
-Table SXXX: Treatment effects on the total duration of contact with pheromone lure (in seconds) observed over 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the "probability of direction" (i.e. the probability that the true effect size has the same sign as the estimated effect size). 
+Table SXXX: Treatment effects on the total duration of inspections of the pheromone lure (in seconds) observed over 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the "probability of direction" (i.e. the probability that the true effect size has the same sign as the estimated effect size). 
 
 ```{r}
 pvalues <- as.data.frame(p_direction(duration_model)) %>% 
@@ -566,10 +566,10 @@ contrasts_duration <- as.data.frame(
          re_formula = NA, summary = FALSE)) %>% 
   mutate(draw = 1:n()) %>% 
   as_tibble() %>% 
-  gather(para, n_touches, -draw) %>% 
+  gather(para, n_inspections, -draw) %>% 
   left_join(new, by = "para") %>% 
-  select(draw, treatment, n_touches) %>% 
-  spread(treatment, n_touches) %>% 
+  select(draw, treatment, n_inspections) %>% 
+  spread(treatment, n_inspections) %>% 
   mutate(
     `HOB & HVA − HOB` = `HOB and HVA` - HOB,
     `HOB & HVA − HVA` = `HOB and HVA` - HVA,
@@ -640,7 +640,7 @@ contrast_table_duration %>%
 
 ### Synergy score
 
-We again calculate the posterior estimate of the "synergy score", $d_{1,2} - d_1 + d_2$. As before, the posterior distribution overlaps zero for every pair of chemicals, meaning that there is no strong evidence that any of the two-chemical mixtures have synergistic effects on the duration of contact with the lure.
+We again calculate the posterior estimate of the "synergy score", $d_{1,2} - d_1 + d_2$. As before, the posterior distribution overlaps zero for every pair of chemicals, meaning that there is no strong evidence that any of the two-chemical mixtures have synergistic effects on the duration of inspections of the lure.
 
 ```{r}
 contrasts_duration %>% synergy_plot(c(-500, 500))
@@ -648,7 +648,7 @@ contrasts_duration %>% synergy_plot(c(-500, 500))
 
 
 ```{r echo=FALSE}
-p1 <- (contrasts_n_touches %>% synergy_plot(c(-50, 50))) + 
+p1 <- (contrasts_n_inspections %>% synergy_plot(c(-50, 50))) + 
   xlab("Synergy score\n(Number of inspections)")
 p2 <- (contrasts_duration %>% synergy_plot(c(-500, 500))) + 
   ylab(NULL) + xlab("Synergy score\n(Duration of inspections)") +
@@ -690,8 +690,8 @@ barplot_data <- slessor %>%
   bind_rows(data_by_petri_dish %>%
               filter(treatment != "10-HDA (worker control)") %>%
               group_by(treatment) %>%
-              summarise(mean = mean(duration_touches),
-                        SE = sd(duration_touches) / sqrt(n()),
+              summarise(mean = mean(duration_inspections),
+                        SE = sd(duration_inspections) / sqrt(n()),
                         .groups = "drop") %>%
               mutate(study = "Present study", n = NA,
                      treatment = str_replace_all(as.character(treatment), "and", "&")) %>%
@@ -719,8 +719,8 @@ correlation_data <- slessor %>%
   select(treatment, mean, SE, study) %>%
   bind_rows(data_by_petri_dish %>%
               group_by(treatment) %>%
-              summarise(mean = mean(duration_touches),
-                        SE = sd(duration_touches) / sqrt(n()),
+              summarise(mean = mean(duration_inspections),
+                        SE = sd(duration_inspections) / sqrt(n()),
                         .groups = "drop") %>%
               mutate(study = "us",
                      treatment = str_replace_all(as.character(treatment), "and", "&"))) %>%
