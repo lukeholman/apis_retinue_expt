@@ -525,16 +525,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree9a5032fd157cd8953f8eb96023d3fdab694f75d5targetblank9a5032fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/9a5032fd157cd8953f8eb96023d3fdab694f75d5" target="_blank">9a5032f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree9641bb4c3ee4e412ee4eb8f23ed4c024e6633690targetblank9641bb4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/9641bb4c3ee4e412ee4eb8f23ed4c024e6633690" target="_blank">9641bb4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree9a5032fd157cd8953f8eb96023d3fdab694f75d5targetblank9a5032fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree9641bb4c3ee4e412ee4eb8f23ed4c024e6633690targetblank9641bb4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/lukeholman/apis_retinue_expt/tree/9a5032fd157cd8953f8eb96023d3fdab694f75d5" target="_blank">9a5032f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/lukeholman/apis_retinue_expt/tree/9641bb4c3ee4e412ee4eb8f23ed4c024e6633690" target="_blank">9641bb4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -562,8 +562,10 @@ Ignored files:
     Ignored:    output/top_10_model_formulae_duration.rds
     Ignored:    pheromone paper draft.docx
 
-Untracked files:
-    Untracked:  data/metadata_for_each_dish_and_tray.csv
+Unstaged changes:
+    Modified:   figures/fig1.pdf
+    Modified:   figures/fig2.pdf
+    Modified:   figures/fig3.pdf
 
 </code></pre>
 <p>
@@ -602,6 +604,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/9641bb4c3ee4e412ee4eb8f23ed4c024e6633690/analysis/statistics.Rmd" target="_blank">9641bb4</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+<td>
+workflowr::wflow_publish("analysis/*")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/lukeholman/apis_retinue_expt/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/statistics.html" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -756,7 +792,7 @@ p1 &lt;- raw_to_plot %&gt;%
   geom_errorbar(aes(ymin = mean-SE, ymax = mean+SE), width = 0.2) + 
   geom_bar(stat=&quot;identity&quot;, colour = &quot;black&quot;) + coord_flip() + 
   xlab(&quot;Treatment&quot;) +
-  ylab(&quot;Mean \u00B1 SE number of contacts&quot;) +
+  ylab(&quot;Mean \u00B1 SE number of inspections&quot;) +
     theme(legend.position = &quot;none&quot;,
           text = element_text(family = nice_font))
 
@@ -770,7 +806,7 @@ p2 &lt;- raw_to_plot %&gt;%
   geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.2) + 
   geom_bar(stat=&quot;identity&quot;, colour = &quot;black&quot;) + coord_flip() + 
   xlab(NULL) +
-  ylab(&quot;Mean \u00B1 SE total duration of contact (s)&quot;) +
+  ylab(&quot;Mean \u00B1 SE total duration of inspections (s)&quot;) +
   theme(legend.position = &quot;none&quot;,
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -782,7 +818,7 @@ p3 &lt;- raw_to_plot %&gt;%
     geom_beeswarm(alpha = .7) + 
     geom_boxplot(fill = NA, colour = &quot;black&quot;, size = 0.3, outlier.shape = NA) +
     coord_flip() + 
-    ylab(&quot;Number of contacts&quot;) + 
+    ylab(&quot;Number of inspections&quot;) + 
     xlab(&quot;Treatment&quot;) +
     theme(legend.position = &quot;none&quot;,
         text = element_text(family = nice_font))
@@ -794,7 +830,7 @@ p4 &lt;- raw_to_plot %&gt;%
     geom_boxplot(fill = NA, colour = &quot;black&quot;, size = 0.3, outlier.shape = NA) +
     coord_flip() + 
     #scale_y_log10() + 
-    ylab(&quot;Total duration of contact&quot;) + 
+    ylab(&quot;Total duration of inspections&quot;) + 
     xlab(NULL) +
     theme(legend.position = &quot;none&quot;,
           axis.text.y = element_blank(),
@@ -804,6 +840,43 @@ p4 &lt;- raw_to_plot %&gt;%
 plot(rbind(cbind(ggplotGrob(p1), ggplotGrob(p2), size = &quot;last&quot;),
            cbind(ggplotGrob(p3), ggplotGrob(p4), size = &quot;last&quot;)))</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-2-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="analysis-of-the-number-of-contacts-in-30-minutes" class="section level2">
 <h2>Analysis of the number of contacts in 30 minutes</h2>
@@ -821,8 +894,45 @@ plot(rbind(cbind(ggplotGrob(p1), ggplotGrob(p2), size = &quot;last&quot;),
 <p>The response variable does not look zero-inflated (as we speculated in the pre-registration), though the right tail seems longer than expected for a Poisson-distributed random variable. Therefore, it seems appropriate to select the negative binomial distribution, which has an additional free parameter for the variance, and so should provide a better fit to the data.</p>
 <pre class="r"><code>ggplot(data_by_petri_dish, aes(n_touches)) + 
   geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
-  xlab(&quot;Number of contacts with lure&quot;)</code></pre>
+  xlab(&quot;Number of inspections&quot;)</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-3-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="run-the-pre-registered-models-in-brms" class="section level3">
 <h3>Run the pre-registered models in <code>brms</code></h3>
@@ -859,21 +969,57 @@ plot(rbind(cbind(ggplotGrob(p1), ggplotGrob(p2), size = &quot;last&quot;),
 </div>
 <div id="model-results" class="section level3">
 <h3>Model results</h3>
-</div>
-</div>
-<div id="the-model-without-the-random-slope-fits-better" class="section level2">
-<h2>The model without the random slope fits better</h2>
+<div id="the-model-without-the-random-slope-fits-better" class="section level4">
+<h4>The model without the random slope fits better</h4>
 <p>The model formula named “Model 1” in the pre-registration had a better fit than the one named Model 2; that is, there was no evidence for variance in the response to treatment between hives. The model weight of Model 1 was &gt;99.999% (computed using “LOO”, or leave-one-out cross validation), indicating strong support for Model 1 over Model 2.</p>
 <pre class="r"><code>model_weights_random_slope </code></pre>
 <pre>            pre_reg_model pre_reg_with_random_slope 
              9.999398e-01              6.021066e-05 
 </pre>
+</div>
 <div id="posterior-predictive-plots-to-verify-model-fit" class="section level4">
 <h4>Posterior predictive plots to verify model fit</h4>
 <p>We first perform a “posterior predictive check” on the model. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. The fitted values follow the original data quite well, which is a necessary condition for a model to produce reliable inferences.</p>
 <pre class="r"><code>pp_check(pre_reg_model, nsamples = 10) + 
-  labs(y = &quot;Density&quot;, x = &quot;Number of contacts with pheromone lure&quot;)</code></pre>
+  labs(y = &quot;Density&quot;, x = &quot;Number of inspections&quot;)</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-5-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="raw-output-provided-by-brms" class="section level4">
 <h4>Raw output provided by <code>brms</code></h4>
@@ -1257,6 +1403,7 @@ Treatment: 9-ODA &amp; 9-HDA
 </tbody>
 </table>
 </div>
+</div>
 <div id="plotting-the-parameter-estimates-from-the-model" class="section level3">
 <h3>Plotting the parameter estimates from the model</h3>
 <pre class="r"><code>plot_model &lt;- function(model){
@@ -1278,11 +1425,49 @@ Treatment: 9-ODA &amp; 9-HDA
     theme(legend.position = &quot;none&quot;,
         text = element_text(family = nice_font)) + 
     ylab(&quot;Pheromone treatment&quot;) +
-    xlab(&quot;Effect of chemical on number of contacts\n(relative to the solvent-only control)&quot;)
+    xlab(&quot;Effect on number of inspections\n(relative to the solvent-only control)&quot;)
 }
 
 pre_reg_model %&gt;% plot_model()</code></pre>
-<p><img src="figure/statistics.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /> <br></br> <strong>Figure S1</strong>: The figure shows the posterior distribution for each chemical’s effect size, from the pre-registered model shown in Table SXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical received more contacts from worker bees than the solvent-only control, and negative effect sizes mean it received fewer contacts. Note that there is some evidence that the true effect size is positive for the four treatments containing 9-ODA, though there is no evidence that pairs of chemicals had synergistic effects.</p>
+<p><img src="figure/statistics.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-8-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></br> <strong>Figure S1</strong>: The figure shows the posterior distribution for each chemical’s effect size, from the pre-registered model shown in Table SXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical received more contacts from worker bees than the solvent-only control, and negative effect sizes mean it received fewer contacts. Note that there is some evidence that the true effect size is positive for the four treatments containing 9-ODA, though there is no evidence that pairs of chemicals had synergistic effects.</p>
 </div>
 <div id="pairwise-comparisons-of-means-planned-contrasts" class="section level3 tabset">
 <h3>Pairwise comparisons of means (planned contrasts)</h3>
@@ -1386,6 +1571,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-9-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/ad13d9e9385eef1309cd9f97c013ac85ecdc7c2e/docs/figure/statistics.Rmd/unnamed-chunk-9-1.png" target="_blank">ad13d9e</a>
@@ -1991,6 +2187,43 @@ HOB − solvent
 
 contrasts_n_touches %&gt;% synergy_plot(c(-50, 50))</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-11-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="analysis-of-touch-duration" class="section level2">
@@ -2001,13 +2234,50 @@ contrasts_n_touches %&gt;% synergy_plot(c(-50, 50))</code></pre>
 <pre class="r"><code>grid.arrange(
   ggplot(data_by_petri_dish, aes(duration_touches)) + 
     geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
-    xlab(&quot;Total duration of contacts with lure&quot;),
+    xlab(&quot;Total duration of inspections&quot;),
   ggplot(data_by_petri_dish, aes(duration_touches)) + 
     geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
     scale_x_log10() + 
-    xlab(&quot;Total duration of contacts with lure (log10 scale)&quot;)
+    xlab(&quot;Total duration of inspections (log10 scale)&quot;)
 )</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-12-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="run-the-model-lognormal-glmm" class="section level3">
 <h3>Run the model (lognormal GLMM)</h3>
@@ -2031,8 +2301,45 @@ duration_model &lt;- readRDS(&quot;output/duration_model.rds&quot;)</code></pre>
 <h4>Posterior predictive plots to verify model fit</h4>
 <p>We first perform a “posterior predictive check” on the models. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. The fitted values follow the original data quite well, which is a necessary condition for a model to produce reliable inferences.</p>
 <pre class="r"><code>pp_check(duration_model, nsamples = 10) + scale_x_log10() + 
-  labs(y = &quot;Density&quot;, x = &quot;Total duration of contact with pheromone lure (s)&quot;)</code></pre>
+  labs(y = &quot;Density&quot;, x = &quot;Total duration of inspections (s)&quot;)</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-14-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here is the complete output from the <code>summary()</code> method for the models fitted with <code>brms</code>. The <code>summary()</code> shows the random effects, which were omitted from the previous table.</p>
 </div>
 <div id="raw-output-provided-by-brms-1" class="section level4">
@@ -2492,6 +2799,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-17-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/ad13d9e9385eef1309cd9f97c013ac85ecdc7c2e/docs/figure/statistics.Rmd/unnamed-chunk-17-1.png" target="_blank">ad13d9e</a>
 </td>
 <td>
@@ -2579,6 +2897,43 @@ contrasts_duration %&gt;%
         text = element_text(family = nice_font)) + 
   xlab(&quot;Posterior difference in means&quot;)</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-19-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="table-of-contrasts-1" class="section level4">
 <h4>Table of contrasts</h4>
@@ -3136,6 +3491,43 @@ HOB − solvent
 <p>We again calculate the posterior estimate of the “synergy score”, <span class="math inline">\(d_{1,2} - d_1 + d_2\)</span>. As before, the posterior distribution overlaps zero for every pair of chemicals, meaning that there is no strong evidence that any of the two-chemical mixtures have synergistic effects on the duration of contact with the lure.</p>
 <pre class="r"><code>contrasts_duration %&gt;% synergy_plot(c(-500, 500))</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-21-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="comparing-our-results-to-slessor-et-al.-1988" class="section level2">
@@ -3228,6 +3620,43 @@ ggsave(filename = &quot;figures/fig3.pdf&quot;,
 
 composite_plot</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-23-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-23-1.png" target="_blank">5931d53</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="spearman-correlation-between-the-effect-sizes" class="section level3">
 <h3>Spearman correlation between the effect sizes</h3>
