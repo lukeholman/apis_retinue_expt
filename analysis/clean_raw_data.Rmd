@@ -22,9 +22,9 @@ In the following code chunks, we combine the raw, blind-collected behavioural da
 
 We were also blind to which trays came from which beehive, since the person decoding the behaviour videos did not know which hive the bees came from.
 
-The information used to remove the blind coding is in the file `data/blind_codes.csv`. The raw, blinded data is in the file `data/raw_blinded_behaviour_data.csv`.
+The information used to remove the blind coding is in the file `data/blind_codes.csv`. The blinded data collection sheet is in the file `data/blinded_behaviour_data.csv`.
 
-Finally, the file created by this script -- which you should use for new analyses, checking our results, or including our study in a meta-analysis -- is in the file `data/behaviour_data.csv`.
+Finally, the file created by this script is called `data/unblinded_behaviour_data.csv` -- this is the file to use for running new analyses, checking our conclusions, or including our data in a meta-analysis.
 
 
 ### Here are the numbers used to encode each pheromone treatment:
@@ -73,8 +73,7 @@ treatment_levels <-
     "9-ODA and HOB", "9-ODA and HVA", "9-ODA and 9-HDA")
 
 
-unblinded_data <- read.csv("data/raw_blinded_behaviour_data.csv", 
-                           stringsAsFactors = FALSE) %>%
+unblinded_data <- read.csv("data/blinded_behaviour_data.csv", stringsAsFactors = FALSE) %>%
   as_tibble() %>%
   filter(!is.na(tray)) %>%
   
@@ -93,11 +92,11 @@ unblinded_data <- read.csv("data/raw_blinded_behaviour_data.csv",
   left_join(blind_codes, by = "treat_num") %>%        
   
   # merge with the datasheet that lists how many bees were in each Petri dish (usually 5, occasionally 4)
-    left_join(read_csv("data/metadata_for_each_dish_and_tray.csv") %>%
+    left_join(read_csv("data/metadata_for_each_dish_and_tray.csv", ) %>%
               select(tray, dish, number_bees), by = c("tray", "dish")) %>%
   
   # re-order the rows and columns for neatness
-  select(hive, treatment, tray, dish, number_bees, start_touch, end_touch, touch_duration, notes) %>%
+  select(hive, treatment, tray, dish, number_bees, start_touch, end_touch, touch_duration) %>%
   mutate(treatment = factor(treatment, levels = treatment_levels)) %>%
   arrange(hive, treatment, tray, dish)
 ```
@@ -107,4 +106,5 @@ unblinded_data <- read.csv("data/raw_blinded_behaviour_data.csv",
 ```{r}
 unblinded_data %>% write_csv("data/unblinded_behaviour_data.csv")
 ```
+
 

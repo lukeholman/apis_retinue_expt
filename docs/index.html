@@ -22,6 +22,27 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -267,7 +288,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">apis_retinue_expt</a>
+      <a class="navbar-brand" href="index.html">Apis retinue response</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -282,18 +303,17 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/lukeholman/apis_retinue_expt">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
-
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
 
 <div class="fluid-row" id="header">
 
@@ -306,7 +326,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -315,7 +335,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -324,17 +344,17 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-03-16
+<strong>Last updated:</strong> 2021-06-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>apis_retinue_expt/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -343,25 +363,31 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree33e17bbd8f0363ec45d2480a61c279cd4813c16ftargetblank33e17bba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/33e17bbd8f0363ec45d2480a61c279cd4813c16f" target="_blank">33e17bb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree262e450a3a098fb81db4e35a27047895ec04936ftargetblank262e450a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/262e450a3a098fb81db4e35a27047895ec04936f" target="_blank">262e450</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree33e17bbd8f0363ec45d2480a61c279cd4813c16ftargetblank33e17bba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree262e450a3a098fb81db4e35a27047895ec04936ftargetblank262e450a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/lukeholman/apis_retinue_expt/tree/262e450a3a098fb81db4e35a27047895ec04936f" target="_blank">262e450</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -369,10 +395,11 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    Figures and tables.docx
+    Ignored:    analysis/.DS_Store
     Ignored:    data/.DS_Store
     Ignored:    data/behaviour_data_OLDER_VERSION.csv
     Ignored:    data/raw_blinded_behaviour_data_OLD_VERSION.csv
-    Ignored:    output/hive_as_fixed_effect_model.rds
+    Ignored:    output/duration_model.rds
     Ignored:    output/model_comparison_table_count_brms.rds
     Ignored:    output/model_comparison_table_duration_brms.rds
     Ignored:    output/model_selection_table.rds
@@ -384,7 +411,23 @@ Ignored files:
     Ignored:    output/top_10_model_formulae_count.rds
     Ignored:    output/top_10_model_formulae_duration.rds
     Ignored:    pheromone paper draft.docx
-    Ignored:    ~$gures and tables.docx
+
+Untracked files:
+    Untracked:  data/blinded_behaviour_data.csv
+    Untracked:  figures/
+    Untracked:  old code/
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+    Deleted:    analysis/about.Rmd
+    Modified:   analysis/clean_raw_data.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Deleted:    analysis/preregistered_analysis.Rmd
+    Modified:   analysis/statistics.Rmd
+    Modified:   data/data_for_each_group_bees.csv
+    Modified:   data/raw_blinded_behaviour_data.csv
+    Modified:   data/unblinded_behaviour_data.csv
 
 </code></pre>
 <p>
@@ -399,7 +442,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -423,6 +466,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/lukeholman/apis_retinue_expt/abe1e8080f7e79e30ac32723199c30e3e1ea72e6/docs/index.html" target="_blank">abe1e80</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2020-03-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -464,18 +524,14 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>This website presents all the code used for the paper <em>The retinue response of the honey bee: how many pheromones are involved?</em> by Kocher, Wong, and Holman (2020).</p>
+<p>This website presents all the code used for the paper <em>The retinue response of the honey bee: how many pheromones are involved?</em> by Daisy Kocher, Heidi Wong, and Luke Holman (contact: <code>l.holman@napier.ac.uk</code>).</p>
 <div id="un-blinding-and-cleaning-the-raw-data" class="section level1">
 <h1>Un-blinding and cleaning the raw data</h1>
 <p>Click <a href="clean_raw_data.html">here</a> to see the R code used to remove the blind codes from the raw data collection sheet, and to prepare the data for analysis.</p>
 </div>
-<div id="running-the-pre-registered-statistical-analysis" class="section level1">
-<h1>Running the pre-registered statistical analysis</h1>
-<p>Click <a href="preregistered_analysis.html">here</a> to see statistical results and plots generated by following the statistical analysis plan from the pre-registration for this study, which can be read <a href="https://osf.io/ncf9z/">here</a>.</p>
-</div>
-<div id="running-the-analyses-presented-in-the-paper" class="section level1">
-<h1>Running the analyses presented in the paper</h1>
-<p>Click <a href="statistics.html">here</a> to see the R code used to generate all statistical results and plots presented in the paper.</p>
+<div id="statistical-analysis" class="section level1">
+<h1>Statistical analysis</h1>
+<p>Click <a href="statistics.html">here</a> to see statistical results and plots. Much of the analysis follows the analysis that was described in the pre-registration for this study, which can be read <a href="https://osf.io/ncf9z/">here</a>.</p>
 </div>
 
 
@@ -499,7 +555,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

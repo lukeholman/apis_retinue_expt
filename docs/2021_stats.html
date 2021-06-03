@@ -1,0 +1,3259 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Pre-registered statistical analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Apis retinue response</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/lukeholman/apis_retinue_expt">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Pre-registered statistical analysis</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-06-03
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>apis_retinue_expt/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190828code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190828)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190828code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190828)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree262e450a3a098fb81db4e35a27047895ec04936ftargetblank262e450a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/262e450a3a098fb81db4e35a27047895ec04936f" target="_blank">262e450</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree262e450a3a098fb81db4e35a27047895ec04936ftargetblank262e450a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/lukeholman/apis_retinue_expt/tree/262e450a3a098fb81db4e35a27047895ec04936f" target="_blank">262e450</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    Figures and tables.docx
+    Ignored:    data/.DS_Store
+    Ignored:    data/behaviour_data_OLDER_VERSION.csv
+    Ignored:    data/raw_blinded_behaviour_data_OLD_VERSION.csv
+    Ignored:    output/duration_model.rds
+    Ignored:    output/model_comparison_table_count_brms.rds
+    Ignored:    output/model_comparison_table_duration_brms.rds
+    Ignored:    output/model_selection_table.rds
+    Ignored:    output/model_selection_table_count_glmmTMB.rds
+    Ignored:    output/model_selection_table_duration_glmmTMB.rds
+    Ignored:    output/model_weights_random_slope.rds
+    Ignored:    output/multivariate_brms.rds
+    Ignored:    output/pre_reg_model.rds
+    Ignored:    output/top_10_model_formulae_count.rds
+    Ignored:    output/top_10_model_formulae_duration.rds
+    Ignored:    pheromone paper draft.docx
+
+Untracked files:
+    Untracked:  analysis/2021_stats.Rmd
+    Untracked:  data/blinded_behaviour_data.csv
+    Untracked:  figures/
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+    Modified:   analysis/clean_raw_data.Rmd
+    Modified:   analysis/statistics.Rmd
+    Modified:   data/data_for_each_group_bees.csv
+    Modified:   data/raw_blinded_behaviour_data.csv
+    Modified:   data/unblinded_behaviour_data.csv
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="load-packages-and-the-behavioural-data" class="section level2">
+<h2>Load packages and the behavioural data</h2>
+<pre class="r"><code># However it was slightly tricky to install the showtext package. On Mac, I did this:
+# installed &#39;homebrew&#39; using Terminal: ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; 
+# installed &#39;libpng&#39; using Terminal: brew install libpng
+# installed &#39;showtext&#39; in R using: devtools::install_github(&quot;yixuan/showtext&quot;)  
+library(showtext)
+
+library(tidyverse)
+library(ggbeeswarm)
+library(tidybayes)
+library(brms)
+library(gridExtra)
+library(kableExtra)
+library(bayestestR)
+library(knitrhooks) # install with devtools::install_github(&quot;nathaneastwood/knitrhooks&quot;)
+library(showtext)
+library(ggrepel)
+library(cowplot)
+
+output_max_height() # a knitrhook option
+options(stringsAsFactors = FALSE)
+
+# set up nice font for figures
+nice_font &lt;- &quot;Raleway&quot;
+font_add_google(name = nice_font, family = nice_font, regular.wt = 400, bold.wt = 700)
+showtext_auto()
+
+# Here are the treatments, ranked roughly from least to most like a queen bee
+treatment_levels &lt;-
+  # two &quot;controls&quot;
+  c(&quot;Solvent control&quot;, &quot;10-HDA (worker control)&quot;,
+
+    # 4 individual queen-type chemicals
+    &quot;HOB&quot;, &quot;HVA&quot;, &quot;9-HDA&quot;, &quot;9-ODA&quot;,
+
+    # 6 pairwise combinations of two of the queen-type chemicals
+    &quot;HOB and HVA&quot;,
+    &quot;9-HDA and HOB&quot;, &quot;9-HDA and HVA&quot;,
+    &quot;9-ODA and HOB&quot;, &quot;9-ODA and HVA&quot;, &quot;9-ODA and 9-HDA&quot;)
+levels_ampersand &lt;- str_replace_all(treatment_levels, &quot;and&quot;, &quot;&amp;&quot;)
+
+
+# Load the behaviour data and rename the variables as in the pre-registration
+# Also put the pheromone treatment levels in a biologically sensible order (not alphabetical)
+behaviour_data &lt;- read.csv(&quot;data/unblinded_behaviour_data.csv&quot;) %&gt;%
+  as_tibble() %&gt;%
+  rename(block = tray,
+         hive = hive) %&gt;%
+  mutate(treatment = factor(treatment, levels = treatment_levels))
+
+# Finally, count up the number of times the bees in each dish touched the filter paper, 
+# so that we now have 1 observation for each Petri dish (number of touches in 30 minute-observation period)
+data_by_petri_dish &lt;- behaviour_data %&gt;% 
+  group_by(treatment, block, hive, dish) %&gt;%
+  summarise(n_touches = length(touch_duration),
+            duration_touches = sum(touch_duration) + 1, # +1 is for the log10 analyses
+            .groups = &quot;drop&quot;) %&gt;% 
+  ungroup() %&gt;%
+  arrange(treatment, hive, block) </code></pre>
+</div>
+<div id="plotting-the-raw-data" class="section level2">
+<h2>Plotting the raw data</h2>
+<p>These plots show the means <span class="math inline">\(\pm\)</span> SE (top) or the individual data points with boxplots for each group of bees (bottom). The left plots show the number of times bees made contact with the pheromone lure in 30 minutes, while the right plots show the total duration the bees were in contact with the lure.</p>
+<pre class="r"><code>raw_to_plot &lt;- data_by_petri_dish %&gt;% 
+  mutate(treatment = str_replace_all(treatment, &quot;and&quot;, &quot;&amp;&quot;),
+         treatment = factor(treatment, levels_ampersand))
+
+
+p1 &lt;- raw_to_plot %&gt;%
+  group_by(treatment) %&gt;%
+  summarise(mean = mean(n_touches),
+            SE = sd(n_touches) / sqrt(n()),
+            .groups = &quot;drop&quot;) %&gt;%
+  mutate(treatment = factor(treatment, rev(treatment))) %&gt;%
+  ggplot(aes(treatment, mean, fill = treatment)) + 
+  geom_errorbar(aes(ymin = mean-SE, ymax = mean+SE), width = 0.2) + 
+  geom_bar(stat=&quot;identity&quot;, colour = &quot;black&quot;) + coord_flip() + 
+  xlab(&quot;Treatment&quot;) +
+  ylab(&quot;Mean \u00B1 SE number of contacts&quot;) +
+    theme(legend.position = &quot;none&quot;,
+          text = element_text(family = nice_font))
+
+p2 &lt;- raw_to_plot %&gt;%
+  group_by(treatment) %&gt;%
+  summarise(mean = mean(duration_touches),
+            SE = sd(duration_touches) / sqrt(n()),
+            .groups = &quot;drop&quot;) %&gt;%
+  mutate(treatment = factor(treatment, rev(treatment))) %&gt;%
+  ggplot(aes(treatment, mean, fill = treatment)) + 
+  geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.2) + 
+  geom_bar(stat=&quot;identity&quot;, colour = &quot;black&quot;) + coord_flip() + 
+  xlab(NULL) +
+  ylab(&quot;Mean \u00B1 SE total duration of contact (s)&quot;) +
+  theme(legend.position = &quot;none&quot;,
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        text = element_text(family = nice_font))
+
+p3 &lt;- raw_to_plot %&gt;%
+    mutate(treatment = factor(treatment, rev(levels(treatment)))) %&gt;%
+    ggplot(aes(treatment, n_touches, colour = treatment)) + 
+    geom_beeswarm(alpha = .7) + 
+    geom_boxplot(fill = NA, colour = &quot;black&quot;, size = 0.3, outlier.shape = NA) +
+    coord_flip() + 
+    ylab(&quot;Number of contacts&quot;) + 
+    xlab(&quot;Treatment&quot;) +
+    theme(legend.position = &quot;none&quot;,
+        text = element_text(family = nice_font))
+
+p4 &lt;- raw_to_plot %&gt;%
+    mutate(treatment = factor(treatment, rev(levels(treatment)))) %&gt;%
+    ggplot(aes(treatment, duration_touches, colour = treatment)) + 
+    geom_beeswarm(alpha = .7) + 
+    geom_boxplot(fill = NA, colour = &quot;black&quot;, size = 0.3, outlier.shape = NA) +
+    coord_flip() + 
+    #scale_y_log10() + 
+    ylab(&quot;Total duration of contact&quot;) + 
+    xlab(NULL) +
+    theme(legend.position = &quot;none&quot;,
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          text = element_text(family = nice_font))
+
+plot(rbind(cbind(ggplotGrob(p1), ggplotGrob(p2), size = &quot;last&quot;),
+           cbind(ggplotGrob(p3), ggplotGrob(p4), size = &quot;last&quot;)))</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="analysis-of-the-number-of-contacts-in-30-minutes" class="section level2">
+<h2>Analysis of the number of contacts in 30 minutes</h2>
+<div id="recap-of-the-pre-registered-plan-for-the-analysis" class="section level3">
+<h3>Recap of the pre-registered plan for the analysis</h3>
+<p>In this section (i.e. <code>Analysis of the number of contacts in 30 minutes</code>), we carry out the pre-planned analysis, focusing on the response variable that was mentioned in the pre-registration, namely “the number of antennal contacts between workers and the pheromone-treated paper that occur over 30 minutes” (represented in this R Markdown document by the variable <code>data_by_petri_dish$n_touches</code>).</p>
+<p>To recap, the pre-registered plan for this study can be found at <a href="">https://osf.io/ncf9z/</a>, and the relevant part is quoted here:</p>
+<blockquote>
+<p><em>We will conduct two separate analyses, one for the behavioural data and one for the ovary dissection data. The analyses will use generalised linear mixed models (GLMM) be implemented using the R package brms, using one of the following two model formulas (in the syntax of brms): Model 1: <code>Response_variable ~ Pheromone_treatment + (1 | Block) + (1 | Hive)</code>     or     Model 2: <code>Response_variable ~ Pheromone_treatment + (1 | Block) + (Pheromone_treatment | Hive)</code> Where <code>Pheromone_treatment</code> is a 12-level fixed factor. Model 1 fits hive as a random intercept, which constrains all the hives to show the same response to queen pheromone, while the latter allows for a variable response between hives by additionally including treatment as a random slope. We will use cross-validation to determine which of these models provides a better fit, and then use that in subsequent analyses. The behavioural data represent counts of events, and so will probably be analysed using a GLMM with Poisson errors (or perhaps zero-inflated Poisson or negative binomial – to be decided based on which one provides the best fit, according to posterior predictive checks).</em></p>
+</blockquote>
+<p>In the next section (<code>Analysis of touch duration</code>), we use the same statistical methods to analyse the other response variable, namely the total duration that bees were in contact with the lure over the 30-minute observation period (measured in “bee seconds”; represented in this document by the variable <code>data_by_petri_dish$duration_touches</code>). As the plot above suggests, the differences between treatments are larger for the <code>duration_touches</code> response variable than for <code>n_touches</code> though the results are qualitatively similar.</p>
+</div>
+<div id="plot-distribution-of-the-response-variable-n_touches" class="section level3">
+<h3>Plot distribution of the response variable, <code>n_touches</code></h3>
+<p>The response variable does not look zero-inflated (as we speculated in the pre-registration), though the right tail seems longer than expected for a Poisson-distributed random variable. Therefore, it seems appropriate to select the negative binomial distribution, which has an additional free parameter for the variance, and so should provide a better fit to the data.</p>
+<pre class="r"><code>ggplot(data_by_petri_dish, aes(n_touches)) + 
+  geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
+  xlab(&quot;Number of contacts with lure&quot;)</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="run-the-pre-registered-models-in-brms" class="section level3">
+<h3>Run the pre-registered models in <code>brms</code></h3>
+<p>Here, we run the models as stated in the pre-registration.</p>
+<pre class="r"><code>if(!file.exists(&quot;output/pre_reg_model.rds&quot;)){ 
+  
+  priors &lt;- c(prior(normal(0, 3), class = b))
+  
+  pre_reg_model &lt;- brm(
+    formula = n_touches ~ treatment + (1 | block) + (1 | hive),
+    family = &quot;negbinomial&quot;,
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = data_by_petri_dish)
+  saveRDS(pre_reg_model, file = &quot;output/pre_reg_model.rds&quot;)
+  
+  pre_reg_with_random_slope &lt;- brm(
+    formula = n_touches ~  treatment + (1 | block) + (treatment | hive), 
+    family = &quot;negbinomial&quot;, 
+    sample_prior = TRUE,
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = data_by_petri_dish)
+  
+  model_weights_random_slope &lt;- model_weights(pre_reg_model, pre_reg_with_random_slope, weights = &quot;loo&quot;)
+  saveRDS(model_weights_random_slope, &quot;output/model_weights_random_slope.rds&quot;)
+
+} else {
+  pre_reg_model &lt;- readRDS(&quot;output/pre_reg_model.rds&quot;)
+  model_weights_random_slope &lt;- readRDS(&quot;output/model_weights_random_slope.rds&quot;)
+}</code></pre>
+</div>
+<div id="model-results" class="section level3">
+<h3>Model results</h3>
+</div>
+</div>
+<div id="the-model-without-the-random-slope-fits-better" class="section level2">
+<h2>The model without the random slope fits better</h2>
+<p>The model formula named “Model 1” in the pre-registration had a better fit than the one named Model 2; that is, there was no evidence for variance in the response to treatment between hives. The model weight of Model 1 was &gt;99.999% (computed using “LOO”, or leave-one-out cross validation), indicating strong support for Model 1 over Model 2.</p>
+<pre class="r"><code>model_weights_random_slope </code></pre>
+<pre>            pre_reg_model pre_reg_with_random_slope 
+             9.999398e-01              6.021066e-05 
+</pre>
+<div id="posterior-predictive-plots-to-verify-model-fit" class="section level4">
+<h4>Posterior predictive plots to verify model fit</h4>
+<p>We first perform a “posterior predictive check” on the model. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. The fitted values follow the original data quite well, which is a necessary condition for a model to produce reliable inferences.</p>
+<pre class="r"><code>pp_check(pre_reg_model, nsamples = 10) + 
+  labs(y = &quot;Density&quot;, x = &quot;Number of contacts with pheromone lure&quot;)</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="raw-output-provided-by-brms" class="section level4">
+<h4>Raw output provided by <code>brms</code></h4>
+<p>Here is the complete output from the <code>summary()</code> method for <code>brms</code>.</p>
+<pre class="r"><code>summary(pre_reg_model)</code></pre>
+<pre style = "max-height:300px; overflow-y: auto;"> Family: negbinomial 
+  Links: mu = log; shape = identity 
+Formula: n_touches ~ treatment + (1 | block) + (1 | hive) 
+   Data: summary_data (Number of observations: 392) 
+Samples: 4 chains, each with iter = 8000; warmup = 4000; thin = 1;
+         total post-warmup samples = 16000
+
+Group-Level Effects: 
+~block (Number of levels: 35) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.28      0.05     0.20     0.38 1.00     4381     7055
+
+~hive (Number of levels: 3) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.68      0.66     0.14     2.50 1.00     3577     5659
+
+Population-Level Effects: 
+                             Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                        3.71      0.49     2.75     4.79 1.00     3932
+treatment10MHDAworkercontrol     0.07      0.11    -0.14     0.29 1.00     4698
+treatmentHOB                    -0.07      0.11    -0.28     0.15 1.00     4682
+treatmentHVA                    -0.03      0.11    -0.25     0.18 1.00     4593
+treatment9MHDA                   0.02      0.11    -0.20     0.23 1.00     4583
+treatment9MODA                   0.21      0.11     0.00     0.42 1.00     4414
+treatmentHOBandHVA              -0.01      0.11    -0.22     0.21 1.00     4824
+treatment9MHDAandHOB            -0.05      0.11    -0.27     0.17 1.00     4772
+treatment9MHDAandHVA             0.02      0.11    -0.19     0.23 1.00     4382
+treatment9MODAandHOB             0.19      0.11    -0.02     0.41 1.00     4527
+treatment9MODAandHVA             0.16      0.11    -0.05     0.37 1.00     4617
+treatment9MODAand9MHDA           0.15      0.11    -0.07     0.36 1.00     4717
+                             Tail_ESS
+Intercept                        4204
+treatment10MHDAworkercontrol     8562
+treatmentHOB                     7782
+treatmentHVA                     8063
+treatment9MHDA                   7048
+treatment9MODA                   7512
+treatmentHOBandHVA               8578
+treatment9MHDAandHOB             7684
+treatment9MHDAandHVA             8191
+treatment9MODAandHOB             7579
+treatment9MODAandHVA             8409
+treatment9MODAand9MHDA           7988
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+shape     5.86      0.51     4.91     6.90 1.00    15498    12150
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+</pre>
+</div>
+<div id="table-of-the-fixed-effects-estimates" class="section level4">
+<h4>Table of the fixed effects estimates</h4>
+<p>Table SXXX: Treatment effects on the number of contacts with pheromone lure observed in 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the “probability of direction” (i.e. the probability that the true effect size has the same sign as the estimated effect size).</p>
+<pre class="r"><code>pvalues &lt;- as.data.frame(p_direction(pre_reg_model)) %&gt;% 
+  mutate(Parameter = str_remove_all(Parameter, &quot;b_&quot;),
+         Parameter = str_replace_all(Parameter, &quot;[.]&quot;, &quot;:&quot;),
+         p = 1- pd)  %&gt;% select(Parameter, p) %&gt;% distinct()
+
+fixed_effects &lt;- fixef(pre_reg_model) %&gt;% 
+  as.data.frame() %&gt;%
+  rownames_to_column(&quot;Parameter&quot;) %&gt;%
+  mutate(old_names = Parameter) %&gt;%
+  left_join(pvalues, by = &quot;Parameter&quot;) %&gt;%
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;),
+         Parameter = str_replace_all(Parameter, &quot;Pheromone_treatment&quot;, &quot;&quot;),
+         Parameter = str_replace_all(Parameter, &quot;M&quot;, &quot;-&quot;),
+         Parameter = str_replace_all(Parameter, &quot;and&quot;, &quot; and &quot;),
+         Parameter = str_replace_all(Parameter, &quot;workercontrol&quot;, &quot; (worker control)&quot;),
+         Parameter = str_replace_all(Parameter, &quot;treatment&quot;, &quot;Treatment: &quot;)) %&gt;%
+  mutate_at(vars(-Parameter, - ` `, - old_names), ~ round(.x, 3)) 
+
+fixed_effects %&gt;% select(-old_names) %&gt;%
+  mutate(Parameter = str_replace_all(Parameter, &quot;and&quot;, &quot;&amp;&quot;)) %&gt;% 
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Q2.5
+</th>
+<th style="text-align:right;">
+Q97.5
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.707
+</td>
+<td style="text-align:right;">
+0.488
+</td>
+<td style="text-align:right;">
+2.748
+</td>
+<td style="text-align:right;">
+4.794
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+0.072
+</td>
+<td style="text-align:right;">
+0.109
+</td>
+<td style="text-align:right;">
+-0.139
+</td>
+<td style="text-align:right;">
+0.287
+</td>
+<td style="text-align:right;">
+0.254
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: HOB
+</td>
+<td style="text-align:right;">
+-0.070
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+-0.284
+</td>
+<td style="text-align:right;">
+0.150
+</td>
+<td style="text-align:right;">
+0.263
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: HVA
+</td>
+<td style="text-align:right;">
+-0.033
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+-0.246
+</td>
+<td style="text-align:right;">
+0.180
+</td>
+<td style="text-align:right;">
+0.377
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-HDA
+</td>
+<td style="text-align:right;">
+0.016
+</td>
+<td style="text-align:right;">
+0.110
+</td>
+<td style="text-align:right;">
+-0.200
+</td>
+<td style="text-align:right;">
+0.229
+</td>
+<td style="text-align:right;">
+0.447
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-ODA
+</td>
+<td style="text-align:right;">
+0.210
+</td>
+<td style="text-align:right;">
+0.106
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.418
+</td>
+<td style="text-align:right;">
+0.025
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: HOB &amp; HVA
+</td>
+<td style="text-align:right;">
+-0.005
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+-0.222
+</td>
+<td style="text-align:right;">
+0.215
+</td>
+<td style="text-align:right;">
+0.477
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-HDA &amp; HOB
+</td>
+<td style="text-align:right;">
+-0.051
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+-0.268
+</td>
+<td style="text-align:right;">
+0.168
+</td>
+<td style="text-align:right;">
+0.319
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-HDA &amp; HVA
+</td>
+<td style="text-align:right;">
+0.018
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+-0.194
+</td>
+<td style="text-align:right;">
+0.229
+</td>
+<td style="text-align:right;">
+0.433
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-ODA &amp; HOB
+</td>
+<td style="text-align:right;">
+0.191
+</td>
+<td style="text-align:right;">
+0.110
+</td>
+<td style="text-align:right;">
+-0.023
+</td>
+<td style="text-align:right;">
+0.406
+</td>
+<td style="text-align:right;">
+0.039
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-ODA &amp; HVA
+</td>
+<td style="text-align:right;">
+0.164
+</td>
+<td style="text-align:right;">
+0.107
+</td>
+<td style="text-align:right;">
+-0.046
+</td>
+<td style="text-align:right;">
+0.373
+</td>
+<td style="text-align:right;">
+0.061
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-ODA &amp; 9-HDA
+</td>
+<td style="text-align:right;">
+0.146
+</td>
+<td style="text-align:right;">
+0.110
+</td>
+<td style="text-align:right;">
+-0.068
+</td>
+<td style="text-align:right;">
+0.360
+</td>
+<td style="text-align:right;">
+0.092
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="plotting-the-parameter-estimates-from-the-model" class="section level3">
+<h3>Plotting the parameter estimates from the model</h3>
+<pre class="r"><code>plot_model &lt;- function(model){
+  posterior_samples(model) %&gt;% 
+    as_tibble() %&gt;%
+    select(contains(&quot;b_&quot;), -contains(&quot;Intercept&quot;)) %&gt;%
+    gather() %&gt;% 
+    mutate(key = str_remove_all(key, &quot;b_&quot;)) %&gt;%
+    left_join(fixed_effects %&gt;% select(Parameter, old_names), by = c(&quot;key&quot; = &quot;old_names&quot;)) %&gt;%
+    mutate(Parameter = str_replace_all(Parameter, &quot;Treatment: &quot;, &quot;&quot;)) %&gt;% 
+    mutate(Parameter = str_replace_all(Parameter, &quot;and&quot;, &quot;&amp;&quot;)) %&gt;% 
+    mutate(Parameter = factor(Parameter, rev(levels_ampersand))) %&gt;%
+    filter(!is.na(Parameter)) %&gt;% 
+    ggplot(aes(value, Parameter, fill = Parameter)) +
+    geom_vline(xintercept = 0, linetype = 2) + 
+    stat_halfeyeh(alpha = 0.8) +
+    scale_fill_viridis_d() +
+    theme_bw() +
+    theme(legend.position = &quot;none&quot;,
+        text = element_text(family = nice_font)) + 
+    ylab(&quot;Pheromone treatment&quot;) +
+    xlab(&quot;Effect of chemical on number of contacts\n(relative to the solvent-only control)&quot;)
+}
+
+pre_reg_model %&gt;% plot_model()</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /> <br></br> <strong>Figure S1</strong>: The figure shows the posterior distribution for each chemical’s effect size, from the pre-registered model shown in Table SXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical received more contacts from worker bees than the solvent-only control, and negative effect sizes mean it received fewer contacts. Note that there is some evidence that the true effect size is positive for the four treatments containing 9-ODA, though there is no evidence that pairs of chemicals had synergistic effects.</p>
+</div>
+<div id="pairwise-comparisons-of-means-planned-contrasts" class="section level3 tabset">
+<h3>Pairwise comparisons of means (planned contrasts)</h3>
+<p>We also wrote the following in the pre-registered plan for the analysis:</p>
+<blockquote>
+<p>Firstly, we will calculate pairwise differences in means between all the 12 treatments, similar to post hoc testing in the frequentist framework. For example, we might find that the mean number of contacts with the pheromone lure was significantly higher in the 9-ODA treatment relative to the solvent control</p>
+</blockquote>
+<p>Here, we calculate the posterior estimates for the mean number of inspections of the pheromone lure for each of the 12 treatments, and then find the <em>difference</em> in means between various pairs of treatments. For example, we compare each of the 11 treatments to the solvent-only control, and compare each of the two-component mixtures to the individual chemicals they contain. In the graph below, the y-axis includes a minus sign (<code>−</code>) to illustrate the direction of the comparison, e.g. positive values for the first variable (<code>9-ODA &amp; HOB − HOB</code>) indicate the mixture of 9-ODA &amp; HOB had a higher number of inspections than HOB alone.</p>
+<div id="figure" class="section level4">
+<h4>Figure</h4>
+<pre class="r"><code>new &lt;- data_by_petri_dish %&gt;% 
+  select(treatment) %&gt;% distinct() %&gt;% 
+  arrange(treatment) %&gt;% 
+  mutate(para = paste(&quot;V&quot;, 1:n(), sep = &quot;&quot;))
+
+contrasts_n_touches &lt;- as.data.frame(fitted(pre_reg_model, newdata = new, 
+                     re_formula = NA, summary = FALSE)) %&gt;% 
+  mutate(draw = 1:n()) %&gt;% 
+  as_tibble() %&gt;% 
+  gather(para, n_touches, -draw) %&gt;% 
+  left_join(new, by = &quot;para&quot;) %&gt;% 
+  select(draw, treatment, n_touches) %&gt;% 
+  spread(treatment, n_touches) %&gt;% 
+  mutate(
+    `HOB &amp; HVA − HOB` = `HOB and HVA` - HOB,
+    `HOB &amp; HVA − HVA` = `HOB and HVA` - HVA,
+    
+    `9-HDA &amp; HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
+    `9-HDA &amp; HOB − HOB` = `9-HDA and HOB` - HOB,
+    
+    `9-HDA &amp; HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
+    `9-HDA &amp; HVA − HVA` = `9-HDA and HVA` - HVA,
+    
+    `9-ODA &amp; HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
+    `9-ODA &amp; HOB − HOB` = `9-ODA and HOB` - HOB,
+    
+    `9-ODA &amp; HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
+    `9-ODA &amp; HVA − HVA` = `9-ODA and HVA` - HVA,
+    
+    `9-ODA &amp; 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
+    `9-ODA &amp; 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
+    
+    `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
+    `HOB − solvent` = HOB - `Solvent control`,
+    `HVA − solvent` = HVA - `Solvent control`,
+    `9-HDA − solvent` = `9-HDA` - `Solvent control`,
+    `9-ODA − solvent` = `9-ODA` - `Solvent control`,
+    `HOB &amp; HVA − solvent` = `HOB and HVA` - `Solvent control`,
+    `9-HDA &amp; HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
+    `9-HDA &amp; HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
+    `9-ODA &amp; HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
+    `9-ODA &amp; HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
+    `9-ODA &amp; 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+    ) %&gt;% select(draw, contains(&quot;−&quot;)) 
+
+get_p &lt;- function(x) 1 - as.numeric(p_direction(x))
+
+contrast_table_touches &lt;- left_join(
+  contrasts_n_touches[,-1] %&gt;% 
+    summarise_all(~ list(as.data.frame(posterior_summary(.x)))) %&gt;% 
+    gather(Contrast, value) %&gt;% unnest(value),
+  contrasts_n_touches[,-1] %&gt;% 
+    summarise_all(~ get_p(.x)) %&gt;% 
+    gather(Contrast, p) %&gt;% unnest(p), by = &quot;Contrast&quot;) %&gt;% 
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;)) %&gt;% 
+  arrange(-Estimate)
+
+contrasts_n_touches %&gt;% 
+  gather(contrast, difference, -draw) %&gt;% 
+  mutate(contrast = factor(contrast, rev(contrast_table_touches$Contrast))) %&gt;% 
+  ggplot(aes(difference, contrast, fill = contrast)) +
+  stat_eyeh() + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  coord_cartesian(xlim = c(-30, 40)) +
+  theme(legend.position = &quot;none&quot;, 
+        text = element_text(family = nice_font)) + 
+  xlab(&quot;Posterior difference in means&quot;)</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="table-of-contrasts" class="section level4">
+<h4>Table of contrasts</h4>
+<p>The table shows summary statistics about the posterior distribution of the contrasts shown in the previous figure.</p>
+<pre class="r"><code>contrast_table_touches %&gt;% 
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Contrast
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Q2.5
+</th>
+<th style="text-align:right;">
+Q97.5
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HOB − HOB
+</td>
+<td style="text-align:right;">
+13.1824741
+</td>
+<td style="text-align:right;">
+16.631736
+</td>
+<td style="text-align:right;">
+1.2170049
+</td>
+<td style="text-align:right;">
+36.240666
+</td>
+<td style="text-align:right;">
+0.0095000
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA − solvent
+</td>
+<td style="text-align:right;">
+10.8329918
+</td>
+<td style="text-align:right;">
+11.467984
+</td>
+<td style="text-align:right;">
+0.0105105
+</td>
+<td style="text-align:right;">
+31.552261
+</td>
+<td style="text-align:right;">
+0.0249375
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HVA − HVA
+</td>
+<td style="text-align:right;">
+9.9975224
+</td>
+<td style="text-align:right;">
+15.108189
+</td>
+<td style="text-align:right;">
+-0.5996608
+</td>
+<td style="text-align:right;">
+28.942892
+</td>
+<td style="text-align:right;">
+0.0350000
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HOB − solvent
+</td>
+<td style="text-align:right;">
+9.7891060
+</td>
+<td style="text-align:right;">
+11.229741
+</td>
+<td style="text-align:right;">
+-0.9564359
+</td>
+<td style="text-align:right;">
+29.041064
+</td>
+<td style="text-align:right;">
+0.0393125
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HVA − solvent
+</td>
+<td style="text-align:right;">
+8.2425817
+</td>
+<td style="text-align:right;">
+10.315928
+</td>
+<td style="text-align:right;">
+-2.0427147
+</td>
+<td style="text-align:right;">
+25.392820
+</td>
+<td style="text-align:right;">
+0.0613750
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; 9-HDA − solvent
+</td>
+<td style="text-align:right;">
+7.2226066
+</td>
+<td style="text-align:right;">
+9.462643
+</td>
+<td style="text-align:right;">
+-3.0576684
+</td>
+<td style="text-align:right;">
+24.110101
+</td>
+<td style="text-align:right;">
+0.0918750
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; 9-HDA − 9-HDA
+</td>
+<td style="text-align:right;">
+6.6480516
+</td>
+<td style="text-align:right;">
+10.603439
+</td>
+<td style="text-align:right;">
+-4.0441533
+</td>
+<td style="text-align:right;">
+23.007463
+</td>
+<td style="text-align:right;">
+0.1213750
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-HDA (worker control) − solvent
+</td>
+<td style="text-align:right;">
+3.4018825
+</td>
+<td style="text-align:right;">
+7.694646
+</td>
+<td style="text-align:right;">
+-6.6292884
+</td>
+<td style="text-align:right;">
+16.546903
+</td>
+<td style="text-align:right;">
+0.2541875
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB &amp; HVA − HOB
+</td>
+<td style="text-align:right;">
+2.9901475
+</td>
+<td style="text-align:right;">
+8.542916
+</td>
+<td style="text-align:right;">
+-7.1630121
+</td>
+<td style="text-align:right;">
+15.653454
+</td>
+<td style="text-align:right;">
+0.2846250
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HVA − HVA
+</td>
+<td style="text-align:right;">
+2.4463610
+</td>
+<td style="text-align:right;">
+8.611196
+</td>
+<td style="text-align:right;">
+-7.8947775
+</td>
+<td style="text-align:right;">
+14.029115
+</td>
+<td style="text-align:right;">
+0.3174375
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB &amp; HVA − HVA
+</td>
+<td style="text-align:right;">
+1.3517202
+</td>
+<td style="text-align:right;">
+8.272499
+</td>
+<td style="text-align:right;">
+-9.1628760
+</td>
+<td style="text-align:right;">
+12.741782
+</td>
+<td style="text-align:right;">
+0.4022500
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HOB − HOB
+</td>
+<td style="text-align:right;">
+0.8708371
+</td>
+<td style="text-align:right;">
+7.209019
+</td>
+<td style="text-align:right;">
+-9.4190395
+</td>
+<td style="text-align:right;">
+11.899293
+</td>
+<td style="text-align:right;">
+0.4303750
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HVA − solvent
+</td>
+<td style="text-align:right;">
+0.6914204
+</td>
+<td style="text-align:right;">
+8.582533
+</td>
+<td style="text-align:right;">
+-9.4992526
+</td>
+<td style="text-align:right;">
+11.694957
+</td>
+<td style="text-align:right;">
+0.4326250
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA − solvent
+</td>
+<td style="text-align:right;">
+0.5745550
+</td>
+<td style="text-align:right;">
+10.074785
+</td>
+<td style="text-align:right;">
+-9.9283188
+</td>
+<td style="text-align:right;">
+12.005914
+</td>
+<td style="text-align:right;">
+0.4471250
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HVA − 9-HDA
+</td>
+<td style="text-align:right;">
+0.1168653
+</td>
+<td style="text-align:right;">
+8.742964
+</td>
+<td style="text-align:right;">
+-10.9670959
+</td>
+<td style="text-align:right;">
+10.980334
+</td>
+<td style="text-align:right;">
+0.4904375
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB &amp; HVA − solvent
+</td>
+<td style="text-align:right;">
+-0.4032205
+</td>
+<td style="text-align:right;">
+11.268354
+</td>
+<td style="text-align:right;">
+-11.4239295
+</td>
+<td style="text-align:right;">
+10.782268
+</td>
+<td style="text-align:right;">
+0.4768750
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HOB − 9-ODA
+</td>
+<td style="text-align:right;">
+-1.0438857
+</td>
+<td style="text-align:right;">
+8.376842
+</td>
+<td style="text-align:right;">
+-14.4105048
+</td>
+<td style="text-align:right;">
+11.842190
+</td>
+<td style="text-align:right;">
+0.4310625
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA − solvent
+</td>
+<td style="text-align:right;">
+-1.7549407
+</td>
+<td style="text-align:right;">
+11.545602
+</td>
+<td style="text-align:right;">
+-12.8328466
+</td>
+<td style="text-align:right;">
+8.823565
+</td>
+<td style="text-align:right;">
+0.3773125
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HOB − solvent
+</td>
+<td style="text-align:right;">
+-2.5225309
+</td>
+<td style="text-align:right;">
+10.999914
+</td>
+<td style="text-align:right;">
+-14.3149738
+</td>
+<td style="text-align:right;">
+7.729236
+</td>
+<td style="text-align:right;">
+0.3192500
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HVA − 9-ODA
+</td>
+<td style="text-align:right;">
+-2.5904100
+</td>
+<td style="text-align:right;">
+9.346640
+</td>
+<td style="text-align:right;">
+-16.8464136
+</td>
+<td style="text-align:right;">
+9.294188
+</td>
+<td style="text-align:right;">
+0.3323125
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HOB − 9-HDA
+</td>
+<td style="text-align:right;">
+-3.0970860
+</td>
+<td style="text-align:right;">
+8.200831
+</td>
+<td style="text-align:right;">
+-15.8225249
+</td>
+<td style="text-align:right;">
+7.249153
+</td>
+<td style="text-align:right;">
+0.2773750
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB − solvent
+</td>
+<td style="text-align:right;">
+-3.3933680
+</td>
+<td style="text-align:right;">
+11.009384
+</td>
+<td style="text-align:right;">
+-15.3147760
+</td>
+<td style="text-align:right;">
+6.450747
+</td>
+<td style="text-align:right;">
+0.2628750
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; 9-HDA − 9-ODA
+</td>
+<td style="text-align:right;">
+-3.6103851
+</td>
+<td style="text-align:right;">
+9.329677
+</td>
+<td style="text-align:right;">
+-18.1968033
+</td>
+<td style="text-align:right;">
+8.040393
+</td>
+<td style="text-align:right;">
+0.2773125
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="synergy-score" class="section level3">
+<h3>Synergy score</h3>
+<p>We also wrote the following in the pre-registered plan for the analysis:</p>
+<blockquote>
+<p>Secondly, we will test for non-additive effects such as synergy among the pheromone components, by evaluating the following null hypothesis: <span class="math inline">\(d_{1,2} = d_1 + d_2\)</span>, where <span class="math inline">\(d_1\)</span> is the estimated effect of pheromone 1 on the response variable, <span class="math inline">\(d_2\)</span> is the estimated effect of pheromone 2, and <span class="math inline">\(d_{1,2}\)</span> is the effect of the mixture of both pheromones. The effect sizes will each be expressed as the posterior difference in means relative to the control. For example, if both individual pheromones had a positive effect on the response variable individually, and the pair of pheromones had an effect size greater than the sum of their individual effects, we would call that pair of pheromones synergistic. If the effect of the pair was less than the sum of the two individual effects, the pheromones could be said to interfere with one another.</p>
+</blockquote>
+<p>We here calculate the posterior estimate of the “synergy score”, <span class="math inline">\(d_{1,2} - d_1 + d_2\)</span>. When there is good evidence for the synergy, the posterior distribution should not overlap zero, which is not the case for any of the two-component mixtures that we examined.</p>
+<pre class="r"><code>synergy_plot &lt;- function(df, lims){
+  df %&gt;% 
+    select(contains(&quot;solvent&quot;)) %&gt;% 
+    rename_all(~ str_remove_all(.x, &quot; − solvent&quot;)) %&gt;% 
+    rename_all(~ str_remove_all(.x, &quot;treatment&quot;)) %&gt;%
+    rename_all(~ str_remove_all(.x, &quot;M&quot;)) %&gt;%
+    mutate(sum_HOB_HVA = HOB + HVA,
+           sum_9HDA_HOB = `9-HDA` + HOB,
+           sum_9HDA_HVA = `9-HDA` + HVA,
+           sum_9ODA_HOB = `9-ODA` + HOB,
+           sum_9ODA_HVA = `9-ODA` + HVA,
+           sum_9ODA_9HDA = `9-ODA` + `9-HDA`) %&gt;% 
+    mutate(syn_HOB_HVA   = `HOB &amp; HVA` - sum_HOB_HVA,
+           syn_9HDA_HOB  = `9-HDA &amp; HOB` - sum_9HDA_HOB,
+           syn_9HDA_HVA  = `9-HDA &amp; HVA` - sum_9HDA_HVA,
+           syn_9ODA_HOB  = `9-ODA &amp; HOB` - sum_9ODA_HOB,
+           syn_9ODA_HVA  = `9-ODA &amp; HVA` - sum_9ODA_HVA,
+           syn_9ODA_9HDA = `9-ODA &amp; 9-HDA` - sum_9ODA_9HDA) %&gt;% 
+    select(starts_with(&quot;syn&quot;)) %&gt;% 
+    rename_all(~ str_remove_all(.x, &quot;syn_&quot;)) %&gt;% 
+    rename_all(~ str_replace_all(.x, &quot;_&quot;, &quot; &amp; &quot;)) %&gt;% 
+    rename_all(~ str_replace_all(.x, &quot;9&quot;, &quot;9-&quot;)) %&gt;% 
+    gather() %&gt;% 
+    ggplot(aes(value, key, fill = key)) + 
+    geom_vline(xintercept = 0, linetype = 2) +
+    stat_halfeyeh(alpha = 0.8) +
+    scale_fill_viridis_d(option = &quot;B&quot;) +  
+    coord_cartesian(xlim = lims) + ylab(&quot;Pheromone pair&quot;) + xlab(&quot;Synergy score&quot;) +
+    theme_bw() + 
+    theme(legend.position = &quot;none&quot;,
+        text = element_text(family = nice_font))
+}
+
+contrasts_n_touches %&gt;% synergy_plot(c(-50, 50))</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="analysis-of-touch-duration" class="section level2">
+<h2>Analysis of touch duration</h2>
+<div id="plot-distribution-of-the-response-variable-duration_touches" class="section level3">
+<h3>Plot distribution of the response variable, <code>duration_touches</code></h3>
+<p>The response variable is highly non-Normal, though a log transformation produces an approximately Normal distribution. We therefore chose to analyse these data with the <code>lognormal</code> family in <code>brms</code>, which is designed for variables for which a log transformation makes the distribution approximately Normal. We also tested a model using the <code>gamma</code> family, but this model provided a worse fit than the <code>lognormal</code> model as ranked by leave-one-out cross validation (not shown).</p>
+<pre class="r"><code>grid.arrange(
+  ggplot(data_by_petri_dish, aes(duration_touches)) + 
+    geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
+    xlab(&quot;Total duration of contacts with lure&quot;),
+  ggplot(data_by_petri_dish, aes(duration_touches)) + 
+    geom_histogram(bins = 50, colour = &quot;grey20&quot;, fill = &quot;#f69256&quot;) +
+    scale_x_log10() + 
+    xlab(&quot;Total duration of contacts with lure (log10 scale)&quot;)
+)</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="run-the-model-lognormal-glmm" class="section level3">
+<h3>Run the model (lognormal GLMM)</h3>
+<p>The predictors and priors in the Bayesian GLMM are the same as before, with one one difference: the predictor <code>hive</code> has been treated as a fixed effect (not random), because the model did not sample properly when <code>hive</code> was modeled as a random effect. Random effects are sometimes difficult to fit when there are few levels (here, there are only 3 hives), and the usual solution is to use a fixed effect.</p>
+<pre class="r"><code>if(!file.exists(&quot;output/pre_reg_model.rds&quot;)){ 
+  duration_model &lt;- brm(
+    formula = duration_touches ~ treatment + (1 | block) + hive,
+    family = &quot;lognormal&quot;, 
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9, max_treedepth = 14),
+    prior = priors,
+    data = data_by_petri_dish)
+  
+  saveRDS(duration_model, file = &quot;output/duration_model.rds&quot;)
+}
+duration_model &lt;- readRDS(&quot;output/duration_model.rds&quot;)</code></pre>
+</div>
+<div id="model-results-1" class="section level3">
+<h3>Model results</h3>
+<div id="posterior-predictive-plots-to-verify-model-fit-1" class="section level4">
+<h4>Posterior predictive plots to verify model fit</h4>
+<p>We first perform a “posterior predictive check” on the models. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. The fitted values follow the original data quite well, which is a necessary condition for a model to produce reliable inferences.</p>
+<pre class="r"><code>pp_check(duration_model, nsamples = 10) + scale_x_log10() + 
+  labs(y = &quot;Density&quot;, x = &quot;Total duration of contact with pheromone lure (s)&quot;)</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here is the complete output from the <code>summary()</code> method for the models fitted with <code>brms</code>. The <code>summary()</code> shows the random effects, which were omitted from the previous table.</p>
+</div>
+<div id="raw-output-provided-by-brms-1" class="section level4">
+<h4>Raw output provided by <code>brms</code></h4>
+<p>Here is the complete output from the <code>summary()</code> method for the models fitted with <code>brms</code>.</p>
+<pre class="r"><code>summary(duration_model)</code></pre>
+<pre style = "max-height:300px; overflow-y: auto;"> Family: lognormal 
+  Links: mu = identity; sigma = identity 
+Formula: duration_touches ~ treatment + (1 | block) + hive 
+   Data: summary_data (Number of observations: 392) 
+Samples: 4 chains, each with iter = 8000; warmup = 4000; thin = 1;
+         total post-warmup samples = 16000
+
+Group-Level Effects: 
+~block (Number of levels: 35) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.43      0.10     0.25     0.63 1.00     6809     9052
+
+Population-Level Effects: 
+                             Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                        3.71      0.24     3.24     4.18 1.00     5790
+treatment10MHDAworkercontrol     0.05      0.28    -0.50     0.60 1.00     8037
+treatmentHOB                    -0.11      0.29    -0.67     0.45 1.00     8188
+treatmentHVA                     0.13      0.28    -0.42     0.68 1.00     7795
+treatment9MHDA                  -0.01      0.28    -0.56     0.54 1.00     7683
+treatment9MODA                   0.80      0.28     0.27     1.35 1.00     7488
+treatmentHOBandHVA               0.11      0.28    -0.45     0.66 1.00     7985
+treatment9MHDAandHOB            -0.05      0.28    -0.62     0.50 1.00     8101
+treatment9MHDAandHVA             0.59      0.28     0.05     1.13 1.00     7536
+treatment9MODAandHOB             1.01      0.28     0.47     1.57 1.00     7897
+treatment9MODAandHVA             0.87      0.28     0.33     1.41 1.00     7776
+treatment9MODAand9MHDA           0.59      0.28     0.04     1.14 1.00     8139
+hiveSkylab                       0.67      0.24     0.19     1.14 1.00     9436
+hiveZoology                      0.68      0.22     0.23     1.11 1.00     9886
+                             Tail_ESS
+Intercept                        9071
+treatment10MHDAworkercontrol    11101
+treatmentHOB                    10249
+treatmentHVA                    10984
+treatment9MHDA                  10102
+treatment9MODA                  10923
+treatmentHOBandHVA              10710
+treatment9MHDAandHOB            10463
+treatment9MHDAandHVA            11080
+treatment9MODAandHOB            11192
+treatment9MODAandHVA            10352
+treatment9MODAand9MHDA          10136
+hiveSkylab                      11198
+hiveZoology                     11285
+
+Family Specific Parameters: 
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     1.17      0.04     1.08     1.26 1.00    20094    11978
+
+Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+</pre>
+</div>
+<div id="table-of-the-fixed-effects-estimates-1" class="section level4">
+<h4>Table of the fixed effects estimates</h4>
+<p>Table SXXX: Treatment effects on the total duration of contact with pheromone lure (in seconds) observed over 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the “probability of direction” (i.e. the probability that the true effect size has the same sign as the estimated effect size).</p>
+<pre class="r"><code>pvalues &lt;- as.data.frame(p_direction(duration_model)) %&gt;% 
+  mutate(Parameter = str_remove_all(Parameter, &quot;b_&quot;),
+         Parameter = str_replace_all(Parameter, &quot;[.]&quot;, &quot;:&quot;),
+         p = 1- pd)  %&gt;% select(Parameter, p) %&gt;% distinct()
+
+fixed_effects &lt;- fixef(duration_model) %&gt;% 
+  as.data.frame() %&gt;%
+  rownames_to_column(&quot;Parameter&quot;) %&gt;%
+  mutate(old_names = Parameter) %&gt;%
+  left_join(pvalues, by = &quot;Parameter&quot;) %&gt;%
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;),
+         Parameter = str_replace_all(Parameter, &quot;Pheromone_treatment&quot;, &quot;&quot;),
+         Parameter = str_replace_all(Parameter, &quot;M&quot;, &quot;-&quot;),
+         Parameter = str_replace_all(Parameter, &quot;and&quot;, &quot; and &quot;),
+         Parameter = str_replace_all(Parameter, &quot;workercontrol&quot;, &quot; (worker control)&quot;),
+         Parameter = str_replace_all(Parameter, &quot;treatment&quot;, &quot;Treatment: &quot;)) %&gt;%
+  mutate_at(vars(-Parameter, - ` `, - old_names), ~ round(.x, 3)) 
+
+fixed_effects %&gt;% select(-old_names) %&gt;%
+  mutate(Parameter = str_replace_all(Parameter, &quot;and&quot;, &quot;&amp;&quot;)) %&gt;% 
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Q2.5
+</th>
+<th style="text-align:right;">
+Q97.5
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+3.711
+</td>
+<td style="text-align:right;">
+0.242
+</td>
+<td style="text-align:right;">
+3.235
+</td>
+<td style="text-align:right;">
+4.185
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 10-HDA (worker control)
+</td>
+<td style="text-align:right;">
+0.052
+</td>
+<td style="text-align:right;">
+0.279
+</td>
+<td style="text-align:right;">
+-0.498
+</td>
+<td style="text-align:right;">
+0.604
+</td>
+<td style="text-align:right;">
+0.428
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: HOB
+</td>
+<td style="text-align:right;">
+-0.106
+</td>
+<td style="text-align:right;">
+0.286
+</td>
+<td style="text-align:right;">
+-0.666
+</td>
+<td style="text-align:right;">
+0.455
+</td>
+<td style="text-align:right;">
+0.355
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: HVA
+</td>
+<td style="text-align:right;">
+0.131
+</td>
+<td style="text-align:right;">
+0.280
+</td>
+<td style="text-align:right;">
+-0.421
+</td>
+<td style="text-align:right;">
+0.677
+</td>
+<td style="text-align:right;">
+0.321
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-HDA
+</td>
+<td style="text-align:right;">
+-0.013
+</td>
+<td style="text-align:right;">
+0.281
+</td>
+<td style="text-align:right;">
+-0.563
+</td>
+<td style="text-align:right;">
+0.538
+</td>
+<td style="text-align:right;">
+0.479
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-ODA
+</td>
+<td style="text-align:right;">
+0.801
+</td>
+<td style="text-align:right;">
+0.277
+</td>
+<td style="text-align:right;">
+0.266
+</td>
+<td style="text-align:right;">
+1.350
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: HOB &amp; HVA
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+0.283
+</td>
+<td style="text-align:right;">
+-0.447
+</td>
+<td style="text-align:right;">
+0.664
+</td>
+<td style="text-align:right;">
+0.351
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-HDA &amp; HOB
+</td>
+<td style="text-align:right;">
+-0.052
+</td>
+<td style="text-align:right;">
+0.285
+</td>
+<td style="text-align:right;">
+-0.623
+</td>
+<td style="text-align:right;">
+0.502
+</td>
+<td style="text-align:right;">
+0.433
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-HDA &amp; HVA
+</td>
+<td style="text-align:right;">
+0.587
+</td>
+<td style="text-align:right;">
+0.277
+</td>
+<td style="text-align:right;">
+0.049
+</td>
+<td style="text-align:right;">
+1.127
+</td>
+<td style="text-align:right;">
+0.017
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-ODA &amp; HOB
+</td>
+<td style="text-align:right;">
+1.014
+</td>
+<td style="text-align:right;">
+0.282
+</td>
+<td style="text-align:right;">
+0.470
+</td>
+<td style="text-align:right;">
+1.572
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-ODA &amp; HVA
+</td>
+<td style="text-align:right;">
+0.867
+</td>
+<td style="text-align:right;">
+0.277
+</td>
+<td style="text-align:right;">
+0.327
+</td>
+<td style="text-align:right;">
+1.407
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treatment: 9-ODA &amp; 9-HDA
+</td>
+<td style="text-align:right;">
+0.590
+</td>
+<td style="text-align:right;">
+0.282
+</td>
+<td style="text-align:right;">
+0.037
+</td>
+<td style="text-align:right;">
+1.140
+</td>
+<td style="text-align:right;">
+0.019
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hiveSkylab
+</td>
+<td style="text-align:right;">
+0.672
+</td>
+<td style="text-align:right;">
+0.242
+</td>
+<td style="text-align:right;">
+0.191
+</td>
+<td style="text-align:right;">
+1.144
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hiveZoology
+</td>
+<td style="text-align:right;">
+0.676
+</td>
+<td style="text-align:right;">
+0.221
+</td>
+<td style="text-align:right;">
+0.233
+</td>
+<td style="text-align:right;">
+1.114
+</td>
+<td style="text-align:right;">
+0.002
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="plotting-the-parameter-estimates-from-the-model-1" class="section level4">
+<h4>Plotting the parameter estimates from the model</h4>
+<pre class="r"><code>duration_model %&gt;% plot_model()</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="pairwise-comparisons-of-means-planned-contrasts-1" class="section level3 tabset">
+<h3>Pairwise comparisons of means (planned contrasts)</h3>
+<p>As before, we calculate contrasts comparing the mean of the response variable in several pairs of treatments (i.e. we compute contrasts).</p>
+<div id="figure-1" class="section level4">
+<h4>Figure</h4>
+<pre class="r"><code>contrasts_duration &lt;- as.data.frame(
+  fitted(duration_model, 
+         newdata = new %&gt;% mutate(hive = &quot;Skylab&quot;), 
+         re_formula = NA, summary = FALSE)) %&gt;% 
+  mutate(draw = 1:n()) %&gt;% 
+  as_tibble() %&gt;% 
+  gather(para, n_touches, -draw) %&gt;% 
+  left_join(new, by = &quot;para&quot;) %&gt;% 
+  select(draw, treatment, n_touches) %&gt;% 
+  spread(treatment, n_touches) %&gt;% 
+  mutate(
+    `HOB &amp; HVA − HOB` = `HOB and HVA` - HOB,
+    `HOB &amp; HVA − HVA` = `HOB and HVA` - HVA,
+    
+    `9-HDA &amp; HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
+    `9-HDA &amp; HOB − HOB` = `9-HDA and HOB` - HOB,
+    
+    `9-HDA &amp; HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
+    `9-HDA &amp; HVA − HVA` = `9-HDA and HVA` - HVA,
+    
+    `9-ODA &amp; HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
+    `9-ODA &amp; HOB − HOB` = `9-ODA and HOB` - HOB,
+    
+    `9-ODA &amp; HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
+    `9-ODA &amp; HVA − HVA` = `9-ODA and HVA` - HVA,
+    
+    `9-ODA &amp; 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
+    `9-ODA &amp; 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
+    
+    `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
+    `HOB − solvent` = HOB - `Solvent control`,
+    `HVA − solvent` = HVA - `Solvent control`,
+    `9-HDA − solvent` = `9-HDA` - `Solvent control`,
+    `9-ODA − solvent` = `9-ODA` - `Solvent control`,
+    `HOB &amp; HVA − solvent` = `HOB and HVA` - `Solvent control`,
+    `9-HDA &amp; HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
+    `9-HDA &amp; HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
+    `9-ODA &amp; HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
+    `9-ODA &amp; HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
+    `9-ODA &amp; 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+    ) %&gt;% select(draw, contains(&quot;−&quot;)) 
+
+
+contrast_table_duration  &lt;- left_join(
+  contrasts_duration[,-1] %&gt;% 
+    summarise_all(~ list(as.data.frame(posterior_summary(.x)))) %&gt;% 
+    gather(Contrast, value) %&gt;% unnest(value),
+  contrasts_duration[,-1] %&gt;% 
+    summarise_all(~ get_p(.x)) %&gt;% 
+    gather(Contrast, p) %&gt;% unnest(p), by = &quot;Contrast&quot;) %&gt;% 
+  mutate(` ` = ifelse(p &lt; 0.05, &quot;\\*&quot;, &quot;&quot;),
+         ` ` = replace(` `, p &gt; 0.05 &amp; p &lt; 0.1, &quot;~&quot;),
+         ` ` = replace(` `, p &lt; 0.01, &quot;**&quot;), 
+         ` ` = replace(` `, p &lt; 0.001, &quot;***&quot;)) %&gt;% 
+  arrange(-Estimate)
+
+contrasts_duration %&gt;% 
+  gather(contrast, difference, -draw) %&gt;% 
+  mutate(contrast = factor(contrast, rev(contrast_table_duration$Contrast))) %&gt;% 
+  ggplot(aes(difference, contrast, fill = contrast)) +
+  stat_eyeh() + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  coord_cartesian(xlim = c(-400, 700)) +
+  theme(legend.position = &quot;none&quot;,
+        text = element_text(family = nice_font)) + 
+  xlab(&quot;Posterior difference in means&quot;)</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="table-of-contrasts-1" class="section level4">
+<h4>Table of contrasts</h4>
+<p>The table shows summary statistics about the posterior distribution of the contrasts shown in the previous figure.</p>
+<pre class="r"><code>contrast_table_duration %&gt;% 
+  kable() %&gt;% kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Contrast
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Est.Error
+</th>
+<th style="text-align:right;">
+Q2.5
+</th>
+<th style="text-align:right;">
+Q97.5
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HOB − HOB
+</td>
+<td style="text-align:right;">
+305.401336
+</td>
+<td style="text-align:right;">
+117.35967
+</td>
+<td style="text-align:right;">
+121.676478
+</td>
+<td style="text-align:right;">
+580.14272
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HOB − solvent
+</td>
+<td style="text-align:right;">
+289.299968
+</td>
+<td style="text-align:right;">
+115.56083
+</td>
+<td style="text-align:right;">
+109.099712
+</td>
+<td style="text-align:right;">
+560.36668
+</td>
+<td style="text-align:right;">
+0.0001250
+</td>
+<td style="text-align:left;">
+***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HVA − solvent
+</td>
+<td style="text-align:right;">
+226.811673
+</td>
+<td style="text-align:right;">
+96.66107
+</td>
+<td style="text-align:right;">
+73.647014
+</td>
+<td style="text-align:right;">
+450.47142
+</td>
+<td style="text-align:right;">
+0.0011250
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HVA − HVA
+</td>
+<td style="text-align:right;">
+203.586605
+</td>
+<td style="text-align:right;">
+97.77973
+</td>
+<td style="text-align:right;">
+44.976866
+</td>
+<td style="text-align:right;">
+425.64088
+</td>
+<td style="text-align:right;">
+0.0054375
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA − solvent
+</td>
+<td style="text-align:right;">
+201.740992
+</td>
+<td style="text-align:right;">
+89.39418
+</td>
+<td style="text-align:right;">
+58.441466
+</td>
+<td style="text-align:right;">
+409.05476
+</td>
+<td style="text-align:right;">
+0.0019375
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; 9-HDA − 9-HDA
+</td>
+<td style="text-align:right;">
+134.059221
+</td>
+<td style="text-align:right;">
+75.55537
+</td>
+<td style="text-align:right;">
+7.467169
+</td>
+<td style="text-align:right;">
+305.31225
+</td>
+<td style="text-align:right;">
+0.0171875
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HVA − 9-HDA
+</td>
+<td style="text-align:right;">
+132.645633
+</td>
+<td style="text-align:right;">
+73.65231
+</td>
+<td style="text-align:right;">
+6.847004
+</td>
+<td style="text-align:right;">
+298.30151
+</td>
+<td style="text-align:right;">
+0.0191250
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; 9-HDA − solvent
+</td>
+<td style="text-align:right;">
+132.312921
+</td>
+<td style="text-align:right;">
+74.71412
+</td>
+<td style="text-align:right;">
+7.603115
+</td>
+<td style="text-align:right;">
+302.08281
+</td>
+<td style="text-align:right;">
+0.0185625
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HVA − solvent
+</td>
+<td style="text-align:right;">
+130.899333
+</td>
+<td style="text-align:right;">
+72.29459
+</td>
+<td style="text-align:right;">
+9.895437
+</td>
+<td style="text-align:right;">
+293.87672
+</td>
+<td style="text-align:right;">
+0.0167500
+</td>
+<td style="text-align:left;">
+*
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HVA − HVA
+</td>
+<td style="text-align:right;">
+107.674264
+</td>
+<td style="text-align:right;">
+74.31197
+</td>
+<td style="text-align:right;">
+-23.129654
+</td>
+<td style="text-align:right;">
+272.55683
+</td>
+<td style="text-align:right;">
+0.0564375
+</td>
+<td style="text-align:left;">
+~
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HOB − 9-ODA
+</td>
+<td style="text-align:right;">
+87.558976
+</td>
+<td style="text-align:right;">
+123.92875
+</td>
+<td style="text-align:right;">
+-139.290655
+</td>
+<td style="text-align:right;">
+349.55224
+</td>
+<td style="text-align:right;">
+0.2348750
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB &amp; HVA − HOB
+</td>
+<td style="text-align:right;">
+35.382799
+</td>
+<td style="text-align:right;">
+51.84851
+</td>
+<td style="text-align:right;">
+-61.988609
+</td>
+<td style="text-align:right;">
+145.98982
+</td>
+<td style="text-align:right;">
+0.2373125
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; HVA − 9-ODA
+</td>
+<td style="text-align:right;">
+25.070681
+</td>
+<td style="text-align:right;">
+109.67681
+</td>
+<td style="text-align:right;">
+-189.062327
+</td>
+<td style="text-align:right;">
+251.06402
+</td>
+<td style="text-align:right;">
+0.4043750
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HVA − solvent
+</td>
+<td style="text-align:right;">
+23.225068
+</td>
+<td style="text-align:right;">
+51.20416
+</td>
+<td style="text-align:right;">
+-74.219327
+</td>
+<td style="text-align:right;">
+131.25804
+</td>
+<td style="text-align:right;">
+0.3207500
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB &amp; HVA − solvent
+</td>
+<td style="text-align:right;">
+19.281432
+</td>
+<td style="text-align:right;">
+51.24757
+</td>
+<td style="text-align:right;">
+-77.527702
+</td>
+<td style="text-align:right;">
+127.08564
+</td>
+<td style="text-align:right;">
+0.3506250
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-HDA (worker control) − solvent
+</td>
+<td style="text-align:right;">
+9.049404
+</td>
+<td style="text-align:right;">
+48.83096
+</td>
+<td style="text-align:right;">
+-85.014638
+</td>
+<td style="text-align:right;">
+108.50005
+</td>
+<td style="text-align:right;">
+0.4276875
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HOB − HOB
+</td>
+<td style="text-align:right;">
+8.248556
+</td>
+<td style="text-align:right;">
+47.18666
+</td>
+<td style="text-align:right;">
+-84.230109
+</td>
+<td style="text-align:right;">
+103.55266
+</td>
+<td style="text-align:right;">
+0.4313125
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA − solvent
+</td>
+<td style="text-align:right;">
+-1.746300
+</td>
+<td style="text-align:right;">
+47.34934
+</td>
+<td style="text-align:right;">
+-94.873430
+</td>
+<td style="text-align:right;">
+95.39672
+</td>
+<td style="text-align:right;">
+0.4790625
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB &amp; HVA − HVA
+</td>
+<td style="text-align:right;">
+-3.943637
+</td>
+<td style="text-align:right;">
+55.60278
+</td>
+<td style="text-align:right;">
+-114.566653
+</td>
+<td style="text-align:right;">
+108.90620
+</td>
+<td style="text-align:right;">
+0.4704375
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HOB − 9-HDA
+</td>
+<td style="text-align:right;">
+-6.106511
+</td>
+<td style="text-align:right;">
+48.46027
+</td>
+<td style="text-align:right;">
+-104.340826
+</td>
+<td style="text-align:right;">
+90.91346
+</td>
+<td style="text-align:right;">
+0.4445625
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-HDA &amp; HOB − solvent
+</td>
+<td style="text-align:right;">
+-7.852811
+</td>
+<td style="text-align:right;">
+47.07644
+</td>
+<td style="text-align:right;">
+-101.902427
+</td>
+<td style="text-align:right;">
+86.60676
+</td>
+<td style="text-align:right;">
+0.4331875
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HOB − solvent
+</td>
+<td style="text-align:right;">
+-16.101368
+</td>
+<td style="text-align:right;">
+46.19392
+</td>
+<td style="text-align:right;">
+-109.513599
+</td>
+<td style="text-align:right;">
+74.02681
+</td>
+<td style="text-align:right;">
+0.3552500
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; 9-HDA − 9-ODA
+</td>
+<td style="text-align:right;">
+-69.428072
+</td>
+<td style="text-align:right;">
+97.91966
+</td>
+<td style="text-align:right;">
+-274.514056
+</td>
+<td style="text-align:right;">
+114.74205
+</td>
+<td style="text-align:right;">
+0.2298750
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="synergy-score-1" class="section level3">
+<h3>Synergy score</h3>
+<p>We again calculate the posterior estimate of the “synergy score”, <span class="math inline">\(d_{1,2} - d_1 + d_2\)</span>. As before, the posterior distribution overlaps zero for every pair of chemicals, meaning that there is no strong evidence that any of the two-chemical mixtures have synergistic effects on the duration of contact with the lure.</p>
+<pre class="r"><code>contrasts_duration %&gt;% synergy_plot(c(-500, 500))</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="comparing-our-results-to-slessor-et-al.-1988" class="section level2">
+<h2>Comparing our results to Slessor et al. 1988</h2>
+<div id="plots-to-compare-the-results" class="section level3">
+<h3>Plots to compare the results</h3>
+<pre class="r"><code># Transcribe the treatment group means and SE from the table in Slessor et al. 1988
+slessor &lt;- tibble(
+  study = &quot;slessor&quot;,
+  mean = c(24.7, 17.1, 13.1, 6.1, 6.7, 3.4, 7.6, 9, 4.3, 3.5, 3.5, 3.9, 6.1, 4.7, 3.5, 2.9, 1.3),
+  SE = c(3.3, 3.4, 2.3, 1.3, 1.7, .6, 1.1, 1.8, 1.1, 1, .6, .7, 1.3, .9, 1.3, .7, .4),
+  n = 17,
+  treatment = c(&quot;Queen extract&quot;, &quot;9-ODA, 9-HDA, HOB, HVA&quot;, 
+          &quot;9-ODA, HOB, HVA&quot;, &quot;9-HDA, HOB, HVA&quot;, 
+          &quot;9-ODA, 9-HDA, HOB&quot;, &quot;9-ODA, 9-HDA, HVA&quot;,
+          &quot;HOB &amp; HVA&quot;, &quot;9-ODA &amp; HOB&quot;, &quot;9-ODA &amp; HVA&quot;,
+          &quot;9-ODA &amp; 9-HDA&quot;, &quot;9-HDA &amp; HOB&quot;, &quot;9-HDA &amp; HVA&quot;,
+          &quot;9-ODA&quot;, &quot;HVA&quot;, &quot;9-HDA&quot;, &quot;HOB&quot;, &quot;Solvent control&quot;)
+) 
+
+slessor_levels &lt;- slessor %&gt;%
+  arrange(mean) %&gt;% pull(treatment)
+
+barplot_data &lt;- slessor %&gt;%
+  arrange(mean) %&gt;%
+  mutate(study = &quot; Slessor et al. 1988&quot;) %&gt;%
+  bind_rows(data_by_petri_dish %&gt;%
+              filter(treatment != &quot;10-HDA (worker control)&quot;) %&gt;%
+              group_by(treatment) %&gt;%
+              summarise(mean = mean(duration_touches),
+                        SE = sd(duration_touches) / sqrt(n()),
+                        .groups = &quot;drop&quot;) %&gt;%
+              mutate(study = &quot;Present study&quot;, n = NA,
+                     treatment = str_replace_all(as.character(treatment), &quot;and&quot;, &quot;&amp;&quot;)) %&gt;%
+              select(study, mean, SE, n, treatment)) %&gt;%
+  filter(treatment %in% levels_ampersand) %&gt;%
+#  filter(study != &quot;Our study&quot;) %&gt;%
+  mutate(treatment = factor(treatment, slessor_levels)) 
+
+comparison_barplot &lt;- barplot_data %&gt;%
+  ggplot(aes(treatment, mean, fill = treatment)) + 
+  geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.3) + 
+  geom_bar(stat=&quot;identity&quot;, colour = &quot;black&quot;) + coord_flip() +
+  scale_fill_viridis_d(direction = -1) +
+  theme(legend.position = &quot;none&quot;,
+        text = element_text(family = nice_font)) + 
+  ylab(&quot;Mean + SE retinue response&quot;) + 
+  xlab(&quot;Treatment&quot;) + 
+  facet_wrap(~study, scales = &quot;free_x&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;,
+        text = element_text(family = nice_font), 
+        strip.background = element_blank())
+
+correlation_data &lt;- slessor %&gt;%
+  select(treatment, mean, SE, study) %&gt;%
+  bind_rows(data_by_petri_dish %&gt;%
+              group_by(treatment) %&gt;%
+              summarise(mean = mean(duration_touches),
+                        SE = sd(duration_touches) / sqrt(n()),
+                        .groups = &quot;drop&quot;) %&gt;%
+              mutate(study = &quot;us&quot;,
+                     treatment = str_replace_all(as.character(treatment), &quot;and&quot;, &quot;&amp;&quot;))) %&gt;%
+  filter(treatment %in% unique(barplot_data$treatment)) %&gt;%
+  group_by(study, treatment) %&gt;%
+  nest() %&gt;%
+  spread(study, data) %&gt;%
+  unnest(slessor) %&gt;% rename(slessor_mean = mean, slessor_SE = SE) %&gt;%
+  unnest(us) %&gt;% rename(our_mean = mean, our_SE = SE) %&gt;% 
+  mutate(treatment = factor(treatment, levels(barplot_data$treatment)))
+
+comparison_scatter &lt;- correlation_data %&gt;%
+  ggplot(aes(x = slessor_mean, y = our_mean)) + 
+  stat_smooth(method = &quot;lm&quot;, colour = &quot;grey20&quot;, formula = &quot;y ~ x&quot;, size = 0.7, aes(weight = our_SE)) +
+  geom_errorbar(aes(ymin = our_mean - our_SE, ymax = our_mean + our_SE), size = 0.25, width = 0, colour = &quot;grey20&quot;) + 
+  geom_errorbarh(aes(xmin = slessor_mean - slessor_SE, xmax = slessor_mean + slessor_SE), size = 0.25, height = 0, colour = &quot;grey20&quot;) + 
+  geom_point(pch = 21, aes(fill =  treatment)) + 
+  scale_fill_viridis_d(direction = -1) +
+  geom_text_repel(aes(label = treatment), colour = &quot;black&quot;, size = 3, family = nice_font) +
+  ylab(&quot;Mean retinue response \u00B1 SE\n(present study)&quot;) + 
+  xlab(&quot;Mean retinue response \u00B1 SE (Slessor et al. 1988)&quot;) +
+  theme_bw() +
+  theme(legend.position = &quot;none&quot;,
+        text = element_text(family = nice_font))
+
+composite_plot &lt;- plot_grid(comparison_barplot, comparison_scatter, nrow = 2, align = &#39;v&#39;, axis = &#39;l&#39;)
+
+ggsave(filename = &quot;figures/fig3.pdf&quot;, 
+       composite_plot, width = 5, height = 6)
+
+composite_plot</code></pre>
+<p><img src="figure/2021_stats.Rmd/unnamed-chunk-23-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="spearman-correlation-between-the-effect-sizes" class="section level3">
+<h3>Spearman correlation between the effect sizes</h3>
+<pre class="r"><code>cor.test(correlation_data$our_mean, 
+         correlation_data$slessor_mean, method = &quot;spearman&quot;)</code></pre>
+<pre>
+    Spearman's rank correlation rho
+
+data:  correlation_data$our_mean and correlation_data$slessor_mean
+S = 68.617, p-value = 0.01925
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.6881024 
+</pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre>R version 4.0.3 (2020-10-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Catalina 10.15.7
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] cowplot_1.0.0    ggrepel_0.8.2    knitrhooks_0.0.4 knitr_1.32      
+ [5] bayestestR_0.6.0 kableExtra_1.3.4 gridExtra_2.3    brms_2.14.4     
+ [9] Rcpp_1.0.4.6     tidybayes_2.0.3  ggbeeswarm_0.6.0 forcats_0.5.0   
+[13] stringr_1.4.0    dplyr_1.0.0      purrr_0.3.4      readr_1.3.1     
+[17] tidyr_1.1.0      tibble_3.0.1     ggplot2_3.3.2    tidyverse_1.3.0 
+[21] showtext_0.9-2   showtextdb_3.0   sysfonts_0.8.3  
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.3.1         backports_1.1.7      workflowr_1.6.2     
+  [4] systemfonts_0.2.2    plyr_1.8.6           igraph_1.2.5        
+  [7] splines_4.0.3        svUnit_1.0.3         crosstalk_1.1.0.1   
+ [10] TH.data_1.0-10       rstantools_2.1.1     inline_0.3.15       
+ [13] digest_0.6.25        htmltools_0.5.0      rsconnect_0.8.16    
+ [16] fansi_0.4.1          magrittr_2.0.1       modelr_0.1.8        
+ [19] RcppParallel_5.0.1   matrixStats_0.56.0   svglite_1.2.3       
+ [22] sandwich_2.5-1       xts_0.12-0           prettyunits_1.1.1   
+ [25] colorspace_1.4-1     blob_1.2.1           rvest_0.3.5         
+ [28] haven_2.3.1          xfun_0.22            callr_3.4.3         
+ [31] crayon_1.3.4         jsonlite_1.7.0       lme4_1.1-23         
+ [34] survival_3.2-7       zoo_1.8-8            glue_1.4.2          
+ [37] gtable_0.3.0         emmeans_1.4.7        webshot_0.5.2       
+ [40] V8_3.4.0             pkgbuild_1.0.8       rstan_2.21.2        
+ [43] abind_1.4-5          scales_1.1.1         mvtnorm_1.1-0       
+ [46] DBI_1.1.0            miniUI_0.1.1.1       viridisLite_0.3.0   
+ [49] xtable_1.8-4         stats4_4.0.3         StanHeaders_2.21.0-3
+ [52] DT_0.13              htmlwidgets_1.5.1    httr_1.4.1          
+ [55] threejs_0.3.3        arrayhelpers_1.1-0   ellipsis_0.3.1      
+ [58] farver_2.0.3         pkgconfig_2.0.3      loo_2.3.1           
+ [61] dbplyr_1.4.4         labeling_0.3         tidyselect_1.1.0    
+ [64] rlang_0.4.6          reshape2_1.4.4       later_1.0.0         
+ [67] munsell_0.5.0        cellranger_1.1.0     tools_4.0.3         
+ [70] cli_2.0.2            generics_0.0.2       broom_0.5.6         
+ [73] ggridges_0.5.2       evaluate_0.14        fastmap_1.0.1       
+ [76] yaml_2.2.1           processx_3.4.2       fs_1.4.1            
+ [79] nlme_3.1-149         mime_0.9             projpred_2.0.2      
+ [82] xml2_1.3.2           compiler_4.0.3       bayesplot_1.7.2     
+ [85] shinythemes_1.1.2    rstudioapi_0.11      beeswarm_0.2.3      
+ [88] gamm4_0.2-6          curl_4.3             reprex_0.3.0        
+ [91] statmod_1.4.34       stringi_1.5.3        highr_0.8           
+ [94] ps_1.3.3             Brobdingnag_1.2-6    gdtools_0.2.2       
+ [97] lattice_0.20-41      Matrix_1.2-18        nloptr_1.2.2.1      
+[100] markdown_1.1         shinyjs_1.1          vctrs_0.3.0         
+[103] pillar_1.4.4         lifecycle_0.2.0      bridgesampling_1.0-0
+[106] estimability_1.3     insight_0.8.4        httpuv_1.5.3.1      
+[109] R6_2.4.1             promises_1.1.0       vipor_0.4.5         
+[112] codetools_0.2-16     boot_1.3-25          colourpicker_1.0    
+[115] MASS_7.3-53          gtools_3.8.2         assertthat_0.2.1    
+[118] rprojroot_1.3-2      withr_2.2.0          shinystan_2.5.0     
+[121] multcomp_1.4-13      mgcv_1.8-33          parallel_4.0.3      
+[124] hms_0.5.3            grid_4.0.3           coda_0.19-3         
+[127] minqa_1.2.4          rmarkdown_2.5        git2r_0.27.1        
+[130] shiny_1.4.0.2        lubridate_1.7.8      base64enc_0.1-3     
+[133] dygraphs_1.1.1.6    
+</pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

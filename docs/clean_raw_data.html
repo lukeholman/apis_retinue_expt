@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -23,9 +23,32 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -87,7 +110,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -236,6 +258,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -248,48 +271,12 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -303,6 +290,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -377,7 +370,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">apis_retinue_expt</a>
+      <a class="navbar-brand" href="index.html">Apis retinue response</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -392,20 +385,27 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/lukeholman/apis_retinue_expt">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
 <div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
 
@@ -416,7 +416,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -425,7 +425,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -434,17 +434,17 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-02-07
+<strong>Last updated:</strong> 2021-06-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>apis_retinue_expt/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -453,12 +453,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -482,7 +482,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20190828code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20190828)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20190828)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -525,26 +525,58 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttreeb536404d0cbab9fce9eec20c79a905b2c94160a8targetblankb536404a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/b536404d0cbab9fce9eec20c79a905b2c94160a8" target="_blank">b536404</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree262e450a3a098fb81db4e35a27047895ec04936ftargetblank262e450a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/262e450a3a098fb81db4e35a27047895ec04936f" target="_blank">262e450</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttreeb536404d0cbab9fce9eec20c79a905b2c94160a8targetblankb536404a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree262e450a3a098fb81db4e35a27047895ec04936ftargetblank262e450a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/lukeholman/apis_retinue_expt/tree/262e450a3a098fb81db4e35a27047895ec04936f" target="_blank">262e450</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    Figures and tables.docx
+    Ignored:    analysis/.DS_Store
+    Ignored:    bonus_data/
+    Ignored:    data/.DS_Store
+    Ignored:    old_code/
+    Ignored:    output/duration_model.rds
+    Ignored:    output/model_comparison_table_count_brms.rds
+    Ignored:    output/model_comparison_table_duration_brms.rds
+    Ignored:    output/model_selection_table.rds
+    Ignored:    output/model_selection_table_count_glmmTMB.rds
+    Ignored:    output/model_selection_table_duration_glmmTMB.rds
+    Ignored:    output/model_weights_random_slope.rds
+    Ignored:    output/multivariate_brms.rds
+    Ignored:    output/pre_reg_model.rds
+    Ignored:    output/top_10_model_formulae_count.rds
+    Ignored:    output/top_10_model_formulae_duration.rds
+    Ignored:    pheromone paper draft.docx
 
 Untracked files:
-    Untracked:  data/behaviour_data_OLD_VERSION.csv
+    Untracked:  data/blinded_behaviour_data.csv
+    Untracked:  figures/
 
 Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/_site.yml
+    Deleted:    analysis/about.Rmd
+    Modified:   analysis/clean_raw_data.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Deleted:    analysis/preregistered_analysis.Rmd
     Modified:   analysis/statistics.Rmd
-    Modified:   data/raw_blinded_behaviour_data.csv
+    Deleted:    data/data_for_each_group_bees.csv
+    Deleted:    data/raw_blinded_behaviour_data.csv
     Modified:   data/unblinded_behaviour_data.csv
 
 </code></pre>
@@ -560,7 +592,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/clean_raw_data.Rmd</code>) and HTML (<code>docs/clean_raw_data.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -584,6 +616,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5ba0d6484e938837c8c6b38cda0dd6c7d480379b/analysis/clean_raw_data.Rmd" target="_blank">5ba0d64</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2020-03-16
+</td>
+<td>
+Readme and other small commits
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/lukeholman/apis_retinue_expt/5ba0d6484e938837c8c6b38cda0dd6c7d480379b/docs/clean_raw_data.html" target="_blank">5ba0d64</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2020-03-16
+</td>
+<td>
+Readme and other small commits
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -634,8 +700,8 @@ First commit
 </ul>
 <p>In the following code chunks, we combine the raw, blind-collected behavioural data with our records of - The associations between the pheromone treatment and the treatment number - The positions of the treatment numbers across the 12 dishes in each tray</p>
 <p>We were also blind to which trays came from which beehive, since the person decoding the behaviour videos did not know which hive the bees came from.</p>
-<p>The information used to remove the blind coding is in the file <code>data/blind_codes.csv</code>. The raw, blinded data is in the file <code>data/raw_blinded_behaviour_data.csv</code>.</p>
-<p>Finally, the file created by this script – which you should use for new analyses, checking our results, or including our study in a meta-analysis – is in the file <code>data/behaviour_data.csv</code>.</p>
+<p>The information used to remove the blind coding is in the file <code>data/blind_codes.csv</code>. The blinded data collection sheet is in the file <code>data/blinded_behaviour_data.csv</code>.</p>
+<p>Finally, the file created by this script is called <code>data/unblinded_behaviour_data.csv</code> – this is the file to use for running new analyses, checking our conclusions, or including our data in a meta-analysis.</p>
 <div id="here-are-the-numbers-used-to-encode-each-pheromone-treatment" class="section level3">
 <h3>Here are the numbers used to encode each pheromone treatment:</h3>
 <pre class="r"><code>library(tidyverse)
@@ -790,7 +856,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 1
 </td>
 <td style="text-align:right;">
@@ -798,7 +864,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 2
 </td>
 <td style="text-align:right;">
@@ -806,7 +872,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 3
 </td>
 <td style="text-align:right;">
@@ -814,7 +880,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 4
 </td>
 <td style="text-align:right;">
@@ -822,7 +888,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 5
 </td>
 <td style="text-align:right;">
@@ -830,7 +896,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 6
 </td>
 <td style="text-align:right;">
@@ -838,7 +904,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 7
 </td>
 <td style="text-align:right;">
@@ -846,7 +912,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 8
 </td>
 <td style="text-align:right;">
@@ -854,7 +920,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 9
 </td>
 <td style="text-align:right;">
@@ -862,7 +928,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 10
 </td>
 <td style="text-align:right;">
@@ -870,7 +936,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 11
 </td>
 <td style="text-align:right;">
@@ -878,7 +944,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 12
 </td>
 <td style="text-align:right;">
@@ -891,7 +957,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 1
 </td>
 <td style="text-align:right;">
@@ -899,7 +965,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 2
 </td>
 <td style="text-align:right;">
@@ -907,7 +973,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 3
 </td>
 <td style="text-align:right;">
@@ -915,7 +981,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 4
 </td>
 <td style="text-align:right;">
@@ -923,7 +989,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 5
 </td>
 <td style="text-align:right;">
@@ -931,7 +997,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 6
 </td>
 <td style="text-align:right;">
@@ -939,7 +1005,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 7
 </td>
 <td style="text-align:right;">
@@ -947,7 +1013,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 8
 </td>
 <td style="text-align:right;">
@@ -955,7 +1021,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 9
 </td>
 <td style="text-align:right;">
@@ -963,7 +1029,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 10
 </td>
 <td style="text-align:right;">
@@ -971,7 +1037,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 11
 </td>
 <td style="text-align:right;">
@@ -979,7 +1045,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 12
 </td>
 <td style="text-align:right;">
@@ -992,7 +1058,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 1
 </td>
 <td style="text-align:right;">
@@ -1000,7 +1066,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 2
 </td>
 <td style="text-align:right;">
@@ -1008,7 +1074,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 3
 </td>
 <td style="text-align:right;">
@@ -1016,7 +1082,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 4
 </td>
 <td style="text-align:right;">
@@ -1024,7 +1090,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 5
 </td>
 <td style="text-align:right;">
@@ -1032,7 +1098,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 6
 </td>
 <td style="text-align:right;">
@@ -1040,7 +1106,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 7
 </td>
 <td style="text-align:right;">
@@ -1048,7 +1114,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 8
 </td>
 <td style="text-align:right;">
@@ -1056,7 +1122,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 9
 </td>
 <td style="text-align:right;">
@@ -1064,7 +1130,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 10
 </td>
 <td style="text-align:right;">
@@ -1072,7 +1138,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 11
 </td>
 <td style="text-align:right;">
@@ -1080,7 +1146,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 12
 </td>
 <td style="text-align:right;">
@@ -1093,7 +1159,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 1
 </td>
 <td style="text-align:right;">
@@ -1101,7 +1167,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 2
 </td>
 <td style="text-align:right;">
@@ -1109,7 +1175,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 3
 </td>
 <td style="text-align:right;">
@@ -1117,7 +1183,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 4
 </td>
 <td style="text-align:right;">
@@ -1125,7 +1191,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 5
 </td>
 <td style="text-align:right;">
@@ -1133,7 +1199,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 6
 </td>
 <td style="text-align:right;">
@@ -1141,7 +1207,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 7
 </td>
 <td style="text-align:right;">
@@ -1149,7 +1215,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 8
 </td>
 <td style="text-align:right;">
@@ -1157,7 +1223,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 9
 </td>
 <td style="text-align:right;">
@@ -1165,7 +1231,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 10
 </td>
 <td style="text-align:right;">
@@ -1173,7 +1239,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 11
 </td>
 <td style="text-align:right;">
@@ -1181,7 +1247,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 12
 </td>
 <td style="text-align:right;">
@@ -1194,7 +1260,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 1
 </td>
 <td style="text-align:right;">
@@ -1202,7 +1268,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 2
 </td>
 <td style="text-align:right;">
@@ -1210,7 +1276,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 3
 </td>
 <td style="text-align:right;">
@@ -1218,7 +1284,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 4
 </td>
 <td style="text-align:right;">
@@ -1226,7 +1292,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 5
 </td>
 <td style="text-align:right;">
@@ -1234,7 +1300,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 6
 </td>
 <td style="text-align:right;">
@@ -1242,7 +1308,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 7
 </td>
 <td style="text-align:right;">
@@ -1250,7 +1316,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 8
 </td>
 <td style="text-align:right;">
@@ -1258,7 +1324,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 9
 </td>
 <td style="text-align:right;">
@@ -1266,7 +1332,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 10
 </td>
 <td style="text-align:right;">
@@ -1274,7 +1340,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 11
 </td>
 <td style="text-align:right;">
@@ -1282,7 +1348,7 @@ treat_num
 </td>
 </tr>
 <tr>
-<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+<td style="text-align:right;padding-left: 2em;" indentlevel="1">
 12
 </td>
 <td style="text-align:right;">
@@ -1309,8 +1375,7 @@ treatment_levels &lt;-
     &quot;9-ODA and HOB&quot;, &quot;9-ODA and HVA&quot;, &quot;9-ODA and 9-HDA&quot;)
 
 
-unblinded_data &lt;- read.csv(&quot;data/raw_blinded_behaviour_data.csv&quot;, 
-                           stringsAsFactors = FALSE) %&gt;%
+unblinded_data &lt;- read.csv(&quot;data/blinded_behaviour_data.csv&quot;, stringsAsFactors = FALSE) %&gt;%
   as_tibble() %&gt;%
   filter(!is.na(tray)) %&gt;%
   
@@ -1321,7 +1386,6 @@ unblinded_data &lt;- read.csv(&quot;data/raw_blinded_behaviour_data.csv&quot;,
          end_touch = 60 * map_dbl(split_end, ~ .x[1]) + map_dbl(split_end, ~ .x[2]),
          touch_duration = end_touch - start_touch) %&gt;%
   select(-split_start, -split_end) %&gt;%
-  filter(touch_duration &gt;= 0) %&gt;%                                    #######             # Get Daisy to check all these!! #######
 
   # merge with the dish-to-treat_num mappings
   left_join(blind_codes_full %&gt;% select(-treatment), by = c(&quot;tray&quot;, &quot;dish&quot;)) %&gt;%  
@@ -1329,10 +1393,23 @@ unblinded_data &lt;- read.csv(&quot;data/raw_blinded_behaviour_data.csv&quot;,
   # merge with the treat_num-to-pheromone mappings
   left_join(blind_codes, by = &quot;treat_num&quot;) %&gt;%        
   
+  # merge with the datasheet that lists how many bees were in each Petri dish (usually 5, occasionally 4)
+    left_join(read_csv(&quot;data/metadata_for_each_dish_and_tray.csv&quot;, ) %&gt;%
+              select(tray, dish, number_bees), by = c(&quot;tray&quot;, &quot;dish&quot;)) %&gt;%
+  
   # re-order the rows and columns for neatness
-  select(hive, treatment, tray, dish, start_touch, end_touch, touch_duration, notes) %&gt;%
+  select(hive, treatment, tray, dish, number_bees, start_touch, end_touch, touch_duration) %&gt;%
   mutate(treatment = factor(treatment, levels = treatment_levels)) %&gt;%
   arrange(hive, treatment, tray, dish)</code></pre>
+<pre><code>Warning: Missing column names filled in: &#39;X5&#39; [5]</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  tray = col_double(),
+  dish = col_double(),
+  number_bees = col_double(),
+  number_active_bees = col_double(),
+  X5 = col_character()
+)</code></pre>
 </div>
 <div id="write-a-file-containing-the-un-blinded-data" class="section level3">
 <h3>Write a file containing the un-blinded data</h3>
@@ -1345,44 +1422,43 @@ unblinded_data &lt;- read.csv(&quot;data/raw_blinded_behaviour_data.csv&quot;,
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.5.1 (2018-07-02)
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
-Running under: macOS High Sierra 10.13.6
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Catalina 10.15.7
 
 Matrix products: default
-BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
 
 locale:
-[1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
+[1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kableExtra_1.1.0 forcats_0.4.0    stringr_1.4.0    dplyr_0.8.3     
- [5] purrr_0.3.3      readr_1.1.1      tidyr_1.0.0      tibble_2.1.3    
- [9] ggplot2_3.2.1    tidyverse_1.2.1 
+ [1] kableExtra_1.3.4 forcats_0.5.0    stringr_1.4.0    dplyr_1.0.0     
+ [5] purrr_0.3.4      readr_1.3.1      tidyr_1.1.0      tibble_3.0.1    
+ [9] ggplot2_3.3.2    tidyverse_1.3.0 
 
 loaded via a namespace (and not attached):
- [1] tidyselect_0.2.5  xfun_0.8          haven_1.1.2      
- [4] lattice_0.20-35   colorspace_1.3-2  vctrs_0.2.1      
- [7] htmltools_0.3.6   viridisLite_0.3.0 yaml_2.2.0       
-[10] rlang_0.4.2       pillar_1.3.1.9000 glue_1.3.1.9000  
-[13] withr_2.1.2       modelr_0.1.2      readxl_1.1.0     
-[16] lifecycle_0.1.0   munsell_0.5.0     gtable_0.3.0     
-[19] workflowr_1.4.0   cellranger_1.1.0  rvest_0.3.2      
-[22] evaluate_0.14     knitr_1.23        highr_0.8        
-[25] broom_0.5.0       Rcpp_1.0.3        scales_1.1.0     
-[28] backports_1.1.5   webshot_0.5.1     jsonlite_1.6     
-[31] fs_1.3.1          hms_0.4.2         digest_0.6.23    
-[34] stringi_1.4.5     grid_3.5.1        rprojroot_1.3-2  
-[37] cli_1.1.0         tools_3.5.1       magrittr_1.5     
-[40] lazyeval_0.2.2    crayon_1.3.4      whisker_0.3-2    
-[43] pkgconfig_2.0.2   zeallot_0.1.0     xml2_1.2.0       
-[46] lubridate_1.7.4   assertthat_0.2.1  rmarkdown_1.13   
-[49] httr_1.4.0        rstudioapi_0.10   R6_2.4.1         
-[52] nlme_3.1-137      git2r_0.23.0      compiler_3.5.1   </code></pre>
+ [1] Rcpp_1.0.4.6      svglite_1.2.3     lubridate_1.7.8   lattice_0.20-41  
+ [5] assertthat_0.2.1  rprojroot_1.3-2   digest_0.6.25     R6_2.4.1         
+ [9] cellranger_1.1.0  backports_1.1.7   reprex_0.3.0      evaluate_0.14    
+[13] highr_0.8         httr_1.4.1        pillar_1.4.4      gdtools_0.2.2    
+[17] rlang_0.4.6       readxl_1.3.1      rstudioapi_0.11   whisker_0.4      
+[21] blob_1.2.1        rmarkdown_2.5     webshot_0.5.2     munsell_0.5.0    
+[25] broom_0.5.6       compiler_4.0.3    httpuv_1.5.3.1    modelr_0.1.8     
+[29] xfun_0.22         pkgconfig_2.0.3   systemfonts_0.2.2 htmltools_0.5.0  
+[33] tidyselect_1.1.0  workflowr_1.6.2   fansi_0.4.1       viridisLite_0.3.0
+[37] crayon_1.3.4      dbplyr_1.4.4      withr_2.2.0       later_1.0.0      
+[41] grid_4.0.3        nlme_3.1-149      jsonlite_1.7.0    gtable_0.3.0     
+[45] lifecycle_0.2.0   DBI_1.1.0         git2r_0.27.1      magrittr_2.0.1   
+[49] scales_1.1.1      cli_2.0.2         stringi_1.5.3     fs_1.4.1         
+[53] promises_1.1.0    xml2_1.3.2        ellipsis_0.3.1    generics_0.0.2   
+[57] vctrs_0.3.0       tools_4.0.3       glue_1.4.2        hms_0.5.3        
+[61] yaml_2.2.1        colorspace_1.4-1  rvest_0.3.5       knitr_1.32       
+[65] haven_2.3.1      </code></pre>
 </div>
 </div>
 </div>
@@ -1410,13 +1486,61 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

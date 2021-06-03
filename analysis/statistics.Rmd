@@ -1,5 +1,5 @@
 ---
-title: "Apis queen pheromones and the retinue response"
+title: "Pre-registered statistical analysis"
 output: 
   workflowr::wflow_html:
     code_folding: hide 
@@ -7,199 +7,133 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Load the data
-
-### Re-code the treatment variables to facilitate modelling
-
-First, we prepare the un-blinded dataset for statistical modelling by adding five new binary variables whose names start with "has". These 5 variable contain 0s and 1s, which describe whether the focal observation contains the focal chemical. For example, the variable "has_9ODA" contains a 1 for rows where the filter paper was treated with 9-ODA (either on its own, or as part of a 2 -chemical mixture), and a 0 otherwise. 
+## Load packages and the behavioural data
 
 ```{r message=FALSE, warning=FALSE}
+# However it was slightly tricky to install the showtext package. On Mac, I did this:
+# installed 'homebrew' using Terminal: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
+# installed 'libpng' using Terminal: brew install libpng
+# installed 'showtext' in R using: devtools::install_github("yixuan/showtext")  
+library(showtext)
+
 library(tidyverse)
 library(ggbeeswarm)
 library(tidybayes)
 library(brms)
 library(gridExtra)
-library(glmmTMB)
-library(lme4)
-library(MuMIn)
 library(kableExtra)
-library(glue)
-library(future)
-library(future.apply)
 library(bayestestR)
 library(knitrhooks) # install with devtools::install_github("nathaneastwood/knitrhooks")
-options(stringsAsFactors = FALSE)
+library(showtext)
+library(ggrepel)
+library(cowplot)
+
 output_max_height() # a knitrhook option
+options(stringsAsFactors = FALSE)
+
+# set up nice font for figures
+nice_font <- "Raleway"
+font_add_google(name = nice_font, family = nice_font, regular.wt = 400, bold.wt = 700)
+showtext_auto()
 
 # Here are the treatments, ranked roughly from least to most like a queen bee
-treatment_levels <- 
+treatment_levels <-
   # two "controls"
-  c("Solvent control", "10-HDA (worker control)", 
-    
-     # 4 individual queen-type chemicals
-    "HOB", "HVA", "9-HDA", "9-ODA",   
-    
+  c("Solvent control", "10-HDA (worker control)",
+
+    # 4 individual queen-type chemicals
+    "HOB", "HVA", "9-HDA", "9-ODA",
+
     # 6 pairwise combinations of two of the queen-type chemicals
-    "HOB and HVA",                                
+    "HOB and HVA",
     "9-HDA and HOB", "9-HDA and HVA",
     "9-ODA and HOB", "9-ODA and HVA", "9-ODA and 9-HDA")
+levels_ampersand <- str_replace_all(treatment_levels, "and", "&")
 
 
-behaviour_data <- read_csv("data/unblinded_behaviour_data.csv") %>%
-  mutate(has_10HDA = as.factor(as.numeric(str_detect(treatment, "10-HDA"))),
-         has_HVA = as.factor(as.numeric(str_detect(treatment, "HVA"))),
-         has_HOB = as.factor(as.numeric(str_detect(treatment, "HOB"))),
-         has_9HDA = as.factor(as.numeric(str_detect(treatment, "9-HDA"))),
-         has_9ODA = as.factor(as.numeric(str_detect(treatment, "9-ODA")))) %>%
-  mutate(treatment = factor(treatment, levels = treatment_levels)) %>%
-  mutate(dish = paste(tray, dish, sep = "_")) %>%
+# Load the behaviour data and rename the variables as in the pre-registration
+# Also put the pheromone treatment levels in a biologically sensible order (not alphabetical)
+behaviour_data <- read.csv("data/unblinded_behaviour_data.csv") %>%
   as_tibble() %>%
-  select(hive, treatment, tray, dish, number_bees, starts_with("has"), 
-         start_touch, end_touch, touch_duration, notes)
-```
+  rename(block = tray,
+         hive = hive) %>%
+  mutate(treatment = factor(treatment, levels = treatment_levels))
 
-Inspect 20 randomly-selected rows of the `r format(nrow(behaviour_data), big.mark=",")`-row data frame `behaviour_data`:
-```{r}
-behaviour_data %>% 
-  sample_n(20) %>%
-  kable() %>% kable_styling() %>%
-  scroll_box(width = "700px", height = "300px")
-```
-
-
-### Summarise the data from each Petri dish
-
-The raw file (`data/unblinded_behaviour_data.csv`) contains one row for each observation of a bee making contact with the filter paper. Here, we create a summarised version of this dataset called `summary_data`, in which each row describes the results for the complete 30-minute observation of one Petri dish. We record the number of times a bee touched the pheromone lure (`n_touches`) and the total number of seconds that bees were in contact with the lure (`touch_duration`; measured in "bee-seconds", i.e. two bees touching the lure for 5 seconds and 2 seconds each, whether simultaneously or different times, would give a score of 7 seconds for this variable).
-
-```{r}
-summary_data <- behaviour_data %>%
-  group_by(treatment, hive, tray, dish, number_bees,
-           has_10HDA, has_HVA, has_HOB, 
-           has_9HDA, has_9ODA) %>%
+# Finally, count up the number of times the bees in each dish touched the filter paper, 
+# so that we now have 1 observation for each Petri dish (number of touches in 30 minute-observation period)
+data_by_petri_dish <- behaviour_data %>% 
+  group_by(treatment, block, hive, dish) %>%
   summarise(n_touches = length(touch_duration),
-            touch_duration = sum(touch_duration)) %>% 
-  ungroup()
-
-# There was one tray where no contacts were observed at all with the paper
-# It was Tray 35, Dish 12, which the blind codes tell us is treatment=HOB, hive=Garden
-# Here, we add this to the dataset manually: 
-
-# Add one more row to the end of the dataframe, by copy-pasting an existing row
-summary_data <- summary_data %>%
-  bind_rows(summary_data[1, ])
-
-# Overwrite the values (this was carefully checked!)
-summary_data[nrow(summary_data), ] <- c("HOB", "Garden", 35, "35_12", 5, 0, 0, 1, 0, 0, 0, 0)
-
-summary_data <- summary_data %>%
-  mutate(number_bees = as.numeric(number_bees),
-         tray = as.numeric(tray),
-         n_touches = as.numeric(n_touches),
-         touch_duration = as.numeric(touch_duration)) %>%
-  arrange(treatment, tray, hive)
-
-# Save this analysis-ready data for data archiving
-write_csv(summary_data, "data/data_for_each_group_bees.csv")
-```
-
-Inspect 20 random rows of the `r nrow(summary_data)`-row data frame `summary_data`:
-```{r}
-summary_data %>% sample_n(20) %>%
-  kable() %>% kable_styling() %>%
-  scroll_box(width = "700px", height = "300px")
+            duration_touches = sum(touch_duration) + 1, # +1 is for the log10 analyses
+            .groups = "drop") %>% 
+  ungroup() %>%
+  arrange(treatment, hive, block) 
 ```
 
 
-## Table of sample sizes {.tabset}
+## Plotting the raw data
 
-### Across all hives
-
-```{r}
-touch_counts <- behaviour_data %>%
-  group_by(treatment) %>%
-  summarise(`Total # touches recorded` = n())
-
-summary_data %>%
-  group_by(treatment) %>%
-  summarise(`Number of Petri dishes assayed` = n(),
-            `Mean # bees per dish` = round(mean(number_bees), 2),
-            `Total # bees assayed` = sum(number_bees)) %>%   
-  arrange(treatment) %>%
-  left_join(touch_counts, by = "treatment") %>%
-  kable() %>% kable_styling(full_width = FALSE)
-```
-
-### For each individual hive
-
-```{r}
-touch_counts <- behaviour_data %>%
-  group_by(treatment, hive) %>%
-  summarise(`Total # touches recorded` = n())
-
-summary_data %>%
-  group_by(treatment, hive) %>%
-  summarise(`Number of Petri dishes assayed` = n(),
-            `Mean # bees per dish` = round(mean(number_bees), 2),
-            `Total # bees assayed` = sum(number_bees)) %>%   
-  arrange(treatment, hive) %>%
-  left_join(touch_counts, by = c("treatment", "hive")) %>%
-  kable() %>% kable_styling(full_width = FALSE)
-```
+These plots show the means $\pm$ SE (top) or the individual data points with boxplots for each group of bees (bottom). The left plots show the number of times bees made contact with the pheromone lure in 30 minutes, while the right plots show the total duration the bees were in contact with the lure. 
+```{r fig.height=10, fig.showtext=TRUE}
+raw_to_plot <- data_by_petri_dish %>% 
+  mutate(treatment = str_replace_all(treatment, "and", "&"),
+         treatment = factor(treatment, levels_ampersand))
 
 
-## Plots showing the raw data
-
-These plots show the means +/- SE (top) or the individual data points for each group of bees (bottom). The left plots show the number of times bees made contact with the pheromone lure, while the right show the total duration the bees were in contact with the lure. The latter response variable is measured in seconds, and has been transformed by adding 1 second and plotting it on a Log10 scale. 
-
-```{r fig.height=10}
-p1 <- summary_data %>%
+p1 <- raw_to_plot %>%
   group_by(treatment) %>%
   summarise(mean = mean(n_touches),
-            SE = sd(n_touches) / sqrt(n())) %>%
+            SE = sd(n_touches) / sqrt(n()),
+            .groups = "drop") %>%
   mutate(treatment = factor(treatment, rev(treatment))) %>%
   ggplot(aes(treatment, mean, fill = treatment)) + 
-  geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.2) + 
+  geom_errorbar(aes(ymin = mean-SE, ymax = mean+SE), width = 0.2) + 
   geom_bar(stat="identity", colour = "black") + coord_flip() + 
   xlab("Treatment") +
   ylab("Mean \u00B1 SE number of contacts") +
-    theme(legend.position = "none")
+    theme(legend.position = "none",
+          text = element_text(family = nice_font))
 
-p2 <- summary_data %>%
+p2 <- raw_to_plot %>%
   group_by(treatment) %>%
-  summarise(mean = mean(touch_duration),
-            SE = sd(touch_duration) / sqrt(n())) %>%
+  summarise(mean = mean(duration_touches),
+            SE = sd(duration_touches) / sqrt(n()),
+            .groups = "drop") %>%
   mutate(treatment = factor(treatment, rev(treatment))) %>%
   ggplot(aes(treatment, mean, fill = treatment)) + 
   geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.2) + 
   geom_bar(stat="identity", colour = "black") + coord_flip() + 
   xlab(NULL) +
-  ylab("Mean \u00B1 SE duration of contact (s)") +
+  ylab("Mean \u00B1 SE total duration of contact (s)") +
   theme(legend.position = "none",
         axis.text.y = element_blank(),
-        axis.ticks.y = element_blank())
+        axis.ticks.y = element_blank(),
+        text = element_text(family = nice_font))
 
-p3 <-   summary_data %>%
+p3 <- raw_to_plot %>%
     mutate(treatment = factor(treatment, rev(levels(treatment)))) %>%
-    ggplot(aes(treatment, n_touches + 1, colour = treatment)) + 
-    geom_boxplot(fill = NA, colour = "black", size = 0.3) +
+    ggplot(aes(treatment, n_touches, colour = treatment)) + 
     geom_beeswarm(alpha = .7) + 
+    geom_boxplot(fill = NA, colour = "black", size = 0.3, outlier.shape = NA) +
     coord_flip() + 
     ylab("Number of contacts") + 
     xlab("Treatment") +
-    theme(legend.position = "none")
+    theme(legend.position = "none",
+        text = element_text(family = nice_font))
 
-p4 <-   summary_data %>%
+p4 <- raw_to_plot %>%
     mutate(treatment = factor(treatment, rev(levels(treatment)))) %>%
-    ggplot(aes(treatment, touch_duration + 1, colour = treatment)) + 
-    geom_boxplot(fill = NA, colour = "black", size = 0.3) +
+    ggplot(aes(treatment, duration_touches, colour = treatment)) + 
     geom_beeswarm(alpha = .7) + 
+    geom_boxplot(fill = NA, colour = "black", size = 0.3, outlier.shape = NA) +
     coord_flip() + 
-    scale_y_log10() + 
-    ylab("Duration of contact (log scale)") + 
+    #scale_y_log10() + 
+    ylab("Total duration of contact") + 
     xlab(NULL) +
     theme(legend.position = "none",
           axis.text.y = element_blank(),
-          axis.ticks.y = element_blank())
+          axis.ticks.y = element_blank(),
+          text = element_text(family = nice_font))
 
 plot(rbind(cbind(ggplotGrob(p1), ggplotGrob(p2), size = "last"),
            cbind(ggplotGrob(p3), ggplotGrob(p4), size = "last")))
@@ -207,341 +141,108 @@ plot(rbind(cbind(ggplotGrob(p1), ggplotGrob(p2), size = "last"),
 
 
 
+## Analysis of the number of contacts in 30 minutes
 
-## Code to run all models
+### Recap of the pre-registered plan for the analysis
 
-### Running the multivariate "full model" 
+In this section (i.e. `Analysis of the number of contacts in 30 minutes`), we carry out the pre-planned analysis, focusing on the response variable that was mentioned in the pre-registration, namely "the number of antennal contacts between workers and the pheromone-treated paper that occur over 30 minutes" (represented in this R Markdown document by the variable `data_by_petri_dish$n_touches`).
 
-This is the full bivariate GLMM described first in the paper (right after the pre-registered analysis is described).
+To recap, the pre-registered plan for this study can be found at [https://osf.io/ncf9z/](), and the relevant part is quoted here:
 
-#### Fit the model
+> _We will conduct two separate analyses, one for the behavioural data and one for the ovary dissection data. The analyses will use generalised linear mixed models (GLMM) be implemented using the R package brms, using one of the following two model formulas (in the syntax of brms): \p Model 1: `Response_variable ~ Pheromone_treatment + (1 | Block) + (1 | Hive)` &nbsp; &nbsp; or &nbsp; &nbsp;  Model 2: `Response_variable ~ Pheromone_treatment + (1 | Block) + (Pheromone_treatment | Hive)` \p Where `Pheromone_treatment` is a 12-level fixed factor. Model 1 fits hive as a random intercept, which constrains all the hives to show the same response to queen pheromone, while the latter allows for a variable response between hives by additionally including treatment as a random slope. We will use cross-validation to determine which of these models provides a better fit, and then use that in subsequent analyses. The behavioural data represent counts of events, and so will probably be analysed using a GLMM with Poisson errors (or perhaps zero-inflated Poisson or negative binomial – to be decided based on which one provides the best fit, according to posterior predictive checks)._
+
+
+In the next section (`Analysis of touch duration`), we use the same statistical methods to analyse the other response variable, namely the total duration that bees were in contact with the lure over the 30-minute observation period (measured in "bee seconds"; represented in this document by the variable `data_by_petri_dish$duration_touches`). As the plot above suggests, the differences between treatments are larger for the `duration_touches` response variable than for `n_touches` though the results are qualitatively similar.
+
+
+### Plot distribution of the response variable, `n_touches`
+
+The response variable does not look zero-inflated (as we speculated in the pre-registration), though the right tail seems longer than expected for a Poisson-distributed random variable. Therefore, it seems appropriate to select the negative binomial distribution, which has an additional free parameter for the variance, and so should provide a better fit to the data.
 
 ```{r}
-if(!file.exists("output/multivariate_brms.rds")){
+ggplot(data_by_petri_dish, aes(n_touches)) + 
+  geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
+  xlab("Number of contacts with lure")
+```
+
+
+### Run the pre-registered models in `brms`
+
+Here, we run the models as stated in the pre-registration. 
+
+```{r run_all_models}
+if(!file.exists("output/pre_reg_model.rds")){ 
   
-  multivariate_brms <- brm(
-    mvbind(n_touches, touch_duration) ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + 
-      hive + scale(number_bees) + (1 | make_corr | tray),
-    data = summary_data %>% mutate(touch_duration = touch_duration + 0.01), 
-    iter = 10000, chains = 4, cores = 1,
-    prior = c(prior(normal(0, 3), class = "b", resp = "ntouches"),
-              prior(normal(0, 3), class = "b", resp = "touchduration")),
-    family = list("negbinomial", "lognormal"),
-    control = list(max_treedepth = 20, adapt_delta = 0.99))
+  priors <- c(prior(normal(0, 3), class = b))
   
-  saveRDS(multivariate_brms, "output/multivariate_brms.rds")
+  pre_reg_model <- brm(
+    formula = n_touches ~ treatment + (1 | block) + (1 | hive),
+    family = "negbinomial",
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = data_by_petri_dish)
+  saveRDS(pre_reg_model, file = "output/pre_reg_model.rds")
   
-} else{
-  multivariate_brms <- readRDS("output/multivariate_brms.rds")
+  pre_reg_with_random_slope <- brm(
+    formula = n_touches ~  treatment + (1 | block) + (treatment | hive), 
+    family = "negbinomial", 
+    sample_prior = TRUE,
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9999, max_treedepth = 14),
+    prior = priors,
+    data = data_by_petri_dish)
+  
+  model_weights_random_slope <- model_weights(pre_reg_model, pre_reg_with_random_slope, weights = "loo")
+  saveRDS(model_weights_random_slope, "output/model_weights_random_slope.rds")
+
+} else {
+  pre_reg_model <- readRDS("output/pre_reg_model.rds")
+  model_weights_random_slope <- readRDS("output/model_weights_random_slope.rds")
 }
 ```
 
 
-#### Graphical verification of the model's fit 
+### Model results
 
-Here we perform "posterior predictive checks" on the full model, for both response variables. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. The fitted values recapitulate the orignal data well, which is a necessary condition for the model to produce useful inferences. This suggests that the models employed here were an adequate approximation of the true data-generating processes. 
+## The model without the random slope fits better
 
-```{r message=F, warning=F}
-grid.arrange(
-  pp_check(multivariate_brms, resp = "ntouches") + labs(title = "Number of contacts with the lure") + theme(legend.position = "none"),
-  pp_check(multivariate_brms, resp = "touchduration") + labs(title = "Duration of contact with the lure") + theme(legend.position = "none"),
-  pp_check(multivariate_brms, resp = "touchduration") + labs(title = "Duration of contact with the lure (log10 scale)") + theme(legend.position = "none") + scale_x_log10()
-)
+The model formula named "Model 1" in the pre-registration had a better fit than the one named Model 2; that is, there was no evidence for variance in the response to treatment between hives. The model weight of Model 1 was >99.999% (computed using "LOO", or leave-one-out cross validation), indicating strong support for Model 1 over Model 2.
+
+```{r}
+model_weights_random_slope 
 ```
 
-#### Raw output from `brms` describing the full model 
+
+#### Posterior predictive plots to verify model fit
+
+We first perform a "posterior predictive check" on the model. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. The fitted values follow the original data quite well, which is a necessary condition for a model to produce reliable inferences. 
+
+```{r message=FALSE, warning=FALSE}
+pp_check(pre_reg_model, nsamples = 10) + 
+  labs(y = "Density", x = "Number of contacts with pheromone lure")
+```
+
+#### Raw output provided by `brms` 
+
+Here is the complete output from the `summary()` method for `brms`.
 
 ```{r output_max_height = "300px"}
-multivariate_brms
+summary(pre_reg_model)
 ```
 
 
+#### Table of the fixed effects estimates
 
-### Preliminary model comparison ranking using frequentist GLMMs
-
-Initial trials revealed that it is computationally challenging to run and compare very many `brms` models. To address this, we ran a preliminary model comparison step in the `glmmTMB` package, which fits frequentist generalised linear mixed models (GLMM), and used `glmmTMB` to select the 10 best-fitting models, which were then re-ranked using `brms` (see next section).
-
-Using the `glmmTMB` package, we first fit a full model with the following formula:
-
-`y ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | tray)`
-
-where `y` is the response variable, i.e. either the number of times a bee touched the pheromone-treated paper, or the total duration over which bees were in contact with the paper (measured in "bee-seconds", such that 2 bees touching the paper for 10 seconds each would be recorded as 20).
-
-That is, we fit 6 main effect fixed factors and 1 random intercept (tray). "Hive" was fit as a fixed factor not a random factor because it only has 3 levels, and it is generally not advised to use random factors with fewer than about 6 levels (this is one difference from the pre-registration; we initially planned to include more hives, but not all of our hives contained enough workers for use in the experiments). We fit all possible 2-way interactions among the pheromone components that were presented as part of a 2-component mixture. There were 452 possible sub-models in this full model, all of which were run and compared using `glmmTMB`.
-
-```{r run_dredge}
-full_model <- "n_touches ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + number_bees + (1 | tray)"
-
-if(!file.exists("output/model_selection_table_duration_glmmTMB.rds")){
-  
-  options(na.action="na.fail") # needed for dredge()
-  
-  # Run dredge() to compare all possible models:
-  
-  ## For the "count" response variable:
-  dredge_results_count <- glmmTMB(
-    as.formula(full_model), 
-    family = nbinom1, 
-    data = summary_data, REML = FALSE) %>%
-    dredge()
-  
-  ## And for the "duration" response variable:
-  log_transformed_data <- summary_data %>%
-      mutate(touch_duration = log(touch_duration + 0.01))
-  
-  dredge_results_duration <- lmer(
-    as.formula(str_replace(full_model, "n_touches", "touch_duration")), 
-    data = log_transformed_data, 
-    REML = FALSE) %>%
-    dredge()
-  
-  # Get the formulae for the top 10 models, as ranked by AICc
-  top_10_model_formulae_count <- map_chr(
-    get.models(head(dredge_results_count, 10), subset=TRUE), 
-    ~ as.character(.x$call)[2]) %>% unname() %>%
-    strsplit(split = " [+] ") %>% 
-    map_chr(~ paste0(c(sort(.x[!(.x %in% c("hive", "(1 | tray)"))]), 
-                       .x[.x == "hive"], .x[.x == "(1 | tray)"]), 
-                     collapse = " + ")) 
-  
-  # Do the same for the duration models
-  top_10_model_formulae_duration <- map_chr(
-    get.models(head(dredge_results_duration, 10), subset=TRUE), 
-    ~ as.character(.x@call)[2]) %>% unname() %>%
-    strsplit(split = " [+] ") %>% 
-    map_chr(~ paste0(c(sort(.x[!(.x %in% c("hive", "(1 | tray)"))]), 
-                       .x[.x == "hive"], .x[.x == "(1 | tray)"]), 
-                     collapse = " + "))
-  
-  # Make a nicely-formatted model selection table for each response variable
-  model_selection_table_count_glmmTMB <- top_10_model_formulae_count %>%
-    substr(nchar("n_touches ~ ")+1, nchar(.)) %>% 
-    str_remove_all(" [+] [(]1 [|] tray[)]") %>%
-    str_remove_all("has_") %>% 
-    data.frame(Formula = ., 
-               head(dredge_results_count, 10) %>% as.data.frame() %>%
-                 select(df, logLik, AICc, delta, weight)) %>% as_tibble() %>%
-    mutate(Formula = strsplit(Formula, split = " [+] "),
-           Formula = map_chr(Formula, ~ paste0(c(sort(.x[.x != "hive"]), 
-                                                 .x[.x == "hive"]), collapse = " + ")),
-           logLik = round(logLik, 2),
-           AICc = round(AICc, 2),
-           delta = round(delta, 3),
-           weight = round(as.numeric(weight), 3))
-  
-  model_selection_table_duration_glmmTMB <- top_10_model_formulae_duration %>%
-    substr(nchar("touch_duration ~ ")+1, nchar(.)) %>% 
-    str_remove_all(" [+] [(]1 [|] tray[)]") %>%
-    str_remove_all("has_") %>% 
-    data.frame(Formula = ., 
-               head(dredge_results_duration, 10) %>% as.data.frame() %>%
-                 select(df, logLik, AICc, delta, weight)) %>% as_tibble() %>%
-    mutate(Formula = strsplit(Formula, split = " [+] "),
-           Formula = map_chr(Formula, ~ paste0(c(sort(.x[.x != "hive"]), 
-                                                 .x[.x == "hive"]), collapse = " + ")),
-           logLik = round(logLik, 2),
-           AICc = round(AICc, 2),
-           delta = round(delta, 3),
-           weight = round(as.numeric(weight), 3))
-  
-  # Save all the results to save re-doing this
-  saveRDS(top_10_model_formulae_count, 
-          "output/top_10_model_formulae_count.rds")
-  saveRDS(top_10_model_formulae_duration, 
-          "output/top_10_model_formulae_duration.rds")
-  saveRDS(model_selection_table_count_glmmTMB, 
-          "output/model_selection_table_count_glmmTMB.rds")
-  saveRDS(model_selection_table_duration_glmmTMB, 
-          "output/model_selection_table_duration_glmmTMB.rds")
-
-  options(na.action="na.omit")
-  
-} else {
-  top_10_model_formulae_count <- 
-    readRDS("output/top_10_model_formulae_count.rds")
-  top_10_model_formulae_duration <- 
-    readRDS("output/top_10_model_formulae_duration.rds")
-  model_selection_table_count_glmmTMB <- 
-    readRDS("output/model_selection_table_count_glmmTMB.rds")
-  model_selection_table_duration_glmmTMB <- 
-    readRDS("output/model_selection_table_duration_glmmTMB.rds")
-}
-```
-
-
-### Inspect the results of the preliminary model selection step
-
-These two tables show the results of model comparison using AICc, showing the top 10 most plausible models given the data, for the two response variables. The "weight" column gives the Akkaike weight, which can be interpreted as the probability that the focal model is the best-fitting one in the set of models under comparison. 
-
-#### Response variable: Number of contacts
-The table shows the top 10 models, as ranked by AICc of `glmmTMB` models.
-```{r}
-model_selection_table_count_glmmTMB %>% 
-  kable() %>% kable_styling(full_width = FALSE)
-```
-
-#### Response variable: Total duration of contacts
-The table shows the top 10 models, as ranked by AICc of `glmmTMB` models.
-```{r}
-model_selection_table_duration_glmmTMB %>% 
-  kable() %>% kable_styling(full_width = FALSE)
-```
-
-### Re-ranking of the top 10 models using Bayesian GLMMs
-
-Here, we fit the Bayesian equivalents of the top 10 models identified in the previous section for each response variable, save the results to disk, then rank the models according to their posterior model probabilities.
-
-```{r model_comparison}
-model_files <- list.files("/Volumes/LACIE_SHARE/brms_apis_retinue", full.names = TRUE)
-
-all_formulas <- c(top_10_model_formulae_count, 
-                  top_10_model_formulae_duration)
-
-if(length(model_files) < 20){
-  
-  # Function to run a model using formula "i" in "formula_list" on dataframe "my_data"
-  run_model <- function(i, formula_list, my_data){
-    
-    save_location <- "/Volumes/LACIE_SHARE/brms_apis_retinue"
-    num <- str_pad(i, 2, pad = "0")
-    file_name <- glue("{save_location}/model_{num}.rds")
-    if(file.exists(file_name)) return(NULL)
-    
-    if(i %in% 1:10){
-      model <- brm(formula_list[i],  data = my_data, 
-                   iter = 10000, chains = 4, cores = 1,
-                   prior = c(prior(normal(0, 3), class = "b")),
-                   family = "negbinomial",
-                   control = list(max_treedepth = 20, adapt_delta = 0.99),
-                   save_all_pars = TRUE)
-    } else if(i %in% 11:20) {
-      model <- brm(formula_list[i],  data = my_data %>% mutate(touch_duration = touch_duration + 0.01), 
-                   iter = 10000, chains = 4, cores = 1,
-                   prior = c(prior(normal(0, 3), class = "b")),
-                   family = "lognormal",
-                   control = list(max_treedepth = 20, adapt_delta = 0.99),
-                   save_all_pars = TRUE)
-    }
-    
-    
-    saveRDS(model, file = file_name)
-    rm(model) # Force clean up to help R not run out of memory
-    gc()
-    return(NULL)
-  }
-  
-  # Run all the models in parallel over 4 cores - this worked fine on a 2015 iMac with 32GB RAM
-  options(mc.cores = 4)
-  plan(multiprocess)
-  
-  future_lapply(1:length(all_formulas), run_model, 
-                formula_list = all_formulas, my_data = summary_data)
-}
-
-if(!file.exists("output/model_selection_table.rds")){
-  model_files <- list.files("/Volumes/LACIE_SHARE/brms_apis_retinue", full.names = TRUE)
-  
-  # Rank all 20 models by their posterior model probabilities 
-  # (uses the post_prob function, see ?model_weights)
-  weights_post_probability <- 
-    c(
-      model_weights(
-        readRDS(model_files[1]), readRDS(model_files[2]),
-        readRDS(model_files[3]), readRDS(model_files[4]),
-        readRDS(model_files[5]), readRDS(model_files[6]),
-        readRDS(model_files[7]), readRDS(model_files[8]),
-        readRDS(model_files[9]), readRDS(model_files[10]),
-        weights = "bma"),
-      
-      model_weights(
-        readRDS(model_files[11]), readRDS(model_files[12]),
-        readRDS(model_files[13]), readRDS(model_files[14]),
-        readRDS(model_files[15]), readRDS(model_files[16]),
-        readRDS(model_files[17]), readRDS(model_files[18]),
-        readRDS(model_files[19]), readRDS(model_files[20]),
-        weights = "bma")
-    )
-  
-  # Format the posterior model probabilities nicely in a table
-  resp_model_weights <- round(weights_post_probability, 3) 
-  names(resp_model_weights) <- all_formulas
-  
-  model_selection_table <- enframe(resp_model_weights, 
-                                   name = "Model", 
-                                   value = "Posterior model probability")
-  model_selection_table <- bind_rows(
-    model_selection_table[1:10, ] %>% 
-      mutate(i = 1:10) %>% 
-      arrange(-`Posterior model probability`),
-    model_selection_table[11:20, ] %>% 
-      mutate(i = 11:20) %>% 
-      arrange(-`Posterior model probability`)) %>%
-    filter(`Posterior model probability` > 0.01)
-  
-  model_selection_table <- model_selection_table %>%
-    mutate(Model = str_remove_all(Model, "n_touches ~ "),
-           Model = str_remove_all(Model, "touch_duration ~ "),
-           Model = str_remove_all(Model, "has_"),
-           Model = str_remove_all(Model, "\\+ hive \\+ \\(1 \\| tray\\)")) 
-  
-  model_selection_table %>% saveRDS("output/model_selection_table.rds")
-} else{
-  model_selection_table <- readRDS("output/model_selection_table.rds")
-}
-
-formulae <- c(top_10_model_formulae_count, top_10_model_formulae_duration)
-```
-
-
-
-### Perform Bayesian model averaging
-
-Here, we performed model averaging of the top 10 Bayesian models of the "number of contacts" response variable, and the top 10 for the "duration of contacts" variable. 
-
-```{r model_averaging, warning=FALSE}
-# Define some new data to predict the response variables for
-new <- summary_data %>%
-  arrange(hive, treatment) %>%
-  select(treatment, hive, has_10HDA, has_HVA, has_HOB, has_9HDA, has_9ODA) %>%
-  mutate(number_bees = 5) %>% 
-  distinct() %>% mutate(key = paste("V", 1:n(), sep = ""))
-
-# Predict the treatment means for the n_count variable, averaging over 10 models
-means_count <- pp_average(
-  readRDS(model_files[1]), readRDS(model_files[2]), 
-  readRDS(model_files[3]), readRDS(model_files[4]),
-  readRDS(model_files[5]), readRDS(model_files[6]),
-  readRDS(model_files[7]), readRDS(model_files[8]),
-  readRDS(model_files[9]), readRDS(model_files[10]),
-  method = "pp_expect", weights = "stacking", 
-  newdata = new, re_formula = NA, summary = FALSE) 
-
-# Predict the treatment means for the total_duration variable, averaging over 10 models
-means_duration <- pp_average(
-  readRDS(model_files[11]), readRDS(model_files[12]), 
-  readRDS(model_files[13]), readRDS(model_files[14]),
-  readRDS(model_files[15]), readRDS(model_files[16]),
-  readRDS(model_files[17]), readRDS(model_files[18]),
-  readRDS(model_files[19]), readRDS(model_files[20]),
-  method = "pp_expect", weights = "stacking",
-  newdata = new, re_formula = NA, summary = FALSE) 
-```
-
-## Tables of model results 
-
-This section presents a table of the fixed effects estimates, either for the full model, or after model averaging over the top 10 models.
-
-### Tables of fixed effect parameter estimates {.tabset}
-
-#### As estimated by the full model
+Table SXXX: Treatment effects on the number of contacts with pheromone lure observed in 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the "probability of direction" (i.e. the probability that the true effect size has the same sign as the estimated effect size). 
 
 ```{r}
-pvalues <- as.data.frame(p_direction(multivariate_brms)) %>% 
+pvalues <- as.data.frame(p_direction(pre_reg_model)) %>% 
   mutate(Parameter = str_remove_all(Parameter, "b_"),
          Parameter = str_replace_all(Parameter, "[.]", ":"),
-         p = 1 - pd)  %>% select(Parameter, p) %>% distinct()
+         p = 1- pd)  %>% select(Parameter, p) %>% distinct()
 
-fixed_effects <- fixef(multivariate_brms) %>% 
+fixed_effects <- fixef(pre_reg_model) %>% 
   as.data.frame() %>%
   rownames_to_column("Parameter") %>%
   mutate(old_names = Parameter) %>%
@@ -549,635 +250,512 @@ fixed_effects <- fixef(multivariate_brms) %>%
   mutate(` ` = ifelse(p < 0.05, "\\*", ""),
          ` ` = replace(` `, p > 0.05 & p < 0.1, "~"),
          ` ` = replace(` `, p < 0.01, "**"), 
-         ` ` = replace(` `, p < 0.001, "***")) %>%
-  mutate(`Response variable` = ifelse(grepl("ntouches", Parameter), "Number of contacts", "Total duration of contact"),
-         Parameter = str_remove_all(Parameter, "ntouches_"),
-         Parameter = str_remove_all(Parameter, "touchduration_"),
-         Parameter = str_remove_all(Parameter, "1"),
-         Parameter = str_replace_all(Parameter, "scalenumber_bees", "Number of bees in group (scaled)"),
-         Parameter = str_replace_all(Parameter, "has_0", "has_10"),
-         Parameter = str_remove_all(Parameter, "has_"),
-         Parameter = str_replace_all(Parameter, "hiveSkylab", "Hive (Skylab)"),
-         Parameter = str_replace_all(Parameter, "hiveZoology", "Hive (Zoology)"),
-         Parameter = str_replace_all(Parameter, ":", " x ")) %>%
-  arrange(`Response variable`) %>%
-  mutate_at(vars(Estimate, Est.Error, Q2.5, Q97.5), ~ round(.x, 3))  %>%
-  mutate(p = round(p, 4)) %>%
-  select(`Response variable`, everything())
+         ` ` = replace(` `, p < 0.001, "***"),
+         Parameter = str_replace_all(Parameter, "Pheromone_treatment", ""),
+         Parameter = str_replace_all(Parameter, "M", "-"),
+         Parameter = str_replace_all(Parameter, "and", " and "),
+         Parameter = str_replace_all(Parameter, "workercontrol", " (worker control)"),
+         Parameter = str_replace_all(Parameter, "treatment", "Treatment: ")) %>%
+  mutate_at(vars(-Parameter, - ` `, - old_names), ~ round(.x, 3)) 
 
-fixed_effects %>% select(-old_names, -`Response variable`) %>%
-  kable() %>% kable_styling(full_width = FALSE) %>%
-  group_rows("Number of contacts", 1, 15) %>%
-  group_rows("Total duration of contact", 16, 30) 
+fixed_effects %>% select(-old_names) %>%
+  mutate(Parameter = str_replace_all(Parameter, "and", "&")) %>% 
+  kable() %>% kable_styling(full_width = FALSE)
 ```
 
 
-#### As estimated by model averaging of the top 10 models
 
-```{r model_avg_parameters, warning=FALSE}
-# getting model-averaged parameter estimates...
-count_mod_avg <- posterior_average(
-  readRDS(model_files[1]), readRDS(model_files[2]), 
-  readRDS(model_files[3]), readRDS(model_files[4]),
-  readRDS(model_files[5]), readRDS(model_files[6]),
-  readRDS(model_files[7]), readRDS(model_files[8]),
-  readRDS(model_files[9]), readRDS(model_files[10]),
-  weights = "stacking", missing = 0) %>%
-  select(contains("b_"), contains("sd_"))
+### Plotting the parameter estimates from the model
 
-# getting model-averaged parameter estimates...
-duration_mod_avg <- posterior_average(
-  readRDS(model_files[11]), readRDS(model_files[12]), 
-  readRDS(model_files[13]), readRDS(model_files[14]),
-  readRDS(model_files[15]), readRDS(model_files[16]),
-  readRDS(model_files[17]), readRDS(model_files[18]),
-  readRDS(model_files[19]), readRDS(model_files[20]),
-  weights = "stacking", missing = 0) %>%
-  select(contains("b_"), contains("sd_"))
-
-count_mod_avg_p <- 
- count_mod_avg %>% select(starts_with("b_has")) %>% 
-    summarise_all(~ as.numeric(p_direction(.x))) %>%
-  gather(Parameter, p) %>% mutate(p = 1 - p)
-
-duration_mod_avg_p <- 
- duration_mod_avg %>% select(starts_with("b_has")) %>% 
-    summarise_all(~ as.numeric(p_direction(.x))) %>%
-  gather(Parameter, p) %>% mutate(p = 1 - p)
-
-# parameter values averaged over models...
-bind_rows(
-  count_mod_avg %>% select(starts_with("b_has")) %>% 
-    summarise_all(~ list(posterior_summary(.x))) %>% 
-    gather(Parameter, value) %>%
-    mutate(Estimate = map_dbl(value, ~ .x[1]),
-           Est.Error = map_dbl(value, ~ .x[2]),
-           Lower_95_CI = map_dbl(value, ~ .x[3]),
-           Upper_95_CI = map_dbl(value, ~ .x[4])) %>%
-    mutate(Response = "Count") %>%
-    left_join(count_mod_avg_p, by = "Parameter"),
-  
-  duration_mod_avg %>%  select(starts_with("b_has")) %>% 
-    summarise_all(~ list(posterior_summary(.x))) %>% 
-    gather(Parameter, value) %>%
-    mutate(Estimate = map_dbl(value, ~ .x[1]),
-           Est.Error = map_dbl(value, ~ .x[2]),
-           Lower_95_CI = map_dbl(value, ~ .x[3]),
-           Upper_95_CI = map_dbl(value, ~ .x[4])) %>%
-    mutate(Response = "Duration") %>%
-    left_join(duration_mod_avg_p, by = "Parameter") 
-)  %>%
-  select(-value) %>%
-  mutate(Parameter = str_remove_all(Parameter, "b_has_"),
-         Parameter = str_remove_all(Parameter, "has_"),
-         Parameter = str_remove_all(Parameter, "1"),
-         Parameter = str_replace_all(Parameter, "0", "10"),
-         Parameter = str_replace_all(Parameter, ":", " x ")) %>%
-  mutate(` ` = ifelse(p < 0.05, "\\*", ""),
-         ` ` = replace(` `, p > 0.05 & p < 0.1, "~"),
-         ` ` = replace(` `, p < 0.01, "**"), 
-         ` ` = replace(` `, p < 0.001, "***")) %>%
-    arrange(Response, -abs(Estimate)) %>%
-  select(-Response) %>%
-  kable(digits = 3) %>% kable_styling(full_width = FALSE) %>%
-  group_rows("Number of contacts", 1, 6) %>%
-  group_rows("Total duration of contact", 7, 14)
-```
-
-
-### Table ranking the top 10 models by posterior probability
-
-This table the posterior probability of each of the top 10 models, for each response variable. The posterior probability is equivalent to the probability that the focal model is the best-fitting one in the set, given the data and the priors (NB: each model was assumed ot be equally likely a priori).
-
-```{r}
-model_selection_table %>%
-  select(-i) %>%
-  kable() %>% kable_styling(full_width = FALSE) %>%
-  group_rows("Number of contacts", 1, 6) %>%
-  group_rows("Total duration of contact", 7, 14)
-```
-
-### Tables of effect size estimates {.tabset}
-
-#### Derived from the full model
-
-```{r}
-# Get the posterior predictions for the means for both response variables
-multivar_predictions <- bind_rows(
-  
-  fitted(multivariate_brms, newdata = new, 
-         re_formula = NA, resp = "ntouches", summary = FALSE) %>% 
-    as.data.frame() %>% mutate(draw = 1:n()) %>%
-    gather(key, value, -draw) %>% 
-    left_join(new, by = "key") %>% 
-    mutate(resp = "Number of contacts with lure"),
-  
-  fitted(multivariate_brms, newdata = new, 
-         re_formula = NA, resp = "touchduration", summary = FALSE) %>% 
-    as.data.frame() %>% mutate(draw = 1:n()) %>%
-    gather(key, value, -draw) %>% 
-    left_join(new, by = "key") %>% 
-    mutate(resp = "Duration of contact (seconds)")
-  
-  ) %>%
-  mutate(contains_9ODA = ifelse(grepl("9-ODA", treatment), "Yes", "No")) %>%
-  mutate(treatment = factor(treatment, rev(treatment_levels))) %>%
-  group_by(treatment, resp, contains_9ODA, draw) %>% # average over hives
-  summarise(value = mean(value)) %>%
-  ungroup()
-
-SD_n_touches <- sd(summary_data$n_touches)
-SD_touch_duration <- sd(summary_data$touch_duration)
-
-# calculate effect size as (mean_i - mean_control) / SD, i.e. Cohen's d
-full_model_effect_sizes <- multivar_predictions %>%
-  mutate(resp = relevel(factor(resp), ref = "Number of contacts with lure")) %>%
-  arrange(desc(treatment)) %>%
-  group_by(draw, resp) %>%
-  mutate(value = ifelse(resp == "Duration of contact (seconds)",
-                        (value - value[1]) / SD_touch_duration,
-                        (value - value[1]) / SD_n_touches)) %>%
-  ungroup() %>%
-  filter(treatment != "Solvent control") %>%
-  rename(response = resp)
-
-p_vals_full <- full_model_effect_sizes %>%
-  group_by(response, treatment) %>%
-  summarise(p = 1 - as.numeric(p_direction(value)))
-
-full_model_effect_sizes %>%
-  group_by(response, treatment) %>%
-  summarise(value = list(posterior_summary(value))) %>% 
-  ungroup() %>%
-  mutate(`Effect size\n(Cohen's d)` = map_dbl(value, ~ .x[1]),
-         Est.Error = map_dbl(value, ~ .x[2]),
-         Lower_95_CI = map_dbl(value, ~ .x[3]),
-         Upper_95_CI = map_dbl(value, ~ .x[4])) %>%
-  left_join(p_vals_full, by = c("response", "treatment")) %>%
-  arrange(response, desc(treatment)) %>%
-  mutate(` ` = ifelse(p < 0.05, "\\*", ""),
-         ` ` = replace(` `, p > 0.05 & p < 0.1, "~"),
-         ` ` = replace(` `, p < 0.01, "**"), 
-         ` ` = replace(` `, p < 0.001, "***")) %>%
-  select(-value, -response) %>%
-  rename(Treatment = treatment) %>%
-  kable(digits = 3) %>%
-  kable_styling(full_width = FALSE) %>%
-  group_rows("Number of contacts", 1, 11) %>%
-  group_rows("Total duration of contact", 12, 22)
-```
-
-
-#### Derived from model averaging
-
-```{r}
-effect_size_calc <- function(averaged_means, resp){
-  
-  # Helper function to get the posterior log2 ratio of treatment means
-  get_data <- function(elements, hive_number) {
-    lapply(elements, function(i) {
-      
-      posterior_mean_differences <- 
-        averaged_means[,i] - averaged_means[,1 + 12 * (hive_number-1)]
-      
-      if(resp == "Number of contacts with lure"){
-        posterior_cohens_d <- posterior_mean_differences / SD_n_touches
-      } else {
-        posterior_cohens_d <- posterior_mean_differences / SD_touch_duration
-      }
-      
-      posterior_cohens_d
-      }) %>% 
-      do.call("cbind", .) %>% 
-      as.data.frame() %>% 
-      mutate(draw = 1:n()) %>%
-      gather(key, value, -draw) %>% 
-      left_join(new, by = "key") %>%
-      mutate(response = resp) %>%
-      filter(treatment != "Solvent control") %>% 
-      mutate(hive = hive_number) %>% 
-      as_tibble()
-  }
-  
-  # Average across hives
-  bind_rows(get_data(1:12, 1), 
-            get_data(13:24, 2), 
-            get_data(25:36, 3)) %>%
-    mutate(contains_9ODA = ifelse(grepl("9-ODA", treatment), "Yes", "No")) %>%
-    mutate(treatment = factor(treatment, rev(treatment_levels))) %>%
-    group_by(treatment, response, draw, contains_9ODA) %>%
-    summarise(value = mean(value)) %>% 
-    ungroup()
-  
-}
-
-model_avg_effect_sizes <- bind_rows(
-  means_count %>% effect_size_calc("Number of contacts with lure"),
-  means_duration %>% effect_size_calc("Duration of contact with lure")
-) %>%
-    mutate(response = relevel(factor(response), ref = "Number of contacts with lure")) 
-
-p_vals_avg <- model_avg_effect_sizes %>%
-  group_by(response, treatment) %>%
-  summarise(p = 1 - as.numeric(p_direction(value)))
-
-
-model_avg_effect_sizes %>%
-  group_by(response, treatment) %>%
-  summarise(value = list(posterior_summary(value))) %>% 
-  ungroup() %>%
-  mutate(Estimate = map_dbl(value, ~ .x[1]),
-         Est.Error = map_dbl(value, ~ .x[2]),
-         Lower_95_CI = map_dbl(value, ~ .x[3]),
-         Upper_95_CI = map_dbl(value, ~ .x[4])) %>%
-  left_join(p_vals_avg, by = c("response", "treatment")) %>%
-  arrange(response, desc(treatment)) %>%
-  mutate(` ` = ifelse(p < 0.05, "\\*", ""),
-         ` ` = replace(` `, p > 0.05 & p < 0.1, "~"),
-         ` ` = replace(` `, p < 0.01, "**"), 
-         ` ` = replace(` `, p < 0.001, "***")) %>%
-  select(-value, -response) %>%
-  rename(Treatment = treatment) %>%
-  kable(digits = 3) %>%
-  kable_styling(full_width = FALSE) %>%
-  group_rows("Number of contacts", 1, 11) %>%
-  group_rows("Total duration of contact", 12, 22)
-```
-
-
-## Plotting the results
-
-These plots show the estimates of effect size for each pheromone treatment. We define effect size as $log2(\bar{x}_{i} / \bar{x}_{control})$, where $\bar{x}_{i}$ is the posterior estimate of the mean in treatment $i$, and $\bar{x}_{control}$ is the same for the solvent-only control. 
-
-These estimates are plotted either using estimates of the mean from the full model, or from model averaging over the top 10 models.
-
-
-### Estimated effect size for each treatment {.tabset}
-
-#### Estimated using the full model
-
-```{r plot_post_predictions_1}
-nice_dot_plot <- function(effect_sizes, with_dots = TRUE){
-  plot <- effect_sizes %>%
-    ggplot(aes(value, treatment)) +
+```{r fig.height=6, fig.showtext = TRUE}
+plot_model <- function(model){
+  posterior_samples(model) %>% 
+    as_tibble() %>%
+    select(contains("b_"), -contains("Intercept")) %>%
+    gather() %>% 
+    mutate(key = str_remove_all(key, "b_")) %>%
+    left_join(fixed_effects %>% select(Parameter, old_names), by = c("key" = "old_names")) %>%
+    mutate(Parameter = str_replace_all(Parameter, "Treatment: ", "")) %>% 
+    mutate(Parameter = str_replace_all(Parameter, "and", "&")) %>% 
+    mutate(Parameter = factor(Parameter, rev(levels_ampersand))) %>%
+    filter(!is.na(Parameter)) %>% 
+    ggplot(aes(value, Parameter, fill = Parameter)) +
     geom_vline(xintercept = 0, linetype = 2) + 
-    geom_vline(xintercept = 0.5, linetype = 3, colour = "tomato") + 
-    stat_pointintervalh(position = position_nudge(y = -0.07), .width = c(0.5, 0.95), alpha = 0.8) +
+    stat_halfeyeh(alpha = 0.8) +
+    scale_fill_viridis_d() +
     theme_bw() +
-    scale_fill_brewer(palette = "BrBG") + 
-    facet_wrap(~ response, scales = "free_x") +
-    theme(legend.position = "none") + 
-    xlab("Posterior estimate of effect size (Cohen's d)") +
-    ylab("Pheromone treatment")
-  
-    if(with_dots) plot + stat_dotsh(quantiles = 100, colour = "grey10", aes(fill = response)) 
-    else plot
+    theme(legend.position = "none",
+        text = element_text(family = nice_font)) + 
+    ylab("Pheromone treatment") +
+    xlab("Effect of chemical on number of contacts\n(relative to the solvent-only control)")
 }
 
+pre_reg_model %>% plot_model()
+```
+<br></br>
+**Figure S1**: The figure shows the posterior distribution for each chemical's effect size, from the pre-registered model shown in Table SXX. The solvent-only control was used as the reference level, meaning that positive effect sizes indicate that the focal chemical received more contacts from worker bees than the solvent-only control, and negative effect sizes mean it received fewer contacts. Note that there is some evidence that the true effect size is positive for the four treatments containing 9-ODA, though there is no evidence that pairs of chemicals had synergistic effects. 
 
-full_model_effect_size_plot <- nice_dot_plot(full_model_effect_sizes)
 
-full_model_effect_size_plot
+### Pairwise comparisons of means (planned contrasts) {.tabset}
+
+We also wrote the following in the pre-registered plan for the analysis:
+
+> Firstly, we will calculate pairwise differences in means between all the 12 treatments, similar to post hoc testing in the frequentist framework.   For example, we might find that the mean number of contacts with the pheromone lure was significantly higher in the 9-ODA treatment relative to the solvent control 
+
+Here, we calculate the posterior estimates for the mean number of inspections of the pheromone lure for each of the 12 treatments, and then find the _difference_ in means between various pairs of treatments. For example, we compare each of the 11 treatments to the solvent-only control, and compare each of the two-component mixtures to the individual chemicals they contain. In the graph below, the y-axis includes a minus sign (`−`) to illustrate the direction of the comparison, e.g. positive values for the first variable (`9-ODA & HOB − HOB`) indicate the mixture of 9-ODA & HOB had a higher number of inspections than HOB alone. 
+
+#### Figure
+
+```{r fig.showtext=TRUE, fig.height=7}
+new <- data_by_petri_dish %>% 
+  select(treatment) %>% distinct() %>% 
+  arrange(treatment) %>% 
+  mutate(para = paste("V", 1:n(), sep = ""))
+
+contrasts_n_touches <- as.data.frame(fitted(pre_reg_model, newdata = new, 
+                     re_formula = NA, summary = FALSE)) %>% 
+  mutate(draw = 1:n()) %>% 
+  as_tibble() %>% 
+  gather(para, n_touches, -draw) %>% 
+  left_join(new, by = "para") %>% 
+  select(draw, treatment, n_touches) %>% 
+  spread(treatment, n_touches) %>% 
+  mutate(
+    `HOB & HVA − HOB` = `HOB and HVA` - HOB,
+    `HOB & HVA − HVA` = `HOB and HVA` - HVA,
+    
+    `9-HDA & HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
+    `9-HDA & HOB − HOB` = `9-HDA and HOB` - HOB,
+    
+    `9-HDA & HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
+    `9-HDA & HVA − HVA` = `9-HDA and HVA` - HVA,
+    
+    `9-ODA & HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
+    `9-ODA & HOB − HOB` = `9-ODA and HOB` - HOB,
+    
+    `9-ODA & HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
+    `9-ODA & HVA − HVA` = `9-ODA and HVA` - HVA,
+    
+    `9-ODA & 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
+    `9-ODA & 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
+    
+    `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
+    `HOB − solvent` = HOB - `Solvent control`,
+    `HVA − solvent` = HVA - `Solvent control`,
+    `9-HDA − solvent` = `9-HDA` - `Solvent control`,
+    `9-ODA − solvent` = `9-ODA` - `Solvent control`,
+    `HOB & HVA − solvent` = `HOB and HVA` - `Solvent control`,
+    `9-HDA & HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
+    `9-HDA & HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
+    `9-ODA & HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
+    `9-ODA & HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
+    `9-ODA & 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+    ) %>% select(draw, contains("−")) 
+
+get_p <- function(x) 1 - as.numeric(p_direction(x))
+
+contrast_table_touches <- left_join(
+  contrasts_n_touches[,-1] %>% 
+    summarise_all(~ list(as.data.frame(posterior_summary(.x)))) %>% 
+    gather(Contrast, value) %>% unnest(value),
+  contrasts_n_touches[,-1] %>% 
+    summarise_all(~ get_p(.x)) %>% 
+    gather(Contrast, p) %>% unnest(p), by = "Contrast") %>% 
+  mutate(` ` = ifelse(p < 0.05, "\\*", ""),
+         ` ` = replace(` `, p > 0.05 & p < 0.1, "~"),
+         ` ` = replace(` `, p < 0.01, "**"), 
+         ` ` = replace(` `, p < 0.001, "***")) %>% 
+  arrange(-Estimate)
+
+contrasts_n_touches %>% 
+  gather(contrast, difference, -draw) %>% 
+  mutate(contrast = factor(contrast, rev(contrast_table_touches$Contrast))) %>% 
+  ggplot(aes(difference, contrast, fill = contrast)) +
+  stat_eyeh() + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  coord_cartesian(xlim = c(-30, 40)) +
+  theme(legend.position = "none", 
+        text = element_text(family = nice_font)) + 
+  xlab("Posterior difference in means")
 ```
 
 
-#### Estimated by averaging over the top 10 models
+#### Table of contrasts
 
-```{r plot_post_predictions_2}
-model_avg_effect_size_plot <- nice_dot_plot(model_avg_effect_sizes)
-
-model_avg_effect_size_plot
-```
-
-
-### Testing for synergy between the four queen chemicals  {.tabset}
-
-Here, we calculate a metric to capture the type and degree of synergy between each pair of the four queen-like chemicals. Synergy is calculated as `effect_of_both - (effect_of_chem1 + effect_of_chem2)`. The resulting "synergy score" therefore describes how much more or less positive is the effect size of both chemicals together, relative to the sum of their individual effects. There seems to be some positive synergy between 9-ODA and HOB, though it is not statistically significant (as expected given that the relevant 2-way interaction was not significant in the models above).
-
-#### Estimated using the full model
+The table shows summary statistics about the posterior distribution of the contrasts shown in the previous figure. 
 
 ```{r}
-make_synergy_plot <- function(effect_size_posterior, with_dots = TRUE){
-  
-  # Set up a table of the 6 pheromone blends, listing chem1 and chem2 for each one
-  combos <- tibble(
-    treatment = treatment_levels[grepl("and", treatment_levels)],
-    chem1 = map_chr(strsplit(treatment, split = " "), ~ .x[1]),
-    chem2 = map_chr(strsplit(treatment, split = "and "), ~ .x[2])
-  ) %>% as.data.frame()
-  
-  wide_format <- effect_size_posterior %>%
-    select(-contains_9ODA) %>%
-    spread(treatment, value)
-  
-  # Synergy metric: it is zero under additivity, 
-  # positive = "greater than sum of parts", negative = "less than sum of parts"
-  calculate_synergy <- function(effect_of_both, effect_of_chem1, effect_of_chem2){
-    effect_of_both - (effect_of_chem1 + effect_of_chem2)
-  }
-  
-  # Calculte posterior synergy metric for each of the six 2-chemical blends
-  synergy_test <- wide_format %>% select(response, draw) %>%
-    bind_cols(
-      lapply(1:nrow(combos), function(i){
-        calculate_synergy(
-          effect_of_both = wide_format %>% pull(combos$treatment[i]),
-          effect_of_chem1 = wide_format %>% pull(combos$chem1[i]),
-          effect_of_chem2 = wide_format %>% pull(combos$chem2[i])
-        )
-      }) %>% bind_cols() 
-    )
-  
-  names(synergy_test)[3:ncol(synergy_test)] <- combos$treatment
-  
-  plot <- synergy_test %>%
-    gather(treatment, synergy_stat, -response, -draw) %>%
-    ggplot(aes(synergy_stat, treatment)) +
-   # geom_vline(xintercept = 0.5, linetype = 3, colour = "tomato") + 
-    geom_vline(xintercept = 0, linetype = 2) + 
-    stat_pointintervalh(position = position_nudge(y = -0.07), .width = c(0.5, 0.95)) +
-    scale_fill_brewer(palette = "BrBG") + 
-    theme_bw() +
-    facet_wrap(~ response, scales = "free_x") +
-    theme(legend.position = "none") + 
-    xlab("Posterior estimate of synergy\n(positive values indicate positive synergy between chemicals)") +
-    ylab("Pheromone treatment")
-  
-  if(with_dots) {
-    plot + 
-      geom_vline(xintercept = 0.5, linetype = 3, colour = "tomato") + 
-      stat_dotsh(quantiles = 100, colour = "grey10", aes(fill = response)) 
-  } else plot
+contrast_table_touches %>% 
+  kable() %>% kable_styling(full_width = FALSE)
+```
+
+
+### Synergy score
+
+We also wrote the following in the pre-registered plan for the analysis:
+
+> Secondly, we will test for non-additive effects such as synergy among the pheromone components, by evaluating the following null hypothesis: $d_{1,2} = d_1 + d_2$, where $d_1$ is the estimated effect of pheromone 1 on the response variable, $d_2$ is the estimated effect of pheromone 2, and $d_{1,2}$ is the effect of the mixture of both pheromones. The effect sizes will each be expressed as the posterior difference in means relative to the control. For example, if both individual pheromones had a positive effect on the response variable individually, and the pair of pheromones had an effect size greater than the sum of their individual effects, we would call that pair of pheromones synergistic. If the effect of the pair was less than the sum of the two individual effects, the pheromones could be said to interfere with one another.
+
+We here calculate the posterior estimate of the "synergy score", $d_{1,2} - d_1 + d_2$. When there is good evidence for the synergy, the posterior distribution should not overlap zero, which is not the case for any of the two-component mixtures that we examined. 
+
+```{r fig.showtext=TRUE, warning=FALSE}
+synergy_plot <- function(df, lims){
+  df %>% 
+    select(contains("solvent")) %>% 
+    rename_all(~ str_remove_all(.x, " − solvent")) %>% 
+    rename_all(~ str_remove_all(.x, "treatment")) %>%
+    rename_all(~ str_remove_all(.x, "M")) %>%
+    mutate(sum_HOB_HVA = HOB + HVA,
+           sum_9HDA_HOB = `9-HDA` + HOB,
+           sum_9HDA_HVA = `9-HDA` + HVA,
+           sum_9ODA_HOB = `9-ODA` + HOB,
+           sum_9ODA_HVA = `9-ODA` + HVA,
+           sum_9ODA_9HDA = `9-ODA` + `9-HDA`) %>% 
+    mutate(syn_HOB_HVA   = `HOB & HVA` - sum_HOB_HVA,
+           syn_9HDA_HOB  = `9-HDA & HOB` - sum_9HDA_HOB,
+           syn_9HDA_HVA  = `9-HDA & HVA` - sum_9HDA_HVA,
+           syn_9ODA_HOB  = `9-ODA & HOB` - sum_9ODA_HOB,
+           syn_9ODA_HVA  = `9-ODA & HVA` - sum_9ODA_HVA,
+           syn_9ODA_9HDA = `9-ODA & 9-HDA` - sum_9ODA_9HDA) %>% 
+    select(starts_with("syn")) %>% 
+    rename_all(~ str_remove_all(.x, "syn_")) %>% 
+    rename_all(~ str_replace_all(.x, "_", " & ")) %>% 
+    rename_all(~ str_replace_all(.x, "9", "9-")) %>% 
+    gather() %>% 
+    ggplot(aes(value, key, fill = key)) + 
+    geom_vline(xintercept = 0, linetype = 2) +
+    stat_halfeyeh(alpha = 0.8) +
+    scale_fill_viridis_d(option = "B") +  
+    coord_cartesian(xlim = lims) + ylab("Pheromone pair") + xlab("Synergy score") +
+    theme_bw() + 
+    theme(legend.position = "none",
+        text = element_text(family = nice_font))
 }
 
-make_synergy_plot(full_model_effect_sizes)
+contrasts_n_touches %>% synergy_plot(c(-50, 50))
 ```
 
-#### Estimated by averaging over the top 10 models
+
+
+
+
+## Analysis of touch duration
+
+### Plot distribution of the response variable, `duration_touches`
+
+The response variable is highly non-Normal, though a log transformation produces an approximately Normal distribution. We therefore chose to analyse these data with the `lognormal` family in `brms`, which is designed for variables for which a log transformation makes the distribution approximately Normal. We also tested a model using the `gamma` family, but this model provided a worse fit than the `lognormal` model as ranked by leave-one-out cross validation (not shown).
 
 ```{r}
-make_synergy_plot(model_avg_effect_sizes, with_dots = FALSE)
+grid.arrange(
+  ggplot(data_by_petri_dish, aes(duration_touches)) + 
+    geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
+    xlab("Total duration of contacts with lure"),
+  ggplot(data_by_petri_dish, aes(duration_touches)) + 
+    geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
+    scale_x_log10() + 
+    xlab("Total duration of contacts with lure (log10 scale)")
+)
+```
+
+### Run the model (lognormal GLMM)
+
+The predictors and priors in the Bayesian GLMM are the same as before, with one one difference: the predictor `hive` has been treated as a fixed effect (not random), because the model did not sample properly when `hive` was modeled as a random effect. Random effects are sometimes difficult to fit when there are few levels (here, there are only 3 hives), and the usual solution is to use a fixed effect. 
+
+```{r}
+if(!file.exists("output/pre_reg_model.rds")){ 
+  duration_model <- brm(
+    formula = duration_touches ~ treatment + (1 | block) + hive,
+    family = "lognormal", 
+    chains = 4, cores = 1, iter = 8000,
+    control = list(adapt_delta = 0.9, max_treedepth = 14),
+    prior = priors,
+    data = data_by_petri_dish)
+  
+  saveRDS(duration_model, file = "output/duration_model.rds")
+}
+duration_model <- readRDS("output/duration_model.rds")
 ```
 
 
-<!-- ```{r run_brms} -->
-<!-- run_all_brms <- function(){ -->
 
-<!--   run_mod <- function(formula, return_model = FALSE){ -->
+### Model results
 
-<!--     model <- brm( -->
-<!--       as.formula(formula), -->
-<!--       family = "negbinomial", -->
-<!--       data = summary_data, -->
-<!--       prior = prior(normal(0, 5), class = b), -->
-<!--       cores = 1, chains = 4, iter = 10000, -->
-<!--       save_all_pars = TRUE, -->
-<!--       control = list(adapt_delta = 0.999, max_treedepth = 14))  -->
+#### Posterior predictive plots to verify model fit
 
-<!--     if(return_model) return(model) -->
+We first perform a "posterior predictive check" on the models. The thick line shows the distribution of the real data, and the 10 thin blue lines show the distribution of fitted values for 10 random draws from the posterior. The fitted values follow the original data quite well, which is a necessary condition for a model to produce reliable inferences. 
 
-<!--     list(formula = formula,  -->
-<!--          loo = brms::loo(model),  -->
-<!--          bs = brms::bridge_sampler(model)) %>% -->
-<!--       saveRDS(file = paste("model_", sample(999999, 1), ".rds", sep = "")) -->
+```{r message=FALSE, warning=FALSE}
+pp_check(duration_model, nsamples = 10) + scale_x_log10() + 
+  labs(y = "Density", x = "Total duration of contact with pheromone lure (s)")
+```
 
-<!--     rm(model); Sys.sleep(2) # to save memory and prevent crashes -->
-<!--     return(NULL) -->
-<!--   } -->
+Here is the complete output from the `summary()` method for the models fitted with `brms`. The `summary()` shows the random effects, which were omitted from the previous table.
 
-<!--   compare_models_function <- function(model_fit_metrics){ -->
-<!--      # Use functions from the loo package to compute LOO model weights  -->
-<!--   # and posterior model probability for the top 10 models -->
-<!--   tibble( -->
-<!--     formula = map_chr(model_fit_metrics, ~ .x[[1]]), -->
-<!--     pseudo_BMA_weight = as.numeric( -->
-<!--       loo::loo_model_weights(list( -->
-<!--         m1 = model_fit_metrics[[1]]$loo,  -->
-<!--         m2 = model_fit_metrics[[2]]$loo,  -->
-<!--         m3 = model_fit_metrics[[3]]$loo, -->
-<!--         m4 = model_fit_metrics[[4]]$loo, -->
-<!--         m5 = model_fit_metrics[[5]]$loo, -->
-<!--         m6 = model_fit_metrics[[6]]$loo, -->
-<!--         m7 = model_fit_metrics[[7]]$loo, -->
-<!--         m8 = model_fit_metrics[[8]]$loo, -->
-<!--         m9 = model_fit_metrics[[9]]$loo, -->
-<!--         m10 = model_fit_metrics[[10]]$loo), method = "pseudobma")), -->
+#### Raw output provided by `brms`
 
-<!--     post_prob = as.numeric( -->
-<!--       bridgesampling::post_prob( -->
-<!--         model_fit_metrics[[1]]$bs,  -->
-<!--         model_fit_metrics[[2]]$bs,  -->
-<!--         model_fit_metrics[[3]]$bs, -->
-<!--         model_fit_metrics[[4]]$bs, -->
-<!--         model_fit_metrics[[5]]$bs, -->
-<!--         model_fit_metrics[[6]]$bs, -->
-<!--         model_fit_metrics[[7]]$bs, -->
-<!--         model_fit_metrics[[8]]$bs, -->
-<!--         model_fit_metrics[[9]]$bs, -->
-<!--         model_fit_metrics[[10]]$bs)),  -->
+Here is the complete output from the `summary()` method for the models fitted with `brms`.
 
-<!--     stacking_weight = as.numeric( -->
-<!--       loo::loo_model_weights(list( -->
-<!--         m1 = model_fit_metrics[[1]]$loo,  -->
-<!--         m2 = model_fit_metrics[[2]]$loo,  -->
-<!--         m3 = model_fit_metrics[[3]]$loo, -->
-<!--         m4 = model_fit_metrics[[4]]$loo, -->
-<!--         m5 = model_fit_metrics[[5]]$loo, -->
-<!--         m6 = model_fit_metrics[[6]]$loo, -->
-<!--         m7 = model_fit_metrics[[7]]$loo, -->
-<!--         m8 = model_fit_metrics[[8]]$loo, -->
-<!--         m9 = model_fit_metrics[[9]]$loo, -->
-<!--         m10 = model_fit_metrics[[10]]$loo), method = "stacking"))) %>% -->
-<!--     arrange(-pseudo_BMA_weight) %>% -->
-<!--     mutate(pseudo_BMA_weight = round(pseudo_BMA_weight, 4), -->
-<!--            post_prob = round(post_prob, 4), -->
-<!--            neat_formula = str_remove_all(formula, "has_"), -->
-<!--            neat_formula = str_replace_all(neat_formula, "10", "10-"), -->
-<!--            neat_formula = str_replace_all(neat_formula, "9", "9-")) -->
-<!--   } -->
+```{r output_max_height = "300px"}
+summary(duration_model)
+```
 
-<!--   # Run the top 10 models selected by glmmTMB in brms, and save the fit statistics to disk -->
 
-<!--   lapply(top_10_model_formulae_count, run_mod)  -->
-<!--   model_fit_files <- list.files(pattern = "model_") -->
-<!--   model_comparison_table_count_brms <- model_fit_files %>% lapply(readRDS) %>% compare_models_function() -->
-<!--   saveRDS(model_comparison_table_count_brms, "output/model_comparison_table_count_brms.rds") -->
-<!--   unlink(model_fit_files) -->
+#### Table of the fixed effects estimates
 
-<!--   # Do the same, but with duration as the response variable -->
+Table SXXX: Treatment effects on the total duration of contact with pheromone lure (in seconds) observed over 30 minutes. The table shows the fixed effects parameter estimates from a Bayesian mixed model with negative binomial errors, and hive and experimental block as random effects. Columns 2-5 show the median, error, and 95% credible intervals of the posterior distribution, while the p column shows 1 minus the "probability of direction" (i.e. the probability that the true effect size has the same sign as the estimated effect size). 
 
-<!--   lapply(top_10_model_formulae_duration, run_mod)  -->
-<!--   model_fit_files <- list.files(pattern = "model_") -->
-<!--   model_comparison_table_duration_brms <- model_fit_files %>% lapply(readRDS) %>% compare_models_function()  -->
-<!--   saveRDS(model_comparison_table_duration_brms, "output/model_comparison_table_duration_brms.rds") -->
-<!--   unlink(model_fit_files) -->
+```{r}
+pvalues <- as.data.frame(p_direction(duration_model)) %>% 
+  mutate(Parameter = str_remove_all(Parameter, "b_"),
+         Parameter = str_replace_all(Parameter, "[.]", ":"),
+         p = 1- pd)  %>% select(Parameter, p) %>% distinct()
 
-<!--   # to_run <- model_comparison_table_duration_brms %>% filter(stacking_weight > 0.01) %>% pull(formula) -->
-<!--   # high_stacking_weight_models <- lapply(to_run, run_mod, return_model = TRUE)  -->
-<!--   # model_avg_results <- posterior_average(high_stacking_weight_models[[1]], -->
-<!--   #                                        high_stacking_weight_models[[2]], -->
-<!--   #                                        high_stacking_weight_models[[3]], -->
-<!--   #                                        high_stacking_weight_models[[4]], -->
-<!--   #                                        missing = 0, -->
-<!--   #                                        weights = "stacking") -->
+fixed_effects <- fixef(duration_model) %>% 
+  as.data.frame() %>%
+  rownames_to_column("Parameter") %>%
+  mutate(old_names = Parameter) %>%
+  left_join(pvalues, by = "Parameter") %>%
+  mutate(` ` = ifelse(p < 0.05, "\\*", ""),
+         ` ` = replace(` `, p > 0.05 & p < 0.1, "~"),
+         ` ` = replace(` `, p < 0.01, "**"), 
+         ` ` = replace(` `, p < 0.001, "***"),
+         Parameter = str_replace_all(Parameter, "Pheromone_treatment", ""),
+         Parameter = str_replace_all(Parameter, "M", "-"),
+         Parameter = str_replace_all(Parameter, "and", " and "),
+         Parameter = str_replace_all(Parameter, "workercontrol", " (worker control)"),
+         Parameter = str_replace_all(Parameter, "treatment", "Treatment: ")) %>%
+  mutate_at(vars(-Parameter, - ` `, - old_names), ~ round(.x, 3)) 
+
+fixed_effects %>% select(-old_names) %>%
+  mutate(Parameter = str_replace_all(Parameter, "and", "&")) %>% 
+  kable() %>% kable_styling(full_width = FALSE)
+```
 
 
 
-<!--   count_model <- brm( -->
-<!--     n_touches ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | tray), -->
-<!--     family = "negbinomial", -->
-<!--     data = summary_data, -->
-<!--     prior = prior(normal(0, 5), class = b), -->
-<!--     cores = 1, chains = 4, iter = 10000, -->
-<!--     control = list(adapt_delta = 0.999, max_treedepth = 14) -->
-<!--   ) -->
+#### Plotting the parameter estimates from the model
+```{r fig.showtext=TRUE, fig.height=6, warning=FALSE}
+duration_model %>% plot_model()
+```
 
-<!--   duration_model <- brm( -->
-<!--     touch_duration ~ has_10HDA + (has_HVA + has_HOB + has_9HDA + has_9ODA)^2 + hive + (1 | tray), -->
-<!--     family = "negbinomial", -->
-<!--     data = summary_data, -->
-<!--     prior = prior(normal(0, 5), class = b), -->
-<!--     cores = 1, chains = 4, iter = 10000, -->
-<!--     control = list(adapt_delta = 0.999, max_treedepth = 14) -->
-<!--   ) -->
 
-<!--   saveRDS(count_model, "output/count_model.rds") -->
-<!--   saveRDS(duration_model, "output/duration_model.rds") -->
-<!-- } -->
-
-<!-- if(!file.exists("output/duration_model.rds")) run_all_brms() -->
-<!-- else{ -->
-<!--   count_model <- readRDS("output/count_model.rds") -->
-<!--   duration_model <- readRDS("output/duration_model.rds") -->
-<!--   model_comparison_table_count_brms <- readRDS("output/model_comparison_table_count_brms.rds") -->
-<!--   model_comparison_table_duration_brms <- readRDS("output/model_comparison_table_duration_brms.rds") -->
-<!-- } -->
-<!-- ``` -->
+```{r fig.showtext=TRUE, echo = FALSE, warning=FALSE}
+p1 <- pre_reg_model %>% plot_model() + xlab("Effect on number of contacts")
+p2 <- (duration_model %>% plot_model()) + ylab(NULL) + xlab("Effect on total duration of contact") +
+    theme(axis.text.y = element_blank(),
+          axis.ticks.y = element_blank())
 
 
 
-
-<!-- ```{r} -->
-<!-- new <- summary_data %>% -->
-<!--   arrange(treatment, hive) %>% -->
-<!--   select(treatment, has_10HDA, has_HVA, has_HOB, has_9HDA, has_9ODA) %>% -->
-<!--   mutate(n_touches = 100, hive = "Zoology") %>%  -->
-<!--   distinct() %>% mutate(key = as.character(1:n())) -->
+ggsave(filename = "figures/fig1.pdf", 
+       plot(cbind(ggplotGrob(p1), ggplotGrob(p2), size = "last")),
+       height = 6, width = 7) 
+```
 
 
+### Pairwise comparisons of means (planned contrasts) {.tabset}
 
-<!-- posterior_samples(count_model) %>% as_tibble() %>% -->
-<!--   select(contains("b_has")) %>% -->
-<!--   gather() %>%  -->
-<!--   ggplot(aes(key, value, fill = key)) +  -->
-<!--   geom_hline(yintercept = 0, linetype = 2) +  -->
-<!--   geom_eye(.width = c(0.66, 0.95)) + coord_flip() + -->
-<!--   theme(legend.position = "none")  -->
+As before, we calculate contrasts comparing the mean of the response variable in several pairs of treatments (i.e. we compute contrasts).
 
-<!-- posterior_samples(duration_model) %>% as_tibble() %>% -->
-<!--   select(contains("b_has")) %>% -->
-<!--   gather() %>%  -->
-<!--   ggplot(aes(key, value, fill = key)) +  -->
-<!--   geom_hline(yintercept = 0, linetype = 2) +  -->
-<!--   geom_eye(.width = c(0.66, 0.95)) + coord_flip() + -->
-<!--   theme(legend.position = "none")  -->
+#### Figure
 
-<!-- n_draws <- nrow(posterior_samples(duration_model)) -->
-
-<!-- count_preds <- fitted(count_model, newdata = new, re_formula = NA, summary = FALSE) %>%  -->
-<!--   as.data.frame() %>% as_tibble() %>% mutate(posterior_draw = 1:n()) %>%  -->
-<!--   rename_all(~ str_remove(.x, "V")) %>% -->
-<!--   gather("key", "value", -posterior_draw) %>%  -->
-<!--   left_join(new, by = "key") %>% -->
-<!--   mutate(response = "Number of contacts with pheormone") %>% select(-key) -->
-
-<!-- duration_preds <- fitted(duration_model, newdata = new, re_formula = NA, summary = FALSE) %>%   # , scale = "linear" -->
-<!--   as.data.frame() %>% as_tibble() %>% mutate(posterior_draw = 1:n()) %>%  -->
-<!--   rename_all(~ str_remove(.x, "V")) %>% -->
-<!--   gather("key", "value", -posterior_draw) %>%  -->
-<!--   left_join(new, by = "key") %>% -->
-<!--   mutate(response = "Number of contacts with pheormone") %>% select(-key) -->
-
-
-<!-- count_preds %>% -->
-<!--   mutate(treatment = factor(treatment, rev(levels(treatment)))) %>% -->
-<!--   ggplot(aes(value, treatment, fill = treatment)) +  -->
-<!--   geom_eyeh(.width = c(0.66, 0.95)) +  -->
-<!--   xlab("Mean number of contacts (posterior estimate)") +  -->
-<!--   ylab("Pheromone treatment") +  -->
-<!--   theme(legend.position = "none") + -->
-<!--   coord_cartesian(xlim = c(30, 90)) -->
-
-<!-- duration_preds %>% -->
-<!--   mutate(treatment = factor(treatment, rev(levels(treatment)))) %>% -->
-<!--   ggplot(aes(value, treatment, fill = treatment)) +  -->
-<!--   geom_eyeh(.width = c(0.66, 0.95)) +  -->
-<!--   xlab("Mean duration of contact with pheromone (posterior estimate)") +  -->
-<!--   ylab("Pheromone treatment") +  -->
-<!--   theme(legend.position = "none") + -->
-<!--   scale_x_log10() -->
-
-<!-- funky_plot <- function(preds, yl){ -->
-<!--   bind_rows( -->
-<!--   preds %>% -->
-<!--     filter(treatment %in% c("Solvent control", "9-ODA", "HVA", "9-ODA and HVA")) %>% mutate(f="9-ODA and HVA"), -->
-<!--   preds %>% -->
-<!--     filter(treatment %in% c("Solvent control", "9-ODA", "HOB", "9-ODA and HOB"))%>% mutate(f="9-ODA and HOB"),  -->
-<!--   preds %>% -->
-<!--     filter(treatment %in% c("Solvent control", "9-ODA", "9-HDA", "9-ODA and 9-HDA"))%>% mutate(f="9-ODA and 9-HDA"), -->
-<!--   preds %>% -->
-<!--     filter(treatment %in% c("Solvent control", "9-HDA", "HOB", "9-HDA and HOB"))%>% mutate(f="9-HDA and HOB"), -->
-<!--   preds %>% -->
-<!--     filter(treatment %in% c("Solvent control", "9-HDA", "HVA", "9-HDA and HVA"))%>% mutate(f="9-HDA and HVA"), -->
-<!--   preds %>% -->
-<!--     filter(treatment %in% c("Solvent control", "HOB", "HVA", "HOB and HVA"))%>% mutate(f="HOB and HVA") -->
-<!-- ) %>%  -->
-<!--   mutate(f = factor(f, unique(f))) %>% -->
-<!--   mutate(has_focal = ifelse(grepl("9-ODA and", f) & has_9ODA == 1, "Yes", "No"), -->
-<!--          has_focal = replace(has_focal, grepl("9-HDA and", f) & has_9HDA == 1, "Yes"), -->
-<!--          has_focal = replace(has_focal, grepl("HOB and", f) & has_HOB == 1, "Yes")) %>% -->
-<!--   ggplot(aes(has_focal, value, fill = treatment)) +  -->
-<!--   stat_eye(position = position_dodge(0.8), alpha = 0.7, pch = 21, point_fill = "white", point_alpha = 1)  + -->
-<!--   ylab("Mean duration of contact with pheromone (posterior estimate)") +  -->
-<!--   coord_cartesian(ylim = yl) +  -->
-<!--   facet_wrap(~f)   # , scales = "free_y" -->
-<!-- } -->
-
-<!-- funky_plot(duration_preds, yl = c(40, 750))   -->
-<!-- funky_plot(count_preds, yl = c(25, 88)) -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- sd_n_touches <- sd(summary_data$n_touches) -->
-<!-- sd_duration <- sd(summary_data$touch_duration) -->
-
-<!-- count_preds %>% -->
-<!--   group_by(posterior_draw) %>% -->
-<!--   mutate(value = (value - value[1]) / 1) %>% -->
-<!--   ungroup() %>% -->
-<!--   filter(treatment != "Solvent control") %>% -->
-<!--     mutate(treatment = factor(treatment, rev(levels(treatment)))) %>% -->
-<!--   ggplot(aes(value, treatment, fill = treatment)) +  -->
-<!--   geom_vline(xintercept = 0, colour = "white", linetype = 2) +  -->
-<!--   geom_eyeh(.width = c(0.66, 0.95)) +  -->
-<!--   xlab("Effect size (number of contacts, posterior estimate)") +  -->
-<!--   ylab("Pheromone treatment") +  -->
-<!--   theme_black() +  -->
-<!--   theme(legend.position = "none") -->
-
-<!-- duration_preds %>% -->
-<!--   group_by(posterior_draw) %>% -->
-<!--   mutate(value = (value - value[1]) / 1) %>% -->
-<!--   ungroup() %>% -->
-<!--   filter(treatment != "Solvent control") %>% -->
-<!--     mutate(treatment = factor(treatment, rev(levels(treatment)))) %>% -->
-<!--   ggplot(aes(value, treatment, fill = treatment)) +  -->
-<!--   geom_vline(xintercept = 0, colour = "white", linetype = 2) +  -->
-<!--   geom_eyeh(.width = c(0.66, 0.95)) +  -->
-<!--   xlab("Effect size (duration of contact, posterior estimate)") +  -->
-<!--   ylab("Pheromone treatment") +  -->
-<!--   theme_black() +  -->
-<!--   theme(legend.position = "none") -->
-<!-- ``` -->
+```{r fig.showtext=TRUE, fig.height=7}
+contrasts_duration <- as.data.frame(
+  fitted(duration_model, 
+         newdata = new %>% mutate(hive = "Skylab"), 
+         re_formula = NA, summary = FALSE)) %>% 
+  mutate(draw = 1:n()) %>% 
+  as_tibble() %>% 
+  gather(para, n_touches, -draw) %>% 
+  left_join(new, by = "para") %>% 
+  select(draw, treatment, n_touches) %>% 
+  spread(treatment, n_touches) %>% 
+  mutate(
+    `HOB & HVA − HOB` = `HOB and HVA` - HOB,
+    `HOB & HVA − HVA` = `HOB and HVA` - HVA,
+    
+    `9-HDA & HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
+    `9-HDA & HOB − HOB` = `9-HDA and HOB` - HOB,
+    
+    `9-HDA & HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
+    `9-HDA & HVA − HVA` = `9-HDA and HVA` - HVA,
+    
+    `9-ODA & HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
+    `9-ODA & HOB − HOB` = `9-ODA and HOB` - HOB,
+    
+    `9-ODA & HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
+    `9-ODA & HVA − HVA` = `9-ODA and HVA` - HVA,
+    
+    `9-ODA & 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
+    `9-ODA & 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
+    
+    `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
+    `HOB − solvent` = HOB - `Solvent control`,
+    `HVA − solvent` = HVA - `Solvent control`,
+    `9-HDA − solvent` = `9-HDA` - `Solvent control`,
+    `9-ODA − solvent` = `9-ODA` - `Solvent control`,
+    `HOB & HVA − solvent` = `HOB and HVA` - `Solvent control`,
+    `9-HDA & HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
+    `9-HDA & HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
+    `9-ODA & HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
+    `9-ODA & HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
+    `9-ODA & 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+    ) %>% select(draw, contains("−")) 
 
 
+contrast_table_duration  <- left_join(
+  contrasts_duration[,-1] %>% 
+    summarise_all(~ list(as.data.frame(posterior_summary(.x)))) %>% 
+    gather(Contrast, value) %>% unnest(value),
+  contrasts_duration[,-1] %>% 
+    summarise_all(~ get_p(.x)) %>% 
+    gather(Contrast, p) %>% unnest(p), by = "Contrast") %>% 
+  mutate(` ` = ifelse(p < 0.05, "\\*", ""),
+         ` ` = replace(` `, p > 0.05 & p < 0.1, "~"),
+         ` ` = replace(` `, p < 0.01, "**"), 
+         ` ` = replace(` `, p < 0.001, "***")) %>% 
+  arrange(-Estimate)
+
+contrasts_duration %>% 
+  gather(contrast, difference, -draw) %>% 
+  mutate(contrast = factor(contrast, rev(contrast_table_duration$Contrast))) %>% 
+  ggplot(aes(difference, contrast, fill = contrast)) +
+  stat_eyeh() + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  coord_cartesian(xlim = c(-400, 700)) +
+  theme(legend.position = "none",
+        text = element_text(family = nice_font)) + 
+  xlab("Posterior difference in means")
+```
+
+#### Table of contrasts
+
+The table shows summary statistics about the posterior distribution of the contrasts shown in the previous figure. 
+
+```{r}
+contrast_table_duration %>% 
+  kable() %>% kable_styling(full_width = FALSE)
+```
+
+
+### Synergy score
+
+We again calculate the posterior estimate of the "synergy score", $d_{1,2} - d_1 + d_2$. As before, the posterior distribution overlaps zero for every pair of chemicals, meaning that there is no strong evidence that any of the two-chemical mixtures have synergistic effects on the duration of contact with the lure.
+
+```{r}
+contrasts_duration %>% synergy_plot(c(-500, 500))
+```
+
+
+```{r echo=FALSE}
+p1 <- (contrasts_n_touches %>% synergy_plot(c(-50, 50))) + 
+  xlab("Synergy score\n(Number of contacts)")
+p2 <- (contrasts_duration %>% synergy_plot(c(-500, 500))) + 
+  ylab(NULL) + xlab("Synergy score\n(Duration of contact)") +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+
+ggsave(filename = "figures/fig2.pdf", 
+       plot(cbind(ggplotGrob(p1), ggplotGrob(p2), size = "last")),
+       height = 5, width = 6) 
+```
+
+
+
+
+## Comparing our results to Slessor et al. 1988
+
+### Plots to compare the results
+
+```{r fig.showtext=TRUE, warning=FALSE, fig.width = 5, fig.height = 6}
+# Transcribe the treatment group means and SE from the table in Slessor et al. 1988
+slessor <- tibble(
+  study = "slessor",
+  mean = c(24.7, 17.1, 13.1, 6.1, 6.7, 3.4, 7.6, 9, 4.3, 3.5, 3.5, 3.9, 6.1, 4.7, 3.5, 2.9, 1.3),
+  SE = c(3.3, 3.4, 2.3, 1.3, 1.7, .6, 1.1, 1.8, 1.1, 1, .6, .7, 1.3, .9, 1.3, .7, .4),
+  n = 17,
+  treatment = c("Queen extract", "9-ODA, 9-HDA, HOB, HVA", 
+          "9-ODA, HOB, HVA", "9-HDA, HOB, HVA", 
+          "9-ODA, 9-HDA, HOB", "9-ODA, 9-HDA, HVA",
+          "HOB & HVA", "9-ODA & HOB", "9-ODA & HVA",
+          "9-ODA & 9-HDA", "9-HDA & HOB", "9-HDA & HVA",
+          "9-ODA", "HVA", "9-HDA", "HOB", "Solvent control")
+) 
+
+slessor_levels <- slessor %>%
+  arrange(mean) %>% pull(treatment)
+
+barplot_data <- slessor %>%
+  arrange(mean) %>%
+  mutate(study = " Slessor et al. 1988") %>%
+  bind_rows(data_by_petri_dish %>%
+              filter(treatment != "10-HDA (worker control)") %>%
+              group_by(treatment) %>%
+              summarise(mean = mean(duration_touches),
+                        SE = sd(duration_touches) / sqrt(n()),
+                        .groups = "drop") %>%
+              mutate(study = "Present study", n = NA,
+                     treatment = str_replace_all(as.character(treatment), "and", "&")) %>%
+              select(study, mean, SE, n, treatment)) %>%
+  filter(treatment %in% levels_ampersand) %>%
+#  filter(study != "Our study") %>%
+  mutate(treatment = factor(treatment, slessor_levels)) 
+
+comparison_barplot <- barplot_data %>%
+  ggplot(aes(treatment, mean, fill = treatment)) + 
+  geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.3) + 
+  geom_bar(stat="identity", colour = "black") + coord_flip() +
+  scale_fill_viridis_d(direction = -1) +
+  theme(legend.position = "none",
+        text = element_text(family = nice_font)) + 
+  ylab("Mean + SE retinue response") + 
+  xlab("Treatment") + 
+  facet_wrap(~study, scales = "free_x") +
+  theme_bw() +
+  theme(legend.position = "none",
+        text = element_text(family = nice_font), 
+        strip.background = element_blank())
+
+correlation_data <- slessor %>%
+  select(treatment, mean, SE, study) %>%
+  bind_rows(data_by_petri_dish %>%
+              group_by(treatment) %>%
+              summarise(mean = mean(duration_touches),
+                        SE = sd(duration_touches) / sqrt(n()),
+                        .groups = "drop") %>%
+              mutate(study = "us",
+                     treatment = str_replace_all(as.character(treatment), "and", "&"))) %>%
+  filter(treatment %in% unique(barplot_data$treatment)) %>%
+  group_by(study, treatment) %>%
+  nest() %>%
+  spread(study, data) %>%
+  unnest(slessor) %>% rename(slessor_mean = mean, slessor_SE = SE) %>%
+  unnest(us) %>% rename(our_mean = mean, our_SE = SE) %>% 
+  mutate(treatment = factor(treatment, levels(barplot_data$treatment)))
+
+comparison_scatter <- correlation_data %>%
+  ggplot(aes(x = slessor_mean, y = our_mean)) + 
+  stat_smooth(method = "lm", colour = "grey20", formula = "y ~ x", size = 0.7, aes(weight = our_SE)) +
+  geom_errorbar(aes(ymin = our_mean - our_SE, ymax = our_mean + our_SE), size = 0.25, width = 0, colour = "grey20") + 
+  geom_errorbarh(aes(xmin = slessor_mean - slessor_SE, xmax = slessor_mean + slessor_SE), size = 0.25, height = 0, colour = "grey20") + 
+  geom_point(pch = 21, aes(fill =  treatment)) + 
+  scale_fill_viridis_d(direction = -1) +
+  geom_text_repel(aes(label = treatment), colour = "black", size = 3, family = nice_font) +
+  ylab("Mean retinue response \u00B1 SE\n(present study)") + 
+  xlab("Mean retinue response \u00B1 SE (Slessor et al. 1988)") +
+  theme_bw() +
+  theme(legend.position = "none",
+        text = element_text(family = nice_font))
+
+composite_plot <- plot_grid(comparison_barplot, comparison_scatter, nrow = 2, align = 'v', axis = 'l')
+
+ggsave(filename = "figures/fig3.pdf", 
+       composite_plot, width = 5, height = 6)
+
+composite_plot
+```
+
+### Spearman correlation between the effect sizes
+```{r warning=FALSE}
+cor.test(correlation_data$our_mean, 
+         correlation_data$slessor_mean, method = "spearman")
+```

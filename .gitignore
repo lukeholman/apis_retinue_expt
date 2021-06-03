@@ -10,6 +10,8 @@ analysis/*html
 analysis/*_cache
 analysis/site_libs
 output/*
+old_code/*
+bonus_data/*
 Figures and tables.docx
 pheromone paper draft.docx
 data/behaviour_data_OLDER_VERSION.csv
