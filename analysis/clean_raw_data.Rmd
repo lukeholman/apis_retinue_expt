@@ -14,51 +14,23 @@ editor_options:
 All steps of the experiment were run blind to pheromone treatment. For maximum security, there were two levels of blinding: 
 
 - A colleague re-labelled the 12 vials containing the pheromone solutions with a number in the range 1-12, so that we were unaware which vial contained which pheromone when running the experiment and recording the videos.
-- Each video shows a tray of 12 Petri dishes containing bees, plus a piece of paper coated with 1 of the 12 pheromone solutions. The Petri dishes containing treatments 1-12 were rotated haphazardly between trays. So for example, treatment 1 might be in the top left corner, the middle, or the bottom-right corner of the tray. The Petri dishes were labelled in pencil with the treatment number, and pencil does not show up under infrared light. Therefore, the person recording the videos did not know which Petri dish contained which treatment number. 
+- Each video shows a tray of 12 Petri dishes containing bees, plus a piece of paper coated with 1 of the 12 pheromone solutions. The Petri dishes containing treatments 1-12 were rotated haphazardly between trays. So for example, treatment 1 might be in the top left corner, the middle, or the bottom-right corner of the tray. Therefore, the person recording the videos did not know which Petri dish contained which treatment number (as well as not knowing which treatments were represented by each number). They were also unaware which hive the bees were obtained from
 
-In the following code chunks, we combine the raw, blind-collected behavioural data with our records of
-- The associations between the pheromone treatment and the treatment number 
-- The positions of the treatment numbers across the 12 dishes in each tray
+In the following code chunks, we use the information in the file `data/blind_codes.csv` to create an unblinded dataset from the input data, i.e. `data/blinded_behaviour_data.csv`.
 
-We were also blind to which trays came from which beehive, since the person decoding the behaviour videos did not know which hive the bees came from.
-
-The information used to remove the blind coding is in the file `data/blind_codes.csv`. The blinded data collection sheet is in the file `data/blinded_behaviour_data.csv`.
-
-Finally, the file created by this script is called `data/unblinded_behaviour_data.csv` -- this is the file to use for running new analyses, checking our conclusions, or including our data in a meta-analysis.
+The output file created by this script is called `data/unblinded_behaviour_data.csv` -- this is the file that should be used for running new analyses, checking our conclusions, or including our data in a meta-analysis.
 
 
-### Here are the numbers used to encode each pheromone treatment:
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(kableExtra)
 
+# Load up the blind codes, to determine the treatment and hive for each Petri dish
 blind_codes_full <- read_csv("data/blind_codes.csv")
 
 blind_codes <- blind_codes_full %>%
   filter(tray == 1) %>%
   select(treatment, treat_num)
 
-kable(blind_codes) %>% kable_styling(full_width = F)
-```
-
-### Here are the treatments' positions across the 12 dishes in trays 1-5 (of 35 total trays)
-
-```{r}
-blind_codes_full %>%
-  filter(tray %in% 1:5) %>% 
-  select(dish, treat_num) %>%
-  kable() %>% kable_styling(full_width = F) %>%
-  pack_rows("Tray 1", 1, 12) %>%
-  pack_rows("Tray 2", 13, 24) %>%
-  pack_rows("Tray 3", 25, 36) %>%
-  pack_rows("Tray 4", 37, 48) %>%
-  pack_rows("Tray 5", 49, 60) %>%
-  scroll_box(height = "350px")
-```
-
-### Now we apply this information to decode the behaviour data recording sheet
-
-```{r}
 # Here are the treatments, ranked roughly from least to most like a queen bee
 treatment_levels <- 
   # two "controls"
@@ -73,7 +45,8 @@ treatment_levels <-
     "9-ODA and HOB", "9-ODA and HVA", "9-ODA and 9-HDA")
 
 
-unblinded_data <- read.csv("data/blinded_behaviour_data.csv", stringsAsFactors = FALSE) %>%
+unblinded_data <- read.csv("data/blinded_behaviour_data.csv", 
+                           stringsAsFactors = FALSE) %>%
   as_tibble() %>%
   filter(!is.na(tray)) %>%
   
@@ -96,15 +69,19 @@ unblinded_data <- read.csv("data/blinded_behaviour_data.csv", stringsAsFactors =
               select(tray, dish, number_bees), by = c("tray", "dish")) %>%
   
   # re-order the rows and columns for neatness
-  select(hive, treatment, tray, dish, number_bees, start_touch, end_touch, touch_duration) %>%
+  select(hive, treatment, tray, dish, number_bees, 
+         start_touch, end_touch, touch_duration) %>%
   mutate(treatment = factor(treatment, levels = treatment_levels)) %>%
   arrange(hive, treatment, tray, dish)
 ```
 
 
 ### Write a file containing the un-blinded data
+
+The output shows the first 6 rows of the output file, `data/unblinded_behaviour_data.csv`.
 ```{r}
 unblinded_data %>% write_csv("data/unblinded_behaviour_data.csv")
+unblinded_data %>% head()
 ```
 
 

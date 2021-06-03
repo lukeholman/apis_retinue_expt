@@ -11,7 +11,7 @@ editor_options:
 This website presents all the code used for the paper _The retinue response of the honey bee: how many pheromones are involved?_ by Daisy Kocher, Heidi Wong, and Luke Holman (contact: `l.holman@napier.ac.uk`).
 
 # Un-blinding and cleaning the raw data
-Click [here](clean_raw_data.html) to see the R code used to remove the blind codes from the raw data collection sheet, and to prepare the data for analysis.
+Click [here](clean_raw_data.html) to see the R code used to un-blind the data, by combining the relevant blind codes with the raw data collection sheet.
 
 # Statistical analysis
 Click [here](statistics.html) to see statistical results and plots. Much of the analysis follows the analysis that was described in the pre-registration for this study, which can be read [here](https://osf.io/ncf9z/).
