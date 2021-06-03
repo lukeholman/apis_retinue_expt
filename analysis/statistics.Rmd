@@ -90,7 +90,7 @@ p1 <- raw_to_plot %>%
   geom_errorbar(aes(ymin = mean-SE, ymax = mean+SE), width = 0.2) + 
   geom_bar(stat="identity", colour = "black") + coord_flip() + 
   xlab("Treatment") +
-  ylab("Mean \u00B1 SE number of contacts") +
+  ylab("Mean \u00B1 SE number of inspections") +
     theme(legend.position = "none",
           text = element_text(family = nice_font))
 
@@ -104,7 +104,7 @@ p2 <- raw_to_plot %>%
   geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.2) + 
   geom_bar(stat="identity", colour = "black") + coord_flip() + 
   xlab(NULL) +
-  ylab("Mean \u00B1 SE total duration of contact (s)") +
+  ylab("Mean \u00B1 SE total duration of inspections (s)") +
   theme(legend.position = "none",
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -116,7 +116,7 @@ p3 <- raw_to_plot %>%
     geom_beeswarm(alpha = .7) + 
     geom_boxplot(fill = NA, colour = "black", size = 0.3, outlier.shape = NA) +
     coord_flip() + 
-    ylab("Number of contacts") + 
+    ylab("Number of inspections") + 
     xlab("Treatment") +
     theme(legend.position = "none",
         text = element_text(family = nice_font))
@@ -128,7 +128,7 @@ p4 <- raw_to_plot %>%
     geom_boxplot(fill = NA, colour = "black", size = 0.3, outlier.shape = NA) +
     coord_flip() + 
     #scale_y_log10() + 
-    ylab("Total duration of contact") + 
+    ylab("Total duration of inspections") + 
     xlab(NULL) +
     theme(legend.position = "none",
           axis.text.y = element_blank(),
@@ -162,7 +162,7 @@ The response variable does not look zero-inflated (as we speculated in the pre-r
 ```{r}
 ggplot(data_by_petri_dish, aes(n_touches)) + 
   geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
-  xlab("Number of contacts with lure")
+  xlab("Number of inspections")
 ```
 
 
@@ -205,7 +205,7 @@ if(!file.exists("output/pre_reg_model.rds")){
 
 ### Model results
 
-## The model without the random slope fits better
+#### The model without the random slope fits better
 
 The model formula named "Model 1" in the pre-registration had a better fit than the one named Model 2; that is, there was no evidence for variance in the response to treatment between hives. The model weight of Model 1 was >99.999% (computed using "LOO", or leave-one-out cross validation), indicating strong support for Model 1 over Model 2.
 
@@ -220,7 +220,7 @@ We first perform a "posterior predictive check" on the model. The thick line sho
 
 ```{r message=FALSE, warning=FALSE}
 pp_check(pre_reg_model, nsamples = 10) + 
-  labs(y = "Density", x = "Number of contacts with pheromone lure")
+  labs(y = "Density", x = "Number of inspections")
 ```
 
 #### Raw output provided by `brms` 
@@ -287,7 +287,7 @@ plot_model <- function(model){
     theme(legend.position = "none",
         text = element_text(family = nice_font)) + 
     ylab("Pheromone treatment") +
-    xlab("Effect of chemical on number of contacts\n(relative to the solvent-only control)")
+    xlab("Effect on number of inspections\n(relative to the solvent-only control)")
 }
 
 pre_reg_model %>% plot_model()
@@ -449,11 +449,11 @@ The response variable is highly non-Normal, though a log transformation produces
 grid.arrange(
   ggplot(data_by_petri_dish, aes(duration_touches)) + 
     geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
-    xlab("Total duration of contacts with lure"),
+    xlab("Total duration of inspections"),
   ggplot(data_by_petri_dish, aes(duration_touches)) + 
     geom_histogram(bins = 50, colour = "grey20", fill = "#f69256") +
     scale_x_log10() + 
-    xlab("Total duration of contacts with lure (log10 scale)")
+    xlab("Total duration of inspections (log10 scale)")
 )
 ```
 
@@ -486,7 +486,7 @@ We first perform a "posterior predictive check" on the models. The thick line sh
 
 ```{r message=FALSE, warning=FALSE}
 pp_check(duration_model, nsamples = 10) + scale_x_log10() + 
-  labs(y = "Density", x = "Total duration of contact with pheromone lure (s)")
+  labs(y = "Density", x = "Total duration of inspections (s)")
 ```
 
 Here is the complete output from the `summary()` method for the models fitted with `brms`. The `summary()` shows the random effects, which were omitted from the previous table.
@@ -540,8 +540,8 @@ duration_model %>% plot_model()
 
 
 ```{r fig.showtext=TRUE, echo = FALSE, warning=FALSE}
-p1 <- pre_reg_model %>% plot_model() + xlab("Effect on number of contacts")
-p2 <- (duration_model %>% plot_model()) + ylab(NULL) + xlab("Effect on total duration of contact") +
+p1 <- pre_reg_model %>% plot_model() + xlab("Effect on number of inspections")
+p2 <- (duration_model %>% plot_model()) + ylab(NULL) + xlab("Effect on total duration of inspections") +
     theme(axis.text.y = element_blank(),
           axis.ticks.y = element_blank())
 
@@ -649,9 +649,9 @@ contrasts_duration %>% synergy_plot(c(-500, 500))
 
 ```{r echo=FALSE}
 p1 <- (contrasts_n_touches %>% synergy_plot(c(-50, 50))) + 
-  xlab("Synergy score\n(Number of contacts)")
+  xlab("Synergy score\n(Number of inspections)")
 p2 <- (contrasts_duration %>% synergy_plot(c(-500, 500))) + 
-  ylab(NULL) + xlab("Synergy score\n(Duration of contact)") +
+  ylab(NULL) + xlab("Synergy score\n(Duration of inspections)") +
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 ggsave(filename = "figures/fig2.pdf", 
