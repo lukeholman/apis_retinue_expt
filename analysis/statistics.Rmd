@@ -548,7 +548,7 @@ p2 <- (duration_model %>% plot_model()) + ylab(NULL) + xlab("Effect on total dur
 
 
 ggsave(filename = "figures/fig1.pdf", 
-       plot(cbind(ggplotGrob(p1), ggplotGrob(p2), size = "last")),
+       grid.arrange(cbind(ggplotGrob(p1), ggplotGrob(p2), size = "last")),
        height = 6, width = 7) 
 ```
 
@@ -684,9 +684,20 @@ slessor <- tibble(
 slessor_levels <- slessor %>%
   arrange(mean) %>% pull(treatment)
 
+# slessor%>%
+#   mutate(treatment = factor(treatment, slessor_levels)) %>% 
+#   ggplot(aes(treatment, mean, fill = treatment)) + 
+#   geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.3) + 
+#   geom_bar(stat="identity", colour = "black") + coord_flip() +
+#   scale_fill_viridis_d(direction = -1) +
+#   theme(legend.position = "none",
+#         text = element_text(family = nice_font)) + 
+#   ylab("Mean + SE retinue response") + 
+#   xlab("Treatment")
+
 barplot_data <- slessor %>%
   arrange(mean) %>%
-  mutate(study = " Slessor et al. 1988") %>%
+  mutate(study = "Slessor et al. 1988") %>%
   bind_rows(data_by_petri_dish %>%
               filter(treatment != "10-HDA (worker control)") %>%
               group_by(treatment) %>%
@@ -697,8 +708,15 @@ barplot_data <- slessor %>%
                      treatment = str_replace_all(as.character(treatment), "and", "&")) %>%
               select(study, mean, SE, n, treatment)) %>%
   filter(treatment %in% levels_ampersand) %>%
-#  filter(study != "Our study") %>%
   mutate(treatment = factor(treatment, slessor_levels)) 
+
+barplot_data %>% 
+  select(study, mean, treatment) %>% 
+  spread(study, mean) %>% 
+  mutate(`Slessor et al. 1988` = as.numeric(scale(`Slessor et al. 1988`)),
+         `Present study` = as.numeric(scale(`Present study`)),
+         diff = `Slessor et al. 1988` - `Present study`)
+  
 
 comparison_barplot <- barplot_data %>%
   ggplot(aes(treatment, mean, fill = treatment)) + 
