@@ -298,11 +298,9 @@ pre_reg_model %>% plot_model()
 
 ### Pairwise comparisons of means (planned contrasts) {.tabset}
 
-We also wrote the following in the pre-registered plan for the analysis:
+We also wrote the following in the pre-registered plan for the analysis that we would examine pairwise differences between the treatments "in a manner similar to post hoc testing. For example, we might find that the mean number of contacts with the pheromone lure was significantly higher in the 9-ODA treatment relative to the solvent control"
 
-> Firstly, we will calculate pairwise differences in means between all the 12 treatments, similar to post hoc testing in the frequentist framework. For example, we might find that the mean number of contacts with the pheromone lure was significantly higher in the 9-ODA treatment relative to the solvent control 
-
-Here, we calculate the posterior estimates for the mean number of inspections of the pheromone lure for each of the 12 treatments, and then find the _difference_ in means between various pairs of treatments. For example, we compare each of the 11 treatments to the solvent-only control, and compare each of the two-component mixtures to the individual chemicals they contain. In the graph below, the y-axis includes a minus sign (`−`) to illustrate the direction of the comparison, e.g. positive values for the first variable (`9-ODA & HOB − HOB`) indicate the mixture of 9-ODA & HOB had a higher number of inspections than HOB alone. 
+Here, we calculate the posterior estimates for the mean number of inspections of the pheromone lure for each of the 12 treatments, and then find the _difference_ in means between various pairs of treatments (this is done on the link scale, where the posterior estimates and their differences are more normal). For example, we compare each of the 11 treatments to the solvent-only control, and compare each of the two-component mixtures to the individual chemicals they contain. In the graph below, the y-axis includes a minus sign (`−`) to illustrate the direction of the comparison, e.g. positive values for the first variable (`9-ODA & HOB − HOB`) indicate the mixture of 9-ODA & HOB was inspected more times than HOB alone. 
 
 #### Figure
 
@@ -312,45 +310,85 @@ new <- data_by_petri_dish %>%
   arrange(treatment) %>% 
   mutate(para = paste("V", 1:n(), sep = ""))
 
-contrasts_n_inspections <- as.data.frame(fitted(pre_reg_model, newdata = new, 
-                     re_formula = NA, summary = FALSE)) %>% 
-  mutate(draw = 1:n()) %>% 
-  as_tibble() %>% 
-  gather(para, n_inspections, -draw) %>% 
-  left_join(new, by = "para") %>% 
-  select(draw, treatment, n_inspections) %>% 
-  spread(treatment, n_inspections) %>% 
-  mutate(
-    `HOB & HVA − HOB` = `HOB and HVA` - HOB,
-    `HOB & HVA − HVA` = `HOB and HVA` - HVA,
-    
-    `9-HDA & HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
-    `9-HDA & HOB − HOB` = `9-HDA and HOB` - HOB,
-    
-    `9-HDA & HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
-    `9-HDA & HVA − HVA` = `9-HDA and HVA` - HVA,
-    
-    `9-ODA & HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
-    `9-ODA & HOB − HOB` = `9-ODA and HOB` - HOB,
-    
-    `9-ODA & HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
-    `9-ODA & HVA − HVA` = `9-ODA and HVA` - HVA,
-    
-    `9-ODA & 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
-    `9-ODA & 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
-    
-    `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
-    `HOB − solvent` = HOB - `Solvent control`,
-    `HVA − solvent` = HVA - `Solvent control`,
-    `9-HDA − solvent` = `9-HDA` - `Solvent control`,
-    `9-ODA − solvent` = `9-ODA` - `Solvent control`,
-    `HOB & HVA − solvent` = `HOB and HVA` - `Solvent control`,
-    `9-HDA & HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
-    `9-HDA & HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
-    `9-ODA & HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
-    `9-ODA & HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
-    `9-ODA & 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+# contrasts_n_inspections <- as.data.frame(fitted(pre_reg_model, newdata = new, 
+#                      re_formula = NA, summary = FALSE)) %>% 
+#   mutate(draw = 1:n()) %>% 
+#   as_tibble() %>% 
+#   gather(para, n_inspections, -draw) %>% 
+#   left_join(new, by = "para") %>% 
+#   select(draw, treatment, n_inspections) %>% 
+#   spread(treatment, n_inspections) %>% 
+#   mutate(
+#     `HOB & HVA − HOB` = `HOB and HVA` - HOB,
+#     `HOB & HVA − HVA` = `HOB and HVA` - HVA,
+#     
+#     `9-HDA & HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
+#     `9-HDA & HOB − HOB` = `9-HDA and HOB` - HOB,
+#     
+#     `9-HDA & HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
+#     `9-HDA & HVA − HVA` = `9-HDA and HVA` - HVA,
+#     
+#     `9-ODA & HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
+#     `9-ODA & HOB − HOB` = `9-ODA and HOB` - HOB,
+#     
+#     `9-ODA & HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
+#     `9-ODA & HVA − HVA` = `9-ODA and HVA` - HVA,
+#     
+#     `9-ODA & 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
+#     `9-ODA & 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
+#     
+#     `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
+#     `HOB − solvent` = HOB - `Solvent control`,
+#     `HVA − solvent` = HVA - `Solvent control`,
+#     `9-HDA − solvent` = `9-HDA` - `Solvent control`,
+#     `9-ODA − solvent` = `9-ODA` - `Solvent control`,
+#     `HOB & HVA − solvent` = `HOB and HVA` - `Solvent control`,
+#     `9-HDA & HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
+#     `9-HDA & HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
+#     `9-ODA & HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
+#     `9-ODA & HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
+#     `9-ODA & 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+#     ) %>% select(draw, contains("−")) 
+
+get_contrasts <- function(model){ 
+  posterior_samples(model) %>% 
+    as_tibble() %>% 
+    mutate(draw = 1:n()) %>% 
+    select(draw, starts_with("b_treatment")) %>% 
+    mutate(
+      `HOB & HVA − HOB` = b_treatmentHOBandHVA - b_treatmentHOB,
+      `HOB & HVA − HVA` = b_treatmentHOBandHVA - b_treatmentHVA,
+      
+      `9-HDA & HOB − 9-HDA` = b_treatment9MHDAandHOB - b_treatment9MHDA,
+      `9-HDA & HOB − HOB` = b_treatment9MHDAandHOB - b_treatmentHOB,
+      
+      `9-HDA & HVA − 9-HDA` = b_treatment9MHDAandHVA - b_treatment9MHDA,
+      `9-HDA & HVA − HVA` = b_treatment9MHDAandHVA - b_treatmentHVA,
+      
+      `9-ODA & HOB − 9-ODA` = b_treatment9MODAandHOB - b_treatment9MODA,
+      `9-ODA & HOB − HOB` = b_treatment9MODAandHOB - b_treatmentHOB,
+      
+      `9-ODA & HVA − 9-ODA` = b_treatment9MODAandHVA - b_treatment9MODA,
+      `9-ODA & HVA − HVA` = b_treatment9MODAandHVA - b_treatmentHVA,
+      
+      `9-ODA & 9-HDA − 9-ODA` = b_treatment9MODAand9MHDA - b_treatment9MODA,
+      `9-ODA & 9-HDA − 9-HDA` = b_treatment9MODAand9MHDA - b_treatment9MHDA,
+      
+      `10-HDA (worker control) − solvent` = b_treatment10MHDAworkercontrol,
+      `HOB − solvent` = b_treatmentHOB,
+      `HVA − solvent` = b_treatmentHVA,
+      `9-HDA − solvent` = b_treatment9MHDA,
+      `9-ODA − solvent` = b_treatment9MODA,
+      `HOB & HVA − solvent` = b_treatmentHOBandHVA,
+      `9-HDA & HOB − solvent` = b_treatment9MHDAandHOB,
+      `9-HDA & HVA − solvent` = b_treatment9MHDAandHVA,
+      `9-ODA & HOB − solvent` = b_treatment9MODAandHOB,
+      `9-ODA & HVA − solvent` = b_treatment9MODAandHVA,
+      `9-ODA & 9-HDA − solvent` = b_treatment9MODAand9MHDA
     ) %>% select(draw, contains("−")) 
+}
+
+contrasts_n_inspections <- get_contrasts(pre_reg_model)
 
 get_p <- function(x) 1 - as.numeric(p_direction(x))
 
@@ -373,10 +411,11 @@ contrasts_n_inspections %>%
   ggplot(aes(difference, contrast, fill = contrast)) +
   stat_eyeh() + 
   geom_vline(xintercept = 0, linetype = 2) +
-  coord_cartesian(xlim = c(-30, 40)) +
+  #coord_cartesian(xlim = c(-30, 40)) +
+  coord_cartesian(xlim = c(-0.4, 0.64)) +
   theme(legend.position = "none", 
         text = element_text(family = nice_font)) + 
-  xlab("Posterior difference in means")
+  xlab("Posterior effect size")
 ```
 
 
@@ -426,13 +465,13 @@ synergy_plot <- function(df, lims){
     geom_vline(xintercept = 0, linetype = 2) +
     stat_halfeyeh(alpha = 0.8) +
     scale_fill_viridis_d(option = "B") +  
-    coord_cartesian(xlim = lims) + ylab("Pheromone pair") + xlab("Synergy score") +
+    coord_cartesian(xlim = lims) + ylab("Pheromone pair") + xlab("Synergy score (effect size difference)") +
     theme_bw() + 
     theme(legend.position = "none",
         text = element_text(family = nice_font))
 }
 
-contrasts_n_inspections %>% synergy_plot(c(-50, 50))
+contrasts_n_inspections %>% synergy_plot(c(-0.63,0.63))
 ```
 
 
@@ -545,8 +584,6 @@ p2 <- (duration_model %>% plot_model()) + ylab(NULL) + xlab("Effect on total dur
     theme(axis.text.y = element_blank(),
           axis.ticks.y = element_blank())
 
-
-
 ggsave(filename = "figures/fig1.pdf", 
        grid.arrange(cbind(ggplotGrob(p1), ggplotGrob(p2), size = "last")),
        height = 6, width = 7) 
@@ -560,47 +597,50 @@ As before, we calculate contrasts comparing the mean of the response variable in
 #### Figure
 
 ```{r fig.showtext=TRUE, fig.height=7}
-contrasts_duration <- as.data.frame(
-  fitted(duration_model, 
-         newdata = new %>% mutate(hive = "Skylab"), 
-         re_formula = NA, summary = FALSE)) %>% 
-  mutate(draw = 1:n()) %>% 
-  as_tibble() %>% 
-  gather(para, n_inspections, -draw) %>% 
-  left_join(new, by = "para") %>% 
-  select(draw, treatment, n_inspections) %>% 
-  spread(treatment, n_inspections) %>% 
-  mutate(
-    `HOB & HVA − HOB` = `HOB and HVA` - HOB,
-    `HOB & HVA − HVA` = `HOB and HVA` - HVA,
-    
-    `9-HDA & HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
-    `9-HDA & HOB − HOB` = `9-HDA and HOB` - HOB,
-    
-    `9-HDA & HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
-    `9-HDA & HVA − HVA` = `9-HDA and HVA` - HVA,
-    
-    `9-ODA & HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
-    `9-ODA & HOB − HOB` = `9-ODA and HOB` - HOB,
-    
-    `9-ODA & HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
-    `9-ODA & HVA − HVA` = `9-ODA and HVA` - HVA,
-    
-    `9-ODA & 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
-    `9-ODA & 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
-    
-    `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
-    `HOB − solvent` = HOB - `Solvent control`,
-    `HVA − solvent` = HVA - `Solvent control`,
-    `9-HDA − solvent` = `9-HDA` - `Solvent control`,
-    `9-ODA − solvent` = `9-ODA` - `Solvent control`,
-    `HOB & HVA − solvent` = `HOB and HVA` - `Solvent control`,
-    `9-HDA & HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
-    `9-HDA & HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
-    `9-ODA & HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
-    `9-ODA & HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
-    `9-ODA & 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
-    ) %>% select(draw, contains("−")) 
+
+contrasts_duration <- get_contrasts(duration_model)
+
+# contrasts_duration <- as.data.frame(
+#   fitted(duration_model, 
+#          newdata = new %>% mutate(hive = "Skylab"), 
+#          re_formula = NA, summary = FALSE)) %>% 
+#   mutate(draw = 1:n()) %>% 
+#   as_tibble() %>% 
+#   gather(para, n_inspections, -draw) %>% 
+#   left_join(new, by = "para") %>% 
+#   select(draw, treatment, n_inspections) %>% 
+#   spread(treatment, n_inspections) %>% 
+#   mutate(
+#     `HOB & HVA − HOB` = `HOB and HVA` - HOB,
+#     `HOB & HVA − HVA` = `HOB and HVA` - HVA,
+#     
+#     `9-HDA & HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
+#     `9-HDA & HOB − HOB` = `9-HDA and HOB` - HOB,
+#     
+#     `9-HDA & HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
+#     `9-HDA & HVA − HVA` = `9-HDA and HVA` - HVA,
+#     
+#     `9-ODA & HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
+#     `9-ODA & HOB − HOB` = `9-ODA and HOB` - HOB,
+#     
+#     `9-ODA & HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
+#     `9-ODA & HVA − HVA` = `9-ODA and HVA` - HVA,
+#     
+#     `9-ODA & 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
+#     `9-ODA & 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
+#     
+#     `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
+#     `HOB − solvent` = HOB - `Solvent control`,
+#     `HVA − solvent` = HVA - `Solvent control`,
+#     `9-HDA − solvent` = `9-HDA` - `Solvent control`,
+#     `9-ODA − solvent` = `9-ODA` - `Solvent control`,
+#     `HOB & HVA − solvent` = `HOB and HVA` - `Solvent control`,
+#     `9-HDA & HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
+#     `9-HDA & HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
+#     `9-ODA & HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
+#     `9-ODA & HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
+#     `9-ODA & 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+#     ) %>% select(draw, contains("−")) 
 
 
 contrast_table_duration  <- left_join(
@@ -622,10 +662,11 @@ contrasts_duration %>%
   ggplot(aes(difference, contrast, fill = contrast)) +
   stat_eyeh() + 
   geom_vline(xintercept = 0, linetype = 2) +
-  coord_cartesian(xlim = c(-400, 700)) +
+  # coord_cartesian(xlim = c(-400, 700)) +
+  coord_cartesian(xlim = c(-1.2, 2.2)) +
   theme(legend.position = "none",
         text = element_text(family = nice_font)) + 
-  xlab("Posterior difference in means")
+  xlab("Posterior effect size")
 ```
 
 #### Table of contrasts
@@ -643,7 +684,7 @@ contrast_table_duration %>%
 We again calculate the posterior estimate of the "synergy score", $d_{1,2} - d_1 + d_2$. As before, the posterior distribution overlaps zero for every pair of chemicals, meaning that there is no strong evidence that any of the two-chemical mixtures have synergistic effects on the duration of inspections of the lure.
 
 ```{r}
-contrasts_duration %>% synergy_plot(c(-500, 500))
+contrasts_duration %>% synergy_plot(c(-2, 2))
 ```
 
 
@@ -709,14 +750,6 @@ barplot_data <- slessor %>%
               select(study, mean, SE, n, treatment)) %>%
   filter(treatment %in% levels_ampersand) %>%
   mutate(treatment = factor(treatment, slessor_levels)) 
-
-barplot_data %>% 
-  select(study, mean, treatment) %>% 
-  spread(study, mean) %>% 
-  mutate(`Slessor et al. 1988` = as.numeric(scale(`Slessor et al. 1988`)),
-         `Present study` = as.numeric(scale(`Present study`)),
-         diff = `Slessor et al. 1988` - `Present study`)
-  
 
 comparison_barplot <- barplot_data %>%
   ggplot(aes(treatment, mean, fill = treatment)) + 
