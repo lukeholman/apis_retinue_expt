@@ -434,7 +434,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-06-04
+<strong>Last updated:</strong> 2021-06-07
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -525,16 +525,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree5c82095eca887bc64c41817ee6ab5a65982bc541targetblank5c82095a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/5c82095eca887bc64c41817ee6ab5a65982bc541" target="_blank">5c82095</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree5b1df3408b1269149d1fc7d5efa683f965458efbtargetblank5b1df34a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/lukeholman/apis_retinue_expt/tree/5b1df3408b1269149d1fc7d5efa683f965458efb" target="_blank">5b1df34</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree5c82095eca887bc64c41817ee6ab5a65982bc541targetblank5c82095a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomlukeholmanapisretinueexpttree5b1df3408b1269149d1fc7d5efa683f965458efbtargetblank5b1df34a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/lukeholman/apis_retinue_expt/tree/5c82095eca887bc64c41817ee6ab5a65982bc541" target="_blank">5c82095</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/lukeholman/apis_retinue_expt/tree/5b1df3408b1269149d1fc7d5efa683f965458efb" target="_blank">5b1df34</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -604,6 +604,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/5b1df3408b1269149d1fc7d5efa683f965458efb/analysis/statistics.Rmd" target="_blank">5b1df34</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-07
+</td>
+<td>
+workflowr::wflow_publish(“analysis/statistics.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/lukeholman/apis_retinue_expt/c17c7f2fffaea49563b0ee44212c0c39d5a294ed/docs/statistics.html" target="_blank">c17c7f2</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1583,11 +1617,8 @@ lukeholman
 </div>
 <div id="pairwise-comparisons-of-means-planned-contrasts" class="section level3 tabset">
 <h3>Pairwise comparisons of means (planned contrasts)</h3>
-<p>We also wrote the following in the pre-registered plan for the analysis:</p>
-<blockquote>
-<p>Firstly, we will calculate pairwise differences in means between all the 12 treatments, similar to post hoc testing in the frequentist framework. For example, we might find that the mean number of contacts with the pheromone lure was significantly higher in the 9-ODA treatment relative to the solvent control</p>
-</blockquote>
-<p>Here, we calculate the posterior estimates for the mean number of inspections of the pheromone lure for each of the 12 treatments, and then find the <em>difference</em> in means between various pairs of treatments. For example, we compare each of the 11 treatments to the solvent-only control, and compare each of the two-component mixtures to the individual chemicals they contain. In the graph below, the y-axis includes a minus sign (<code>−</code>) to illustrate the direction of the comparison, e.g. positive values for the first variable (<code>9-ODA &amp; HOB − HOB</code>) indicate the mixture of 9-ODA &amp; HOB had a higher number of inspections than HOB alone.</p>
+<p>We also wrote the following in the pre-registered plan for the analysis that we would examine pairwise differences between the treatments “in a manner similar to post hoc testing. For example, we might find that the mean number of contacts with the pheromone lure was significantly higher in the 9-ODA treatment relative to the solvent control”</p>
+<p>Here, we calculate the posterior estimates for the mean number of inspections of the pheromone lure for each of the 12 treatments, and then find the <em>difference</em> in means between various pairs of treatments (this is done on the link scale, where the posterior estimates and their differences are more normal). For example, we compare each of the 11 treatments to the solvent-only control, and compare each of the two-component mixtures to the individual chemicals they contain. In the graph below, the y-axis includes a minus sign (<code>−</code>) to illustrate the direction of the comparison, e.g. positive values for the first variable (<code>9-ODA &amp; HOB − HOB</code>) indicate the mixture of 9-ODA &amp; HOB was inspected more times than HOB alone.</p>
 <div id="figure" class="section level4">
 <h4>Figure</h4>
 <pre class="r"><code>new &lt;- data_by_petri_dish %&gt;% 
@@ -1595,45 +1626,85 @@ lukeholman
   arrange(treatment) %&gt;% 
   mutate(para = paste(&quot;V&quot;, 1:n(), sep = &quot;&quot;))
 
-contrasts_n_inspections &lt;- as.data.frame(fitted(pre_reg_model, newdata = new, 
-                     re_formula = NA, summary = FALSE)) %&gt;% 
-  mutate(draw = 1:n()) %&gt;% 
-  as_tibble() %&gt;% 
-  gather(para, n_inspections, -draw) %&gt;% 
-  left_join(new, by = &quot;para&quot;) %&gt;% 
-  select(draw, treatment, n_inspections) %&gt;% 
-  spread(treatment, n_inspections) %&gt;% 
-  mutate(
-    `HOB &amp; HVA − HOB` = `HOB and HVA` - HOB,
-    `HOB &amp; HVA − HVA` = `HOB and HVA` - HVA,
-    
-    `9-HDA &amp; HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
-    `9-HDA &amp; HOB − HOB` = `9-HDA and HOB` - HOB,
-    
-    `9-HDA &amp; HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
-    `9-HDA &amp; HVA − HVA` = `9-HDA and HVA` - HVA,
-    
-    `9-ODA &amp; HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
-    `9-ODA &amp; HOB − HOB` = `9-ODA and HOB` - HOB,
-    
-    `9-ODA &amp; HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
-    `9-ODA &amp; HVA − HVA` = `9-ODA and HVA` - HVA,
-    
-    `9-ODA &amp; 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
-    `9-ODA &amp; 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
-    
-    `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
-    `HOB − solvent` = HOB - `Solvent control`,
-    `HVA − solvent` = HVA - `Solvent control`,
-    `9-HDA − solvent` = `9-HDA` - `Solvent control`,
-    `9-ODA − solvent` = `9-ODA` - `Solvent control`,
-    `HOB &amp; HVA − solvent` = `HOB and HVA` - `Solvent control`,
-    `9-HDA &amp; HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
-    `9-HDA &amp; HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
-    `9-ODA &amp; HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
-    `9-ODA &amp; HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
-    `9-ODA &amp; 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+# contrasts_n_inspections &lt;- as.data.frame(fitted(pre_reg_model, newdata = new, 
+#                      re_formula = NA, summary = FALSE)) %&gt;% 
+#   mutate(draw = 1:n()) %&gt;% 
+#   as_tibble() %&gt;% 
+#   gather(para, n_inspections, -draw) %&gt;% 
+#   left_join(new, by = &quot;para&quot;) %&gt;% 
+#   select(draw, treatment, n_inspections) %&gt;% 
+#   spread(treatment, n_inspections) %&gt;% 
+#   mutate(
+#     `HOB &amp; HVA − HOB` = `HOB and HVA` - HOB,
+#     `HOB &amp; HVA − HVA` = `HOB and HVA` - HVA,
+#     
+#     `9-HDA &amp; HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
+#     `9-HDA &amp; HOB − HOB` = `9-HDA and HOB` - HOB,
+#     
+#     `9-HDA &amp; HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
+#     `9-HDA &amp; HVA − HVA` = `9-HDA and HVA` - HVA,
+#     
+#     `9-ODA &amp; HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
+#     `9-ODA &amp; HOB − HOB` = `9-ODA and HOB` - HOB,
+#     
+#     `9-ODA &amp; HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
+#     `9-ODA &amp; HVA − HVA` = `9-ODA and HVA` - HVA,
+#     
+#     `9-ODA &amp; 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
+#     `9-ODA &amp; 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
+#     
+#     `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
+#     `HOB − solvent` = HOB - `Solvent control`,
+#     `HVA − solvent` = HVA - `Solvent control`,
+#     `9-HDA − solvent` = `9-HDA` - `Solvent control`,
+#     `9-ODA − solvent` = `9-ODA` - `Solvent control`,
+#     `HOB &amp; HVA − solvent` = `HOB and HVA` - `Solvent control`,
+#     `9-HDA &amp; HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
+#     `9-HDA &amp; HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
+#     `9-ODA &amp; HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
+#     `9-ODA &amp; HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
+#     `9-ODA &amp; 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+#     ) %&gt;% select(draw, contains(&quot;−&quot;)) 
+
+get_contrasts &lt;- function(model){ 
+  posterior_samples(model) %&gt;% 
+    as_tibble() %&gt;% 
+    mutate(draw = 1:n()) %&gt;% 
+    select(draw, starts_with(&quot;b_treatment&quot;)) %&gt;% 
+    mutate(
+      `HOB &amp; HVA − HOB` = b_treatmentHOBandHVA - b_treatmentHOB,
+      `HOB &amp; HVA − HVA` = b_treatmentHOBandHVA - b_treatmentHVA,
+      
+      `9-HDA &amp; HOB − 9-HDA` = b_treatment9MHDAandHOB - b_treatment9MHDA,
+      `9-HDA &amp; HOB − HOB` = b_treatment9MHDAandHOB - b_treatmentHOB,
+      
+      `9-HDA &amp; HVA − 9-HDA` = b_treatment9MHDAandHVA - b_treatment9MHDA,
+      `9-HDA &amp; HVA − HVA` = b_treatment9MHDAandHVA - b_treatmentHVA,
+      
+      `9-ODA &amp; HOB − 9-ODA` = b_treatment9MODAandHOB - b_treatment9MODA,
+      `9-ODA &amp; HOB − HOB` = b_treatment9MODAandHOB - b_treatmentHOB,
+      
+      `9-ODA &amp; HVA − 9-ODA` = b_treatment9MODAandHVA - b_treatment9MODA,
+      `9-ODA &amp; HVA − HVA` = b_treatment9MODAandHVA - b_treatmentHVA,
+      
+      `9-ODA &amp; 9-HDA − 9-ODA` = b_treatment9MODAand9MHDA - b_treatment9MODA,
+      `9-ODA &amp; 9-HDA − 9-HDA` = b_treatment9MODAand9MHDA - b_treatment9MHDA,
+      
+      `10-HDA (worker control) − solvent` = b_treatment10MHDAworkercontrol,
+      `HOB − solvent` = b_treatmentHOB,
+      `HVA − solvent` = b_treatmentHVA,
+      `9-HDA − solvent` = b_treatment9MHDA,
+      `9-ODA − solvent` = b_treatment9MODA,
+      `HOB &amp; HVA − solvent` = b_treatmentHOBandHVA,
+      `9-HDA &amp; HOB − solvent` = b_treatment9MHDAandHOB,
+      `9-HDA &amp; HVA − solvent` = b_treatment9MHDAandHVA,
+      `9-ODA &amp; HOB − solvent` = b_treatment9MODAandHOB,
+      `9-ODA &amp; HVA − solvent` = b_treatment9MODAandHVA,
+      `9-ODA &amp; 9-HDA − solvent` = b_treatment9MODAand9MHDA
     ) %&gt;% select(draw, contains(&quot;−&quot;)) 
+}
+
+contrasts_n_inspections &lt;- get_contrasts(pre_reg_model)
 
 get_p &lt;- function(x) 1 - as.numeric(p_direction(x))
 
@@ -1656,10 +1727,11 @@ contrasts_n_inspections %&gt;%
   ggplot(aes(difference, contrast, fill = contrast)) +
   stat_eyeh() + 
   geom_vline(xintercept = 0, linetype = 2) +
-  coord_cartesian(xlim = c(-30, 40)) +
+  #coord_cartesian(xlim = c(-30, 40)) +
+  coord_cartesian(xlim = c(-0.4, 0.64)) +
   theme(legend.position = &quot;none&quot;, 
         text = element_text(family = nice_font)) + 
-  xlab(&quot;Posterior difference in means&quot;)</code></pre>
+  xlab(&quot;Posterior effect size&quot;)</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
@@ -1746,16 +1818,16 @@ p
 9-ODA &amp; HOB − HOB
 </td>
 <td style="text-align:right;">
-13.1824741
+0.2615008
 </td>
 <td style="text-align:right;">
-16.631736
+0.1121697
 </td>
 <td style="text-align:right;">
-1.2170049
+0.0393954
 </td>
 <td style="text-align:right;">
-36.240666
+0.4838348
 </td>
 <td style="text-align:right;">
 0.0095000
@@ -1769,16 +1841,16 @@ p
 9-ODA − solvent
 </td>
 <td style="text-align:right;">
-10.8329918
+0.2100632
 </td>
 <td style="text-align:right;">
-11.467984
+0.1063244
 </td>
 <td style="text-align:right;">
-0.0105105
+0.0002238
 </td>
 <td style="text-align:right;">
-31.552261
+0.4183517
 </td>
 <td style="text-align:right;">
 0.0249375
@@ -1792,16 +1864,16 @@ p
 9-ODA &amp; HVA − HVA
 </td>
 <td style="text-align:right;">
-9.9975224
+0.1974094
 </td>
 <td style="text-align:right;">
-15.108189
+0.1082004
 </td>
 <td style="text-align:right;">
--0.5996608
+-0.0144708
 </td>
 <td style="text-align:right;">
-28.942892
+0.4083419
 </td>
 <td style="text-align:right;">
 0.0350000
@@ -1815,16 +1887,16 @@ p
 9-ODA &amp; HOB − solvent
 </td>
 <td style="text-align:right;">
-9.7891060
+0.1910879
 </td>
 <td style="text-align:right;">
-11.229741
+0.1099516
 </td>
 <td style="text-align:right;">
--0.9564359
+-0.0226514
 </td>
 <td style="text-align:right;">
-29.041064
+0.4055280
 </td>
 <td style="text-align:right;">
 0.0393125
@@ -1838,16 +1910,16 @@ p
 9-ODA &amp; HVA − solvent
 </td>
 <td style="text-align:right;">
-8.2425817
+0.1642734
 </td>
 <td style="text-align:right;">
-10.315928
+0.1066303
 </td>
 <td style="text-align:right;">
--2.0427147
+-0.0464714
 </td>
 <td style="text-align:right;">
-25.392820
+0.3730378
 </td>
 <td style="text-align:right;">
 0.0613750
@@ -1861,16 +1933,16 @@ p
 9-ODA &amp; 9-HDA − solvent
 </td>
 <td style="text-align:right;">
-7.2226066
+0.1459064
 </td>
 <td style="text-align:right;">
-9.462643
+0.1099127
 </td>
 <td style="text-align:right;">
--3.0576684
+-0.0681975
 </td>
 <td style="text-align:right;">
-24.110101
+0.3599428
 </td>
 <td style="text-align:right;">
 0.0918750
@@ -1884,16 +1956,16 @@ p
 9-ODA &amp; 9-HDA − 9-HDA
 </td>
 <td style="text-align:right;">
-6.6480516
+0.1303951
 </td>
 <td style="text-align:right;">
-10.603439
+0.1116909
 </td>
 <td style="text-align:right;">
--4.0441533
+-0.0877545
 </td>
 <td style="text-align:right;">
-23.007463
+0.3504821
 </td>
 <td style="text-align:right;">
 0.1213750
@@ -1906,16 +1978,16 @@ p
 10-HDA (worker control) − solvent
 </td>
 <td style="text-align:right;">
-3.4018825
+0.0720325
 </td>
 <td style="text-align:right;">
-7.694646
+0.1087827
 </td>
 <td style="text-align:right;">
--6.6292884
+-0.1389775
 </td>
 <td style="text-align:right;">
-16.546903
+0.2871106
 </td>
 <td style="text-align:right;">
 0.2541875
@@ -1928,16 +2000,16 @@ p
 HOB &amp; HVA − HOB
 </td>
 <td style="text-align:right;">
-2.9901475
+0.0650760
 </td>
 <td style="text-align:right;">
-8.542916
+0.1147353
 </td>
 <td style="text-align:right;">
--7.1630121
+-0.1597948
 </td>
 <td style="text-align:right;">
-15.653454
+0.2909953
 </td>
 <td style="text-align:right;">
 0.2846250
@@ -1950,16 +2022,16 @@ HOB &amp; HVA − HOB
 9-HDA &amp; HVA − HVA
 </td>
 <td style="text-align:right;">
-2.4463610
+0.0511603
 </td>
 <td style="text-align:right;">
-8.611196
+0.1100969
 </td>
 <td style="text-align:right;">
--7.8947775
+-0.1664336
 </td>
 <td style="text-align:right;">
-14.029115
+0.2734283
 </td>
 <td style="text-align:right;">
 0.3174375
@@ -1972,16 +2044,16 @@ HOB &amp; HVA − HOB
 HOB &amp; HVA − HVA
 </td>
 <td style="text-align:right;">
-1.3517202
+0.0277991
 </td>
 <td style="text-align:right;">
-8.272499
+0.1132311
 </td>
 <td style="text-align:right;">
--9.1628760
+-0.1978207
 </td>
 <td style="text-align:right;">
-12.741782
+0.2512709
 </td>
 <td style="text-align:right;">
 0.4022500
@@ -1994,16 +2066,16 @@ HOB &amp; HVA − HVA
 9-HDA &amp; HOB − HOB
 </td>
 <td style="text-align:right;">
-0.8708371
+0.0190439
 </td>
 <td style="text-align:right;">
-7.209019
+0.1130666
 </td>
 <td style="text-align:right;">
--9.4190395
+-0.2028572
 </td>
 <td style="text-align:right;">
-11.899293
+0.2427404
 </td>
 <td style="text-align:right;">
 0.4303750
@@ -2016,16 +2088,16 @@ HOB &amp; HVA − HVA
 9-HDA &amp; HVA − solvent
 </td>
 <td style="text-align:right;">
-0.6914204
+0.0180242
 </td>
 <td style="text-align:right;">
-8.582533
+0.1075165
 </td>
 <td style="text-align:right;">
--9.4992526
+-0.1941673
 </td>
 <td style="text-align:right;">
-11.694957
+0.2285912
 </td>
 <td style="text-align:right;">
 0.4326250
@@ -2038,16 +2110,16 @@ HOB &amp; HVA − HVA
 9-HDA − solvent
 </td>
 <td style="text-align:right;">
-0.5745550
+0.0155113
 </td>
 <td style="text-align:right;">
-10.074785
+0.1102401
 </td>
 <td style="text-align:right;">
--9.9283188
+-0.2004223
 </td>
 <td style="text-align:right;">
-12.005914
+0.2293431
 </td>
 <td style="text-align:right;">
 0.4471250
@@ -2060,16 +2132,16 @@ HOB &amp; HVA − HVA
 9-HDA &amp; HVA − 9-HDA
 </td>
 <td style="text-align:right;">
-0.1168653
+0.0025130
 </td>
 <td style="text-align:right;">
-8.742964
+0.1105114
 </td>
 <td style="text-align:right;">
--10.9670959
+-0.2117858
 </td>
 <td style="text-align:right;">
-10.980334
+0.2176091
 </td>
 <td style="text-align:right;">
 0.4904375
@@ -2082,16 +2154,16 @@ HOB &amp; HVA − HVA
 HOB &amp; HVA − solvent
 </td>
 <td style="text-align:right;">
--0.4032205
+-0.0053369
 </td>
 <td style="text-align:right;">
-11.268354
+0.1114765
 </td>
 <td style="text-align:right;">
--11.4239295
+-0.2219569
 </td>
 <td style="text-align:right;">
-10.782268
+0.2148381
 </td>
 <td style="text-align:right;">
 0.4768750
@@ -2104,16 +2176,16 @@ HOB &amp; HVA − solvent
 9-ODA &amp; HOB − 9-ODA
 </td>
 <td style="text-align:right;">
--1.0438857
+-0.0189753
 </td>
 <td style="text-align:right;">
-8.376842
+0.1094616
 </td>
 <td style="text-align:right;">
--14.4105048
+-0.2345995
 </td>
 <td style="text-align:right;">
-11.842190
+0.1942207
 </td>
 <td style="text-align:right;">
 0.4310625
@@ -2126,16 +2198,16 @@ HOB &amp; HVA − solvent
 HVA − solvent
 </td>
 <td style="text-align:right;">
--1.7549407
+-0.0331360
 </td>
 <td style="text-align:right;">
-11.545602
+0.1084979
 </td>
 <td style="text-align:right;">
--12.8328466
+-0.2460035
 </td>
 <td style="text-align:right;">
-8.823565
+0.1802572
 </td>
 <td style="text-align:right;">
 0.3773125
@@ -2145,41 +2217,19 @@ HVA − solvent
 </tr>
 <tr>
 <td style="text-align:left;">
-9-HDA &amp; HOB − solvent
-</td>
-<td style="text-align:right;">
--2.5225309
-</td>
-<td style="text-align:right;">
-10.999914
-</td>
-<td style="text-align:right;">
--14.3149738
-</td>
-<td style="text-align:right;">
-7.729236
-</td>
-<td style="text-align:right;">
-0.3192500
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 9-ODA &amp; HVA − 9-ODA
 </td>
 <td style="text-align:right;">
--2.5904100
+-0.0457898
 </td>
 <td style="text-align:right;">
-9.346640
+0.1067384
 </td>
 <td style="text-align:right;">
--16.8464136
+-0.2534713
 </td>
 <td style="text-align:right;">
-9.294188
+0.1631480
 </td>
 <td style="text-align:right;">
 0.3323125
@@ -2189,19 +2239,63 @@ HVA − solvent
 </tr>
 <tr>
 <td style="text-align:left;">
+9-HDA &amp; HOB − solvent
+</td>
+<td style="text-align:right;">
+-0.0513690
+</td>
+<td style="text-align:right;">
+0.1113257
+</td>
+<td style="text-align:right;">
+-0.2681118
+</td>
+<td style="text-align:right;">
+0.1684700
+</td>
+<td style="text-align:right;">
+0.3192500
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9-ODA &amp; 9-HDA − 9-ODA
+</td>
+<td style="text-align:right;">
+-0.0641568
+</td>
+<td style="text-align:right;">
+0.1089411
+</td>
+<td style="text-align:right;">
+-0.2762616
+</td>
+<td style="text-align:right;">
+0.1496134
+</td>
+<td style="text-align:right;">
+0.2773125
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 9-HDA &amp; HOB − 9-HDA
 </td>
 <td style="text-align:right;">
--3.0970860
+-0.0668802
 </td>
 <td style="text-align:right;">
-8.200831
+0.1132800
 </td>
 <td style="text-align:right;">
--15.8225249
+-0.2866461
 </td>
 <td style="text-align:right;">
-7.249153
+0.1586806
 </td>
 <td style="text-align:right;">
 0.2773750
@@ -2214,41 +2308,19 @@ HVA − solvent
 HOB − solvent
 </td>
 <td style="text-align:right;">
--3.3933680
+-0.0704129
 </td>
 <td style="text-align:right;">
-11.009384
+0.1107474
 </td>
 <td style="text-align:right;">
--15.3147760
+-0.2844090
 </td>
 <td style="text-align:right;">
-6.450747
+0.1504787
 </td>
 <td style="text-align:right;">
 0.2628750
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-9-ODA &amp; 9-HDA − 9-ODA
-</td>
-<td style="text-align:right;">
--3.6103851
-</td>
-<td style="text-align:right;">
-9.329677
-</td>
-<td style="text-align:right;">
--18.1968033
-</td>
-<td style="text-align:right;">
-8.040393
-</td>
-<td style="text-align:right;">
-0.2773125
 </td>
 <td style="text-align:left;">
 </td>
@@ -2291,13 +2363,13 @@ HOB − solvent
     geom_vline(xintercept = 0, linetype = 2) +
     stat_halfeyeh(alpha = 0.8) +
     scale_fill_viridis_d(option = &quot;B&quot;) +  
-    coord_cartesian(xlim = lims) + ylab(&quot;Pheromone pair&quot;) + xlab(&quot;Synergy score&quot;) +
+    coord_cartesian(xlim = lims) + ylab(&quot;Pheromone pair&quot;) + xlab(&quot;Synergy score (effect size difference)&quot;) +
     theme_bw() + 
     theme(legend.position = &quot;none&quot;,
         text = element_text(family = nice_font))
 }
 
-contrasts_n_inspections %&gt;% synergy_plot(c(-50, 50))</code></pre>
+contrasts_n_inspections %&gt;% synergy_plot(c(-0.63,0.63))</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
@@ -2975,47 +3047,49 @@ lukeholman
 <p>As before, we calculate contrasts comparing the mean of the response variable in several pairs of treatments (i.e. we compute contrasts).</p>
 <div id="figure-1" class="section level4">
 <h4>Figure</h4>
-<pre class="r"><code>contrasts_duration &lt;- as.data.frame(
-  fitted(duration_model, 
-         newdata = new %&gt;% mutate(hive = &quot;Skylab&quot;), 
-         re_formula = NA, summary = FALSE)) %&gt;% 
-  mutate(draw = 1:n()) %&gt;% 
-  as_tibble() %&gt;% 
-  gather(para, n_inspections, -draw) %&gt;% 
-  left_join(new, by = &quot;para&quot;) %&gt;% 
-  select(draw, treatment, n_inspections) %&gt;% 
-  spread(treatment, n_inspections) %&gt;% 
-  mutate(
-    `HOB &amp; HVA − HOB` = `HOB and HVA` - HOB,
-    `HOB &amp; HVA − HVA` = `HOB and HVA` - HVA,
-    
-    `9-HDA &amp; HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
-    `9-HDA &amp; HOB − HOB` = `9-HDA and HOB` - HOB,
-    
-    `9-HDA &amp; HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
-    `9-HDA &amp; HVA − HVA` = `9-HDA and HVA` - HVA,
-    
-    `9-ODA &amp; HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
-    `9-ODA &amp; HOB − HOB` = `9-ODA and HOB` - HOB,
-    
-    `9-ODA &amp; HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
-    `9-ODA &amp; HVA − HVA` = `9-ODA and HVA` - HVA,
-    
-    `9-ODA &amp; 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
-    `9-ODA &amp; 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
-    
-    `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
-    `HOB − solvent` = HOB - `Solvent control`,
-    `HVA − solvent` = HVA - `Solvent control`,
-    `9-HDA − solvent` = `9-HDA` - `Solvent control`,
-    `9-ODA − solvent` = `9-ODA` - `Solvent control`,
-    `HOB &amp; HVA − solvent` = `HOB and HVA` - `Solvent control`,
-    `9-HDA &amp; HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
-    `9-HDA &amp; HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
-    `9-ODA &amp; HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
-    `9-ODA &amp; HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
-    `9-ODA &amp; 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
-    ) %&gt;% select(draw, contains(&quot;−&quot;)) 
+<pre class="r"><code>contrasts_duration &lt;- get_contrasts(duration_model)
+
+# contrasts_duration &lt;- as.data.frame(
+#   fitted(duration_model, 
+#          newdata = new %&gt;% mutate(hive = &quot;Skylab&quot;), 
+#          re_formula = NA, summary = FALSE)) %&gt;% 
+#   mutate(draw = 1:n()) %&gt;% 
+#   as_tibble() %&gt;% 
+#   gather(para, n_inspections, -draw) %&gt;% 
+#   left_join(new, by = &quot;para&quot;) %&gt;% 
+#   select(draw, treatment, n_inspections) %&gt;% 
+#   spread(treatment, n_inspections) %&gt;% 
+#   mutate(
+#     `HOB &amp; HVA − HOB` = `HOB and HVA` - HOB,
+#     `HOB &amp; HVA − HVA` = `HOB and HVA` - HVA,
+#     
+#     `9-HDA &amp; HOB − 9-HDA` = `9-HDA and HOB` - `9-HDA`,
+#     `9-HDA &amp; HOB − HOB` = `9-HDA and HOB` - HOB,
+#     
+#     `9-HDA &amp; HVA − 9-HDA` = `9-HDA and HVA` - `9-HDA`,
+#     `9-HDA &amp; HVA − HVA` = `9-HDA and HVA` - HVA,
+#     
+#     `9-ODA &amp; HOB − 9-ODA` = `9-ODA and HOB` - `9-ODA`,
+#     `9-ODA &amp; HOB − HOB` = `9-ODA and HOB` - HOB,
+#     
+#     `9-ODA &amp; HVA − 9-ODA` = `9-ODA and HVA` - `9-ODA`,
+#     `9-ODA &amp; HVA − HVA` = `9-ODA and HVA` - HVA,
+#     
+#     `9-ODA &amp; 9-HDA − 9-ODA` = `9-ODA and 9-HDA` - `9-ODA`,
+#     `9-ODA &amp; 9-HDA − 9-HDA` = `9-ODA and 9-HDA` - `9-HDA`,
+#     
+#     `10-HDA (worker control) − solvent` = `10-HDA (worker control)` - `Solvent control`,
+#     `HOB − solvent` = HOB - `Solvent control`,
+#     `HVA − solvent` = HVA - `Solvent control`,
+#     `9-HDA − solvent` = `9-HDA` - `Solvent control`,
+#     `9-ODA − solvent` = `9-ODA` - `Solvent control`,
+#     `HOB &amp; HVA − solvent` = `HOB and HVA` - `Solvent control`,
+#     `9-HDA &amp; HOB − solvent` = `9-HDA and HOB` - `Solvent control`,
+#     `9-HDA &amp; HVA − solvent` = `9-HDA and HVA` - `Solvent control`,
+#     `9-ODA &amp; HOB − solvent` = `9-ODA and HOB` - `Solvent control`,
+#     `9-ODA &amp; HVA − solvent` = `9-ODA and HVA` - `Solvent control`,
+#     `9-ODA &amp; 9-HDA − solvent` = `9-ODA and 9-HDA` - `Solvent control`
+#     ) %&gt;% select(draw, contains(&quot;−&quot;)) 
 
 
 contrast_table_duration  &lt;- left_join(
@@ -3037,10 +3111,11 @@ contrasts_duration %&gt;%
   ggplot(aes(difference, contrast, fill = contrast)) +
   stat_eyeh() + 
   geom_vline(xintercept = 0, linetype = 2) +
-  coord_cartesian(xlim = c(-400, 700)) +
+  # coord_cartesian(xlim = c(-400, 700)) +
+  coord_cartesian(xlim = c(-1.2, 2.2)) +
   theme(legend.position = &quot;none&quot;,
         text = element_text(family = nice_font)) + 
-  xlab(&quot;Posterior difference in means&quot;)</code></pre>
+  xlab(&quot;Posterior effect size&quot;)</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
@@ -3116,16 +3191,16 @@ p
 9-ODA &amp; HOB − HOB
 </td>
 <td style="text-align:right;">
-305.401336
+1.1198515
 </td>
 <td style="text-align:right;">
-117.35967
+0.2960699
 </td>
 <td style="text-align:right;">
-121.676478
+0.5404731
 </td>
 <td style="text-align:right;">
-580.14272
+1.6952410
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -3139,16 +3214,16 @@ p
 9-ODA &amp; HOB − solvent
 </td>
 <td style="text-align:right;">
-289.299968
+1.0137704
 </td>
 <td style="text-align:right;">
-115.56083
+0.2820090
 </td>
 <td style="text-align:right;">
-109.099712
+0.4703762
 </td>
 <td style="text-align:right;">
-560.36668
+1.5718033
 </td>
 <td style="text-align:right;">
 0.0001250
@@ -3162,16 +3237,16 @@ p
 9-ODA &amp; HVA − solvent
 </td>
 <td style="text-align:right;">
-226.811673
+0.8673875
 </td>
 <td style="text-align:right;">
-96.66107
+0.2774037
 </td>
 <td style="text-align:right;">
-73.647014
+0.3271451
 </td>
 <td style="text-align:right;">
-450.47142
+1.4074574
 </td>
 <td style="text-align:right;">
 0.0011250
@@ -3182,42 +3257,19 @@ p
 </tr>
 <tr>
 <td style="text-align:left;">
-9-ODA &amp; HVA − HVA
-</td>
-<td style="text-align:right;">
-203.586605
-</td>
-<td style="text-align:right;">
-97.77973
-</td>
-<td style="text-align:right;">
-44.976866
-</td>
-<td style="text-align:right;">
-425.64088
-</td>
-<td style="text-align:right;">
-0.0054375
-</td>
-<td style="text-align:left;">
-**
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 9-ODA − solvent
 </td>
 <td style="text-align:right;">
-201.740992
+0.8014253
 </td>
 <td style="text-align:right;">
-89.39418
+0.2766349
 </td>
 <td style="text-align:right;">
-58.441466
+0.2659665
 </td>
 <td style="text-align:right;">
-409.05476
+1.3499288
 </td>
 <td style="text-align:right;">
 0.0019375
@@ -3228,19 +3280,42 @@ p
 </tr>
 <tr>
 <td style="text-align:left;">
+9-ODA &amp; HVA − HVA
+</td>
+<td style="text-align:right;">
+0.7363340
+</td>
+<td style="text-align:right;">
+0.2852882
+</td>
+<td style="text-align:right;">
+0.1727245
+</td>
+<td style="text-align:right;">
+1.2957990
+</td>
+<td style="text-align:right;">
+0.0054375
+</td>
+<td style="text-align:left;">
+**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 9-ODA &amp; 9-HDA − 9-HDA
 </td>
 <td style="text-align:right;">
-134.059221
+0.6029435
 </td>
 <td style="text-align:right;">
-75.55537
+0.2902113
 </td>
 <td style="text-align:right;">
-7.467169
+0.0367917
 </td>
 <td style="text-align:right;">
-305.31225
+1.1751963
 </td>
 <td style="text-align:right;">
 0.0171875
@@ -3254,16 +3329,16 @@ p
 9-HDA &amp; HVA − 9-HDA
 </td>
 <td style="text-align:right;">
-132.645633
+0.5996607
 </td>
 <td style="text-align:right;">
-73.65231
+0.2863594
 </td>
 <td style="text-align:right;">
-6.847004
+0.0311863
 </td>
 <td style="text-align:right;">
-298.30151
+1.1575803
 </td>
 <td style="text-align:right;">
 0.0191250
@@ -3277,16 +3352,16 @@ p
 9-ODA &amp; 9-HDA − solvent
 </td>
 <td style="text-align:right;">
-132.312921
+0.5898754
 </td>
 <td style="text-align:right;">
-74.71412
+0.2821713
 </td>
 <td style="text-align:right;">
-7.603115
+0.0374240
 </td>
 <td style="text-align:right;">
-302.08281
+1.1404057
 </td>
 <td style="text-align:right;">
 0.0185625
@@ -3300,16 +3375,16 @@ p
 9-HDA &amp; HVA − solvent
 </td>
 <td style="text-align:right;">
-130.899333
+0.5865926
 </td>
 <td style="text-align:right;">
-72.29459
+0.2765738
 </td>
 <td style="text-align:right;">
-9.895437
+0.0486946
 </td>
 <td style="text-align:right;">
-293.87672
+1.1274115
 </td>
 <td style="text-align:right;">
 0.0167500
@@ -3323,16 +3398,16 @@ p
 9-HDA &amp; HVA − HVA
 </td>
 <td style="text-align:right;">
-107.674264
+0.4555391
 </td>
 <td style="text-align:right;">
-74.31197
+0.2825117
 </td>
 <td style="text-align:right;">
--23.129654
+-0.1009795
 </td>
 <td style="text-align:right;">
-272.55683
+1.0168194
 </td>
 <td style="text-align:right;">
 0.0564375
@@ -3343,41 +3418,19 @@ p
 </tr>
 <tr>
 <td style="text-align:left;">
-9-ODA &amp; HOB − 9-ODA
-</td>
-<td style="text-align:right;">
-87.558976
-</td>
-<td style="text-align:right;">
-123.92875
-</td>
-<td style="text-align:right;">
--139.290655
-</td>
-<td style="text-align:right;">
-349.55224
-</td>
-<td style="text-align:right;">
-0.2348750
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 HOB &amp; HVA − HOB
 </td>
 <td style="text-align:right;">
-35.382799
+0.2143781
 </td>
 <td style="text-align:right;">
-51.84851
+0.2982176
 </td>
 <td style="text-align:right;">
--61.988609
+-0.3704290
 </td>
 <td style="text-align:right;">
-145.98982
+0.8023140
 </td>
 <td style="text-align:right;">
 0.2373125
@@ -3387,22 +3440,22 @@ HOB &amp; HVA − HOB
 </tr>
 <tr>
 <td style="text-align:left;">
-9-ODA &amp; HVA − 9-ODA
+9-ODA &amp; HOB − 9-ODA
 </td>
 <td style="text-align:right;">
-25.070681
+0.2123452
 </td>
 <td style="text-align:right;">
-109.67681
+0.2873578
 </td>
 <td style="text-align:right;">
--189.062327
+-0.3405930
 </td>
 <td style="text-align:right;">
-251.06402
+0.7656525
 </td>
 <td style="text-align:right;">
-0.4043750
+0.2348750
 </td>
 <td style="text-align:left;">
 </td>
@@ -3412,16 +3465,16 @@ HOB &amp; HVA − HOB
 HVA − solvent
 </td>
 <td style="text-align:right;">
-23.225068
+0.1310536
 </td>
 <td style="text-align:right;">
-51.20416
+0.2801050
 </td>
 <td style="text-align:right;">
--74.219327
+-0.4211989
 </td>
 <td style="text-align:right;">
-131.25804
+0.6767604
 </td>
 <td style="text-align:right;">
 0.3207500
@@ -3434,16 +3487,16 @@ HVA − solvent
 HOB &amp; HVA − solvent
 </td>
 <td style="text-align:right;">
-19.281432
+0.1082971
 </td>
 <td style="text-align:right;">
-51.24757
+0.2833117
 </td>
 <td style="text-align:right;">
--77.527702
+-0.4470459
 </td>
 <td style="text-align:right;">
-127.08564
+0.6643557
 </td>
 <td style="text-align:right;">
 0.3506250
@@ -3453,22 +3506,22 @@ HOB &amp; HVA − solvent
 </tr>
 <tr>
 <td style="text-align:left;">
-10-HDA (worker control) − solvent
+9-ODA &amp; HVA − 9-ODA
 </td>
 <td style="text-align:right;">
-9.049404
+0.0659623
 </td>
 <td style="text-align:right;">
-48.83096
+0.2803396
 </td>
 <td style="text-align:right;">
--85.014638
+-0.4827802
 </td>
 <td style="text-align:right;">
-108.50005
+0.6190205
 </td>
 <td style="text-align:right;">
-0.4276875
+0.4043750
 </td>
 <td style="text-align:left;">
 </td>
@@ -3478,16 +3531,16 @@ HOB &amp; HVA − solvent
 9-HDA &amp; HOB − HOB
 </td>
 <td style="text-align:right;">
-8.248556
+0.0536694
 </td>
 <td style="text-align:right;">
-47.18666
+0.2990744
 </td>
 <td style="text-align:right;">
--84.230109
+-0.5331876
 </td>
 <td style="text-align:right;">
-103.55266
+0.6366924
 </td>
 <td style="text-align:right;">
 0.4313125
@@ -3497,19 +3550,41 @@ HOB &amp; HVA − solvent
 </tr>
 <tr>
 <td style="text-align:left;">
+10-HDA (worker control) − solvent
+</td>
+<td style="text-align:right;">
+0.0521112
+</td>
+<td style="text-align:right;">
+0.2794876
+</td>
+<td style="text-align:right;">
+-0.4983936
+</td>
+<td style="text-align:right;">
+0.6038213
+</td>
+<td style="text-align:right;">
+0.4276875
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 9-HDA − solvent
 </td>
 <td style="text-align:right;">
--1.746300
+-0.0130681
 </td>
 <td style="text-align:right;">
-47.34934
+0.2812952
 </td>
 <td style="text-align:right;">
--94.873430
+-0.5626222
 </td>
 <td style="text-align:right;">
-95.39672
+0.5384129
 </td>
 <td style="text-align:right;">
 0.4790625
@@ -3522,16 +3597,16 @@ HOB &amp; HVA − solvent
 HOB &amp; HVA − HVA
 </td>
 <td style="text-align:right;">
--3.943637
+-0.0227565
 </td>
 <td style="text-align:right;">
-55.60278
+0.2901240
 </td>
 <td style="text-align:right;">
--114.566653
+-0.5958421
 </td>
 <td style="text-align:right;">
-108.90620
+0.5525579
 </td>
 <td style="text-align:right;">
 0.4704375
@@ -3544,16 +3619,16 @@ HOB &amp; HVA − HVA
 9-HDA &amp; HOB − 9-HDA
 </td>
 <td style="text-align:right;">
--6.106511
+-0.0393435
 </td>
 <td style="text-align:right;">
-48.46027
+0.2939725
 </td>
 <td style="text-align:right;">
--104.340826
+-0.6169195
 </td>
 <td style="text-align:right;">
-90.91346
+0.5369146
 </td>
 <td style="text-align:right;">
 0.4445625
@@ -3566,16 +3641,16 @@ HOB &amp; HVA − HVA
 9-HDA &amp; HOB − solvent
 </td>
 <td style="text-align:right;">
--7.852811
+-0.0524117
 </td>
 <td style="text-align:right;">
-47.07644
+0.2849674
 </td>
 <td style="text-align:right;">
--101.902427
+-0.6233236
 </td>
 <td style="text-align:right;">
-86.60676
+0.5024715
 </td>
 <td style="text-align:right;">
 0.4331875
@@ -3588,16 +3663,16 @@ HOB &amp; HVA − HVA
 HOB − solvent
 </td>
 <td style="text-align:right;">
--16.101368
+-0.1060811
 </td>
 <td style="text-align:right;">
-46.19392
+0.2863916
 </td>
 <td style="text-align:right;">
--109.513599
+-0.6655835
 </td>
 <td style="text-align:right;">
-74.02681
+0.4547878
 </td>
 <td style="text-align:right;">
 0.3552500
@@ -3610,16 +3685,16 @@ HOB − solvent
 9-ODA &amp; 9-HDA − 9-ODA
 </td>
 <td style="text-align:right;">
--69.428072
+-0.2115498
 </td>
 <td style="text-align:right;">
-97.91966
+0.2841046
 </td>
 <td style="text-align:right;">
--274.514056
+-0.7764396
 </td>
 <td style="text-align:right;">
-114.74205
+0.3386293
 </td>
 <td style="text-align:right;">
 0.2298750
@@ -3634,7 +3709,7 @@ HOB − solvent
 <div id="synergy-score-1" class="section level3">
 <h3>Synergy score</h3>
 <p>We again calculate the posterior estimate of the “synergy score”, <span class="math inline">\(d_{1,2} - d_1 + d_2\)</span>. As before, the posterior distribution overlaps zero for every pair of chemicals, meaning that there is no strong evidence that any of the two-chemical mixtures have synergistic effects on the duration of inspections of the lure.</p>
-<pre class="r"><code>contrasts_duration %&gt;% synergy_plot(c(-500, 500))</code></pre>
+<pre class="r"><code>contrasts_duration %&gt;% synergy_plot(c(-2, 2))</code></pre>
 <p><img src="figure/statistics.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
@@ -3722,28 +3797,7 @@ barplot_data &lt;- slessor %&gt;%
   filter(treatment %in% levels_ampersand) %&gt;%
   mutate(treatment = factor(treatment, slessor_levels)) 
 
-barplot_data %&gt;% 
-  select(study, mean, treatment) %&gt;% 
-  spread(study, mean) %&gt;% 
-  mutate(`Slessor et al. 1988` = as.numeric(scale(`Slessor et al. 1988`)),
-         `Present study` = as.numeric(scale(`Present study`)),
-         diff = `Slessor et al. 1988` - `Present study`)</code></pre>
-<pre># A tibble: 11 x 4
-   treatment       `Present study` `Slessor et al. 1988`    diff
-   <fct>                     <dbl>                 <dbl>   <dbl>
- 1 Solvent control         -1.18                 -1.48   -0.304 
- 2 HOB                     -0.937                -0.759   0.178 
- 3 9-ODA & 9-HDA            0.0642               -0.487  -0.551 
- 4 9-HDA & HOB             -0.474                -0.487  -0.0122
- 5 9-HDA                   -0.835                -0.487   0.348 
- 6 9-HDA & HVA              0.872                -0.305  -1.18  
- 7 9-ODA & HVA              0.758                -0.124  -0.881 
- 8 HVA                     -0.363                 0.0577  0.421 
- 9 9-ODA                    0.798                 0.693  -0.105 
-10 HOB & HVA               -0.740                 1.37    2.11  
-11 9-ODA & HOB              2.04                  2.01   -0.0294
-</pre>
-<pre class="r"><code>comparison_barplot &lt;- barplot_data %&gt;%
+comparison_barplot &lt;- barplot_data %&gt;%
   ggplot(aes(treatment, mean, fill = treatment)) + 
   geom_errorbar(aes(ymin = mean-SE, ymax=mean+SE), width = 0.3) + 
   geom_bar(stat=&quot;identity&quot;, colour = &quot;black&quot;) + coord_flip() +
@@ -3818,6 +3872,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/lukeholman/apis_retinue_expt/blob/c17c7f2fffaea49563b0ee44212c0c39d5a294ed/docs/figure/statistics.Rmd/unnamed-chunk-23-1.png" target="_blank">c17c7f2</a>
+</td>
+<td>
+lukeholman
+</td>
+<td>
+2021-06-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/lukeholman/apis_retinue_expt/blob/5931d539a969bcdea8397cd0506b8c327e5906a1/docs/figure/statistics.Rmd/unnamed-chunk-23-1.png" target="_blank">5931d53</a>
@@ -3899,31 +3964,31 @@ loaded via a namespace (and not attached):
  [52] DT_0.13              htmlwidgets_1.5.1    httr_1.4.1          
  [55] threejs_0.3.3        arrayhelpers_1.1-0   ellipsis_0.3.1      
  [58] farver_2.0.3         pkgconfig_2.0.3      loo_2.3.1           
- [61] dbplyr_1.4.4         utf8_1.1.4           labeling_0.3        
- [64] tidyselect_1.1.0     rlang_0.4.6          reshape2_1.4.4      
- [67] later_1.0.0          munsell_0.5.0        cellranger_1.1.0    
- [70] tools_4.0.3          cli_2.0.2            generics_0.0.2      
- [73] broom_0.5.6          ggridges_0.5.2       evaluate_0.14       
- [76] fastmap_1.0.1        yaml_2.2.1           processx_3.4.2      
- [79] fs_1.4.1             nlme_3.1-149         whisker_0.4         
- [82] mime_0.9             projpred_2.0.2       xml2_1.3.2          
- [85] compiler_4.0.3       bayesplot_1.7.2      shinythemes_1.1.2   
- [88] rstudioapi_0.11      beeswarm_0.2.3       gamm4_0.2-6         
- [91] curl_4.3             reprex_0.3.0         statmod_1.4.34      
- [94] stringi_1.5.3        highr_0.8            ps_1.3.3            
- [97] Brobdingnag_1.2-6    gdtools_0.2.2        lattice_0.20-41     
-[100] Matrix_1.2-18        nloptr_1.2.2.1       markdown_1.1        
-[103] shinyjs_1.1          vctrs_0.3.0          pillar_1.4.4        
-[106] lifecycle_0.2.0      bridgesampling_1.0-0 estimability_1.3    
-[109] insight_0.8.4        httpuv_1.5.3.1       R6_2.4.1            
-[112] promises_1.1.0       vipor_0.4.5          codetools_0.2-16    
-[115] boot_1.3-25          colourpicker_1.0     MASS_7.3-53         
-[118] gtools_3.8.2         assertthat_0.2.1     rprojroot_1.3-2     
-[121] withr_2.2.0          shinystan_2.5.0      multcomp_1.4-13     
-[124] mgcv_1.8-33          parallel_4.0.3       hms_0.5.3           
-[127] grid_4.0.3           coda_0.19-3          minqa_1.2.4         
-[130] rmarkdown_2.5        git2r_0.27.1         shiny_1.4.0.2       
-[133] lubridate_1.7.8      base64enc_0.1-3      dygraphs_1.1.1.6    
+ [61] dbplyr_1.4.4         labeling_0.3         tidyselect_1.1.0    
+ [64] rlang_0.4.6          reshape2_1.4.4       later_1.0.0         
+ [67] munsell_0.5.0        cellranger_1.1.0     tools_4.0.3         
+ [70] cli_2.0.2            generics_0.0.2       broom_0.5.6         
+ [73] ggridges_0.5.2       evaluate_0.14        fastmap_1.0.1       
+ [76] yaml_2.2.1           processx_3.4.2       fs_1.4.1            
+ [79] nlme_3.1-149         whisker_0.4          mime_0.9            
+ [82] projpred_2.0.2       xml2_1.3.2           compiler_4.0.3      
+ [85] bayesplot_1.7.2      shinythemes_1.1.2    rstudioapi_0.11     
+ [88] beeswarm_0.2.3       gamm4_0.2-6          curl_4.3            
+ [91] reprex_0.3.0         statmod_1.4.34       stringi_1.5.3       
+ [94] highr_0.8            ps_1.3.3             Brobdingnag_1.2-6   
+ [97] gdtools_0.2.2        lattice_0.20-41      Matrix_1.2-18       
+[100] nloptr_1.2.2.1       markdown_1.1         shinyjs_1.1         
+[103] vctrs_0.3.0          pillar_1.4.4         lifecycle_0.2.0     
+[106] bridgesampling_1.0-0 estimability_1.3     insight_0.8.4       
+[109] httpuv_1.5.3.1       R6_2.4.1             promises_1.1.0      
+[112] vipor_0.4.5          codetools_0.2-16     boot_1.3-25         
+[115] colourpicker_1.0     MASS_7.3-53          gtools_3.8.2        
+[118] assertthat_0.2.1     rprojroot_1.3-2      withr_2.2.0         
+[121] shinystan_2.5.0      multcomp_1.4-13      mgcv_1.8-33         
+[124] parallel_4.0.3       hms_0.5.3            grid_4.0.3          
+[127] coda_0.19-3          minqa_1.2.4          rmarkdown_2.5       
+[130] git2r_0.27.1         shiny_1.4.0.2        lubridate_1.7.8     
+[133] base64enc_0.1-3      dygraphs_1.1.1.6    
 </pre>
 </div>
 </div>
